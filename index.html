@@ -16,30 +16,25 @@
 <body>
 
 <header class="app-header">
-  <h1>WoT Flashcards</h1>
-  <div class="progress" id="progress">0 / 0</div>
+  <div class="header-top">
+    <h1>WoT Flashcards</h1>
+    <div class="progress" id="progress">0 / 0</div>
+  </div>
+  <nav class="deck-tabs" id="deckTabs"></nav>
 </header>
 
 <main class="card-stage">
   <div class="card" id="card">
-    <div class="card-face card-front">
-      <div class="tank-nation" id="tankNation">--</div>
-      <div class="tank-name" id="tankName">Nincs betöltött adat</div>
-      <div class="tank-meta" id="tankMeta">Tier ? · Típus</div>
-      <div class="tap-hint">Koppints a fordításhoz</div>
-    </div>
-    <div class="card-face card-back">
-      <div class="stats-grid" id="statsGrid">
-        <p class="placeholder">Ide kerülnek majd a páncélzat / fegyver / mobilitás adatok.</p>
-      </div>
-    </div>
+    <div class="card-face card-front" id="cardFront"></div>
+    <div class="card-face card-back" id="cardBack"></div>
   </div>
 </main>
 
 <footer class="controls">
-  <button id="btnPrev" class="ctrl-btn" aria-label="Előző">‹</button>
-  <button id="btnFlip" class="ctrl-btn ctrl-flip" aria-label="Fordítás">⟳</button>
-  <button id="btnNext" class="ctrl-btn" aria-label="Következő">›</button>
+  <button id="btnPrev" class="ctrl-btn" aria-label="Előző kártya">‹</button>
+  <button id="btnFlip" class="ctrl-btn ctrl-flip" aria-label="Kártya fordítása">⟳</button>
+  <button id="btnNext" class="ctrl-btn" aria-label="Következő kártya">›</button>
+  <button id="btnShuffle" class="ctrl-btn ctrl-small" aria-label="Keverés">⤨</button>
 </footer>
 
 <script src="js/tanks-data.js"></script>
