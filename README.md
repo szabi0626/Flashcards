@@ -62,9 +62,10 @@ figyelmeztetés.
 
 ## Képek
 
-A tankokról jelenleg rajzolt SVG sziluett látszik. Valódi fotó bemásolásához
-lásd: [`img/README.md`](img/README.md). Ha egy kép hiányzik vagy nem tölt be,
-az app automatikusan visszaesik a sziluettre.
+A tankokról alapból rajzolt SVG sziluett látszik. Valódi fotóhoz elég a képet
+az `img/` mappába tenni a tank id-jével elnevezve (`is-3.jpg`, `t32.jpg`, …) —
+az app magától megtalálja, kódot nem kell szerkeszteni. Ha egy kép hiányzik,
+csendben marad a sziluett. Részletek: [`img/README.md`](img/README.md).
 
 ## Új tank hozzáadása
 

@@ -65,22 +65,53 @@
   /* ---------------------------------------------------------------- */
   /* Sziluett rajzoló                                                  */
   /* ---------------------------------------------------------------- */
-  function renderSilhouette(tank) {
-    const svg = silhouetteSvg(tank);
-    if (!tank.image) return svg;
-    // Ha a kép hiányzik vagy nem tölt be, visszaesünk a rajzolt sziluettre
-    // (lásd bindImageFallback), ezért mindkettőt kirendereljük.
-    return `<img class="tank-photo" src="${esc(tank.image)}" alt="${esc(tank.name)}">
-            <span class="silhouette-fallback" hidden>${svg}</span>`;
+  // Képet nem kell beállítani sehol: ha az img/ mappában ott van a tank
+  // id-jével elnevezett fájl, magától megtalálja. Ha nincs, marad a rajz.
+  //
+  // A keresés eredményét tankonként megjegyezzük, hogy lapozgatás közben
+  // ne próbálkozzon újra minden kiterjesztéssel (resolved: útvonal, vagy
+  // null ha nincs kép).
+  const imageCache = new Map();
+
+  function imageCandidates(tank) {
+    const auto = ["jpg", "png", "webp"].map((x) => `img/${tank.id}.${x}`);
+    return tank.image ? [tank.image, ...auto] : auto;
   }
 
-  function bindImageFallback(root) {
+  function renderSilhouette(tank) {
+    const svg = silhouetteSvg(tank);
+    const known = imageCache.get(tank.id);
+
+    // Már tudjuk, hogy nincs kép — meg se próbáljuk
+    if (known === null) return svg;
+
+    const src = known || imageCandidates(tank)[0];
+    return `<img class="tank-photo" src="${esc(src)}" alt="${esc(tank.name)}"${known ? "" : " hidden"}>
+            ${known ? "" : `<span class="silhouette-fallback">${svg}</span>`}`;
+  }
+
+  function bindImageFallback(root, tank) {
     const img = root.querySelector(".tank-photo");
-    if (!img) return;
-    img.addEventListener("error", () => {
+    if (!img || imageCache.get(tank.id)) return;
+
+    const srcs = imageCandidates(tank);
+    let i = 0;
+
+    img.addEventListener("load", () => {
+      imageCache.set(tank.id, srcs[i]);
+      img.hidden = false;
       const fb = root.querySelector(".silhouette-fallback");
-      if (fb) fb.hidden = false;
-      img.remove();
+      if (fb) fb.remove();
+    });
+
+    img.addEventListener("error", () => {
+      i++;
+      if (i < srcs.length) {
+        img.src = srcs[i];
+      } else {
+        imageCache.set(tank.id, null); // nincs kép — marad a sziluett
+        img.remove();
+      }
     });
   }
 
@@ -303,7 +334,7 @@
       ${tank.verified ? "" : `<div class="unverified" title="Az adatok nincsenek ellenőrizve">⚠︎ ellenőrizetlen adat</div>`}
       <div class="tap-hint">Koppints a válaszért</div>`;
 
-    bindImageFallback(el.front);
+    bindImageFallback(el.front, tank);
 
     el.back.innerHTML = `
       <div class="back-title">${esc(tank.name)} — ${esc(cfg.label)}</div>
