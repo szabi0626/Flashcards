@@ -121,15 +121,13 @@ body {
   margin-bottom: 10px;
 }
 
-.silhouette { width: 100%; max-width: 300px; height: auto; margin: 4px 0 10px; }
-.sil-track { fill: #14170f; }
-.sil-wheel { fill: #3d4630; }
-.sil-hull { fill: #5c6b3c; }
-.sil-turret { fill: #6e7f49; }
-
-.tank-photo { width: 100%; max-width: 300px; border-radius: 10px; margin-bottom: 10px; }
-.silhouette-fallback { display: contents; }
-.silhouette-fallback[hidden] { display: none; }
+.tank-photo {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  margin: 4px 0 10px;
+  image-rendering: auto;
+}
 
 .tank-name {
   font-size: 1.75rem;
@@ -239,13 +237,27 @@ body {
 
 .gun-toggle button {
   flex: 1;
+  min-width: 0;
   background: none;
   border: none;
   border-radius: 7px;
   color: var(--text-dim);
   font-family: inherit;
-  font-size: 0.85rem;
-  padding: 8px 4px;
+  font-size: 0.76rem;
+  line-height: 1.25;
+  padding: 7px 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.tag-stock {
+  font-size: 0.6rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
 }
 
 .gun-toggle button.on { background: var(--panel-2); color: var(--gold); font-weight: 600; }
@@ -272,6 +284,22 @@ body {
 .delta-bad { color: var(--no); }
 
 .placeholder { color: var(--text-dim); }
+
+/* honnan jön az adat */
+.source {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--text-dim);
+  margin: 12px 0 2px;
+  opacity: 0.8;
+}
+
+.source-manual {
+  opacity: 1;
+  color: var(--hard);
+  border-left: 2px solid var(--hard);
+  padding-left: 9px;
+}
 
 /* ---------------- vezérlők ---------------- */
 .controls {
@@ -307,7 +335,7 @@ body {
 /* alacsony képernyőn kisebb kártya-tipográfia */
 @media (max-height: 700px) {
   .tank-name { font-size: 1.45rem; }
-  .silhouette { max-width: 240px; }
+  .tank-photo { max-width: 200px; }
   .ctrl-btn { width: 46px; height: 46px; }
   .ctrl-flip { width: 54px; height: 54px; }
 }

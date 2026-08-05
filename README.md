@@ -51,27 +51,44 @@ Ezután: `http://localhost:8123`
 2. Nyisd meg Safariban.
 3. Megosztás → **Kezdőképernyőhöz adás**.
 
-## ⚠️ Az adatok ellenőrizetlenek
+## Honnan jönnek az adatok
 
-A statisztikák emlékezetből kerültek be és patchenként változnak. Minden
-tanknál `verified: false` van, és az app kiírja, hogy „ellenőrizetlen adat".
-**Vesd össze őket a [tanks.gg](https://tanks.gg) adataival**, mielőtt
-komolyan tanulnál belőlük — a rossz adat rosszabb, mint a semmi. Ha egy tank
-adatait átnézted, állítsd a `verified` mezőjét `true`-ra, és eltűnik a
-figyelmeztetés.
+A projekt szándékosan **két külön fájlban** tartja a kétféle megbízhatóságú
+adatot, hogy mindig látszódjon, minek lehet hinni:
+
+| Fájl | Forrás | Megbízhatóság |
+|---|---|---|
+| [`js/tanks-data.js`](js/tanks-data.js) | **Wargaming API** — generált, ne szerkeszd | Hiteles, aktuális patch |
+| [`js/armor-zones.js`](js/armor-zones.js) | **Kézi** — zónák, szögek, gyenge pontok | Becslés, ellenőrizendő |
+
+A WG API adja: életerő, nominális páncél, minden fegyver teljes statja,
+sebesség, motor, nézőtáv, és a hivatalos játékbeli tank rendereket.
+
+A WG API **nem** adja: dőlésszögeket, effektív páncélt, gyenge pontokat
+(kupola, ágyúpajzs, alsó lemez), álcát, autoloader klip méretet. Ezek az
+`armor-zones.js`-ben vannak kézzel, és az app meg is jelöli őket.
+
+Az API-értékek a **játék alapértékei** — legénységi képzettség és felszerelés
+nélkül. A saját tankod a garázsban jobb számokat mutat; az ellenfél
+megítéléséhez viszont ez a helyes kiindulás.
+
+### Az adatok frissítése
+
+A `js/tanks-data.js` generált. Újragenerálásához kell egy ingyenes
+`application_id` a [developers.wargaming.net](https://developers.wargaming.net)-ről
+(`Mobile` típus, hogy ne legyen IP-hez kötve). A generáló szkript a tank
+`tankId` mezőit használja.
+
+### Ha ellenőrizted egy tank zónáit
+
+Az `armor-zones.js`-ben állítsd a tank `verified` mezőjét `true`-ra, és
+eltűnik a kártyáról a figyelmeztetés.
 
 ## Képek
 
-A tankokról alapból rajzolt SVG sziluett látszik. Valódi fotóhoz elég a képet
-az `img/` mappába tenni a tank id-jével elnevezve (`is-3.jpg`, `t32.jpg`, …) —
-az app magától megtalálja, kódot nem kell szerkeszteni. Ha egy kép hiányzik,
-csendben marad a sziluett. Részletek: [`img/README.md`](img/README.md).
-
-## Új tank hozzáadása
-
-Minden adat a [`js/tanks-data.js`](js/tanks-data.js) fájlban van, bőven
-kommentezve. Másolj le egy meglévő bejegyzést és írd át — az app a többit
-elvégzi (séma, színkód, fegyver-összehasonlítás).
+A tankok hivatalos WoT garázs-renderei az `img/` mappában, a WG API-ból
+(160×100, ezért kissé lágyak nagyítva — a WG nem ad nagyobbat). Ha jobb képed
+van, egyszerűen írd felül a fájlt: `img/<tank-id>.png`.
 
 ## Vezérlés
 

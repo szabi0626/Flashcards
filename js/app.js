@@ -2,6 +2,9 @@
   "use strict";
 
   const deck = Array.isArray(window.TANKS) ? window.TANKS : [];
+  const ZONES = window.ARMOR_ZONES || {};
+  const CLIPS = window.CLIPS || {};
+  const CAMO = window.CAMO || {};
 
   /* ---------------------------------------------------------------- */
   /* Páncél értékelés — a színkód az effektív vastagságból számítódik,  */
@@ -16,12 +19,6 @@
     return "no";
   }
 
-  const VERDICT_TEXT = {
-    easy: "Átlövöd",
-    hard: "Nehéz",
-    no: "Ne is próbáld",
-  };
-
   /* ---------------------------------------------------------------- */
   /* Paklik                                                            */
   /* ---------------------------------------------------------------- */
@@ -35,11 +32,8 @@
   let order = deck.map((_, i) => i);
   let pos = 0;
   let flipped = false;
-  let gunChoice = "top"; // "stock" | "top"
+  let gunIndex = null; // null = alapértelmezés (az utolsó, teljesen fejlesztett)
 
-  /* ---------------------------------------------------------------- */
-  /* DOM                                                               */
-  /* ---------------------------------------------------------------- */
   const el = {
     card: document.getElementById("card"),
     front: document.getElementById("cardFront"),
@@ -58,96 +52,14 @@
     }[c]));
   }
 
-  function currentTank() {
-    return deck[order[pos]];
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* Sziluett rajzoló                                                  */
-  /* ---------------------------------------------------------------- */
-  // Képet nem kell beállítani sehol: ha az img/ mappában ott van a tank
-  // id-jével elnevezett fájl, magától megtalálja. Ha nincs, marad a rajz.
-  //
-  // A keresés eredményét tankonként megjegyezzük, hogy lapozgatás közben
-  // ne próbálkozzon újra minden kiterjesztéssel (resolved: útvonal, vagy
-  // null ha nincs kép).
-  const imageCache = new Map();
-
-  function imageCandidates(tank) {
-    const auto = ["jpg", "png", "webp"].map((x) => `img/${tank.id}.${x}`);
-    return tank.image ? [tank.image, ...auto] : auto;
-  }
-
-  function renderSilhouette(tank) {
-    const svg = silhouetteSvg(tank);
-    const known = imageCache.get(tank.id);
-
-    // Már tudjuk, hogy nincs kép — meg se próbáljuk
-    if (known === null) return svg;
-
-    const src = known || imageCandidates(tank)[0];
-    return `<img class="tank-photo" src="${esc(src)}" alt="${esc(tank.name)}"${known ? "" : " hidden"}>
-            ${known ? "" : `<span class="silhouette-fallback">${svg}</span>`}`;
-  }
-
-  function bindImageFallback(root, tank) {
-    const img = root.querySelector(".tank-photo");
-    if (!img || imageCache.get(tank.id)) return;
-
-    const srcs = imageCandidates(tank);
-    let i = 0;
-
-    img.addEventListener("load", () => {
-      imageCache.set(tank.id, srcs[i]);
-      img.hidden = false;
-      const fb = root.querySelector(".silhouette-fallback");
-      if (fb) fb.remove();
-    });
-
-    img.addEventListener("error", () => {
-      i++;
-      if (i < srcs.length) {
-        img.src = srcs[i];
-      } else {
-        imageCache.set(tank.id, null); // nincs kép — marad a sziluett
-        img.remove();
-      }
-    });
-  }
-
-  function silhouetteSvg(tank) {
-    const s = tank.silhouette;
-    if (!s) return "";
-
-    let parts = "";
-
-    // lánctalp
-    if (s.track) {
-      const t = s.track;
-      parts += `<rect class="sil-track" x="${t.x0}" y="${t.yTop}" width="${t.x1 - t.x0}" height="${t.yBot - t.yTop}" rx="10"/>`;
-    }
-
-    // futógörgők
-    if (s.wheels) {
-      const w = s.wheels;
-      const step = w.count > 1 ? (w.x1 - w.x0) / (w.count - 1) : 0;
-      for (let i = 0; i < w.count; i++) {
-        parts += `<circle class="sil-wheel" cx="${w.x0 + i * step}" cy="${w.y}" r="${w.r}"/>`;
-      }
-    }
-
-    // test / torony / cső
-    (s.paths || []).forEach((p) => {
-      parts += `<path class="sil-${p.fill}" d="${p.d}"/>`;
-    });
-
-    return `<svg class="silhouette" viewBox="${s.viewBox}" role="img"
-              aria-label="${esc(tank.name)} oldalnézeti sziluett">${parts}</svg>`;
-  }
+  const currentTank = () => deck[order[pos]];
+  const zonesOf = (tank) => (ZONES[tank.id] || {}).zones || [];
+  const lessonOf = (tank) => (ZONES[tank.id] || {}).lesson || "";
+  const zonesVerified = (tank) => !!(ZONES[tank.id] || {}).verified;
 
   /* ---------------------------------------------------------------- */
   /* Páncél séma (elölnézet) — a zónák a `part` mező alapján kapják    */
-  /* meg a helyüket, így a data fájlban nem kell SVG-t írni.           */
+  /* meg a helyüket, így az adatfájlban nem kell SVG-t írni.           */
   /* ---------------------------------------------------------------- */
   const FRONT_PARTS = {
     trackL: { shape: "rect", x: 6, y: 96, w: 30, h: 66, rx: 6 },
@@ -165,40 +77,34 @@
   function shapeSvg(part, cls, zoneId) {
     const p = FRONT_PARTS[part];
     if (!p || p.shape === "none") return "";
-    const attrs = `class="${cls}" data-zone="${esc(zoneId)}"`;
+    const a = `class="${cls}" data-zone="${esc(zoneId)}"`;
     if (p.shape === "rect")
-      return `<rect ${attrs} x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" rx="${p.rx || 0}"/>`;
-    if (p.shape === "poly") return `<polygon ${attrs} points="${p.points}"/>`;
-    if (p.shape === "circle")
-      return `<circle ${attrs} cx="${p.cx}" cy="${p.cy}" r="${p.r}"/>`;
+      return `<rect ${a} x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" rx="${p.rx || 0}"/>`;
+    if (p.shape === "poly") return `<polygon ${a} points="${p.points}"/>`;
+    if (p.shape === "circle") return `<circle ${a} cx="${p.cx}" cy="${p.cy}" r="${p.r}"/>`;
     return "";
   }
 
   function renderSchematic(tank) {
-    const zones = tank.armor.zones || [];
-    // A rajzolási sorrend számít: a nagy lapok előbb, a rájuk kerülő
-    // részletek (ágyúpajzs, kupola) utoljára.
+    const zones = zonesOf(tank);
+    // Rajzolási sorrend: a nagy lapok előbb, a rájuk kerülő részletek utoljára.
     const drawOrder = ["trackL", "trackR", "lfp", "ufp", "turretFront", "roof", "mantlet", "cupola"];
-
     let shapes = "";
     drawOrder.forEach((part) => {
       const zone = zones.find((z) => z.part === part);
-      if (zone) {
-        shapes += shapeSvg(part, `zone zone-${verdictOf(zone.effective)}`, zone.id);
-      } else if (part === "trackL" || part === "trackR") {
-        shapes += shapeSvg(part, "zone zone-inert", "");
-      }
+      if (zone) shapes += shapeSvg(part, `zone zone-${verdictOf(zone.effective)}`, zone.id);
+      else if (part === "trackL" || part === "trackR") shapes += shapeSvg(part, "zone zone-inert", "");
     });
-
     return `<svg class="schematic" viewBox="0 0 200 172" role="img"
               aria-label="${esc(tank.name)} páncélzónák elölnézetben">${shapes}</svg>`;
   }
 
   /* ---------------------------------------------------------------- */
-  /* Kártya hátlapok                                                   */
+  /* Hátlapok                                                          */
   /* ---------------------------------------------------------------- */
   function renderArmor(tank) {
-    const zones = tank.armor.zones || [];
+    const zones = zonesOf(tank);
+    if (!zones.length) return `<p class="placeholder">Ehhez a tankhoz még nincsenek páncélzónák.</p>`;
 
     const rows = zones.map((z) => {
       const v = verdictOf(z.effective);
@@ -217,6 +123,7 @@
         </div>`;
     }).join("");
 
+    const a = tank.armor;
     return `
       ${renderSchematic(tank)}
       <div class="legend">
@@ -225,95 +132,105 @@
         <span><i class="dot dot-no"></i>&gt;${PEN_HARD} soha</span>
       </div>
       <div class="zone-list">${rows}</div>
-      ${tank.lesson ? `<p class="lesson">💡 ${esc(tank.lesson)}</p>` : ""}`;
+      ${lessonOf(tank) ? `<p class="lesson">💡 ${esc(lessonOf(tank))}</p>` : ""}
+      <div class="block-title">Nominális vastagság (WG API)</div>
+      <div class="stats-block">
+        ${statRow("Test elöl / oldalt / hátul", `${a.hull.front} / ${a.hull.sides} / ${a.hull.rear} mm`)}
+        ${statRow("Torony elöl / oldalt / hátul", `${a.turret.front} / ${a.turret.sides} / ${a.turret.rear} mm`)}
+      </div>
+      <p class="source source-manual">A fenti zónák, szögek és effektív értékek
+        <b>kézi becslések</b> — a WG API csak a nominális vastagságot adja.
+        Érdemes ellenőrizni tanks.gg-n.</p>`;
   }
 
-  function fmt(v, unit) {
-    return v === undefined || v === null ? "–" : `${v}${unit || ""}`;
+  function statRow(label, value, extra) {
+    return `<div class="stat-row"><span class="label">${label}</span>
+            <span class="value">${value}${extra || ""}</span></div>`;
   }
 
   function renderGun(tank) {
     const guns = tank.guns || [];
-    const stockGun = guns.find((g) => g.stock);
-    const topGun = guns.find((g) => !g.stock) || stockGun;
-    const gun = gunChoice === "stock" ? stockGun || topGun : topGun;
-    const other = gun === topGun ? stockGun : topGun;
+    if (!guns.length) return `<p class="placeholder">Nincs fegyveradat.</p>`;
 
-    // Ha van másik fegyver, mutatjuk a különbséget.
-    // A nyíl a szám előjelét jelzi, a szín azt, hogy ez előny-e.
+    const idx = gunIndex === null ? guns.length - 1 : Math.min(gunIndex, guns.length - 1);
+    const gun = guns[idx];
+    const base = guns[0]; // a stock fegyver a viszonyítási alap
+    const clip = (CLIPS[tank.id] || {})[gun.name];
+
+    // A számok a stock fegyverhez képesti különbséget mutatják.
     function delta(key, higherIsBetter) {
-      if (!other || other[key] === undefined || gun[key] === undefined) return "";
-      const d = Math.round((gun[key] - other[key]) * 100) / 100;
+      if (gun === base || base[key] == null || gun[key] == null) return "";
+      const d = Math.round((gun[key] - base[key]) * 100) / 100;
       if (!d) return "";
       const good = higherIsBetter ? d > 0 : d < 0;
-      const arrow = d > 0 ? "▲" : "▼";
-      const sign = d > 0 ? "+" : "−";
-      return `<span class="delta ${good ? "delta-good" : "delta-bad"}">${arrow} ${sign}${Math.abs(d)}</span>`;
+      return `<span class="delta ${good ? "delta-good" : "delta-bad"}">${d > 0 ? "▲ +" : "▼ −"}${Math.abs(d)}</span>`;
     }
-
-    function row(label, value, key, higherIsBetter) {
-      return `<div class="stat-row">
-        <span class="label">${label}</span>
-        <span class="value">${value}${key ? delta(key, higherIsBetter) : ""}</span>
-      </div>`;
-    }
-
-    const isClip = !!gun.clip;
-    const clipRows = isClip
-      ? row("Klip", `${gun.clip} lövedék`, "clip", true) +
-        row("Klip sebzés", `${gun.clip * gun.alpha}`, null) +
-        row("Lövés a klipben", `${gun.intraClip} s`, "intraClip", false) +
-        row("Klip újratöltés", `${gun.clipReload} s`, "clipReload", false)
-      : row("Újratöltés", `${gun.reload} s`, "reload", false);
 
     const toggle = guns.length > 1
-      ? `<div class="gun-toggle" id="gunToggle">
-           <button class="${gunChoice === "stock" ? "on" : ""}" data-gun="stock">Stock</button>
-           <button class="${gunChoice === "top" ? "on" : ""}" data-gun="top">Fejlesztett</button>
-         </div>`
+      ? `<div class="gun-toggle">${guns.map((g, i) => {
+          const short = g.name.replace(/\s*\([^)]*\)\s*$/, "");
+          return `<button class="${i === idx ? "on" : ""}" data-gun="${i}">
+                    ${esc(short)}${g.stock ? '<i class="tag-stock">stock</i>' : ""}
+                  </button>`;
+        }).join("")}</div>`
       : "";
+
+    const premLabel = gun.premType === "HEAT" ? "Pen HEAT" : "Pen APCR";
+
+    const rateRows = clip
+      ? statRow("Klip", `${clip.shells} lövedék`) +
+        statRow("Klip sebzés", `${clip.shells * gun.alpha}`) +
+        statRow("Lövés a klipben", `${clip.intraClip} s`) +
+        statRow("Klip újratöltés", `${gun.reload} s`, delta("reload", false))
+      : statRow("Újratöltés", `${gun.reload} s`, delta("reload", false));
 
     return `
       ${toggle}
       <div class="gun-name">${esc(gun.name)}</div>
       <div class="stats-block">
-        ${row("Alpha (sebzés)", gun.alpha, "alpha", true)}
-        ${row("Pen AP", `${gun.penAP} mm`, "penAP", true)}
-        ${row("Pen APCR/prém.", `${gun.penAPCR} mm`, "penAPCR", true)}
-        ${row("Pen HE", `${gun.penHE} mm`, "penHE", true)}
-        ${clipRows}
-        ${row("DPM", gun.dpm, "dpm", true)}
-        ${row("Szórás", gun.accuracy.toFixed(2), "accuracy", false)}
-        ${row("Célzási idő", `${gun.aimTime} s`, "aimTime", false)}
-        ${row("Csőbólintás", `${gun.depression}°`, null)}
+        ${statRow("Alpha (sebzés)", gun.alpha, delta("alpha", true))}
+        ${statRow("Pen AP", `${gun.penAP} mm`, delta("penAP", true))}
+        ${statRow(premLabel, `${gun.penPrem} mm`, delta("penPrem", true))}
+        ${statRow("Pen HE", `${gun.penHE} mm`, delta("penHE", true))}
+        ${rateRows}
+        ${statRow("DPM", gun.dpm, delta("dpm", true))}
+        ${statRow("Szórás", gun.accuracy.toFixed(2), delta("accuracy", false))}
+        ${statRow("Célzási idő", `${gun.aimTime} s`, delta("aimTime", false))}
+        ${statRow("Csőbólintás", `${gun.depression}°`)}
       </div>
-      ${other ? `<p class="lesson">A szám a másik fegyverhez képesti különbség.
-        <b style="color:var(--easy)">Zöld</b> = ez a fegyver jobb ebben,
-        <b style="color:var(--no)">piros</b> = rosszabb.</p>` : ""}`;
+      ${guns.length > 1 && gun !== base
+        ? `<p class="lesson">A ▲/▼ a <b>stock</b> fegyverhez képesti különbség.
+             <span style="color:var(--easy)">Zöld</span> = ez jobb benne.</p>`
+        : ""}
+      ${clip ? `<p class="source source-manual">A klip mérete és a lövések közti idő
+          <b>kézi adat</b> — a WG API ezeket nem adja. A klip újratöltés hiteles.</p>` : ""}
+      <p class="source">Alapértékek legénységi képzettség és felszerelés nélkül · WG API</p>`;
   }
 
   function renderMobility(tank) {
     const m = tank.mobility || {};
-    const v = tank.vision || {};
+    const camo = CAMO[tank.id];
     return `
       <div class="stats-block">
-        <div class="stat-row"><span class="label">Életerő</span><span class="value">${tank.hp} HP</span></div>
-        <div class="stat-row"><span class="label">Tömeg</span><span class="value">${fmt(tank.weight, " t")}</span></div>
-        <div class="stat-row"><span class="label">Végsebesség</span><span class="value">${fmt(m.topSpeed, " km/h")}</span></div>
-        <div class="stat-row"><span class="label">Hátramenet</span><span class="value">${fmt(m.reverse, " km/h")}</span></div>
-        <div class="stat-row"><span class="label">Teljesítmény</span><span class="value">${fmt(m.hpPerTon, " LE/t")}</span></div>
-        <div class="stat-row"><span class="label">Fordulás</span><span class="value">${fmt(m.traverse, " °/s")}</span></div>
+        ${statRow("Életerő", `${tank.hp} HP`)}
+        ${statRow("Tömeg", `${tank.weight} t`)}
+        ${statRow("Végsebesség", `${m.topSpeed} km/h`)}
+        ${statRow("Hátramenet", `${m.reverse} km/h`)}
+        ${statRow("Motor", `${m.enginePower} LE`)}
+        ${statRow("Teljesítmény", `${m.hpPerTon} LE/t`)}
+        ${statRow("Test fordulás", `${m.hullTraverse} °/s`)}
+        ${statRow("Torony fordulás", `${m.turretTraverse} °/s`)}
       </div>
       <div class="block-title">Felderítés</div>
       <div class="stats-block">
-        <div class="stat-row"><span class="label">Nézőtáv</span><span class="value">${fmt(v.viewRange, " m")}</span></div>
-        <div class="stat-row"><span class="label">Álca (állva)</span><span class="value">${fmt(v.camoStill, "%")}</span></div>
-        <div class="stat-row"><span class="label">Álca (mozgás)</span><span class="value">${fmt(v.camoMoving, "%")}</span></div>
-      </div>`;
+        ${statRow("Nézőtáv", `${tank.vision.viewRange} m`)}
+        ${camo ? statRow("Álca (állva)", `${camo.still}%`) : ""}
+        ${camo ? statRow("Álca (mozgás)", `${camo.moving}%`) : ""}
+      </div>
+      ${camo ? `<p class="source source-manual">Az álca értékek <b>kézi adatok</b> — az API nem adja.</p>` : ""}
+      <p class="source">A többi WG API-ból, alapértékek felszerelés nélkül</p>`;
   }
 
-  /* ---------------------------------------------------------------- */
-  /* Fő render                                                         */
   /* ---------------------------------------------------------------- */
   function render() {
     const tank = currentTank();
@@ -326,15 +243,16 @@
       return;
     }
 
+    // Figyelmeztetés csak a páncél paklinál kell: a többi adat API-ból hiteles.
+    const warn = deckKey === "armor" && !zonesVerified(tank);
+
     el.front.innerHTML = `
       <div class="tank-meta-top">${tank.flag || ""} ${esc(tank.nationHu)} · Tier ${tank.tier} · ${esc(tank.typeHu)}</div>
-      ${renderSilhouette(tank)}
+      <img class="tank-photo" src="${esc(tank.image)}" alt="${esc(tank.name)}">
       <div class="tank-name">${esc(tank.name)}</div>
       <div class="question">${esc(cfg.question)}</div>
-      ${tank.verified ? "" : `<div class="unverified" title="Az adatok nincsenek ellenőrizve">⚠︎ ellenőrizetlen adat</div>`}
+      ${warn ? `<div class="unverified">⚠︎ a páncélzónák becslések</div>` : ""}
       <div class="tap-hint">Koppints a válaszért</div>`;
-
-    bindImageFallback(el.front, tank);
 
     el.back.innerHTML = `
       <div class="back-title">${esc(tank.name)} — ${esc(cfg.label)}</div>
@@ -351,6 +269,7 @@
   function go(delta) {
     if (!order.length) return;
     pos = (pos + delta + order.length) % order.length;
+    gunIndex = null;
     setFlipped(false);
     render();
     el.back.scrollTop = 0;
@@ -362,18 +281,15 @@
       [order[i], order[j]] = [order[j], order[i]];
     }
     pos = 0;
+    gunIndex = null;
     setFlipped(false);
     render();
   }
 
-  /* ---------------------------------------------------------------- */
-  /* Pakli fülek                                                       */
-  /* ---------------------------------------------------------------- */
   function renderTabs() {
     el.tabs.innerHTML = Object.entries(DECKS)
-      .map(([key, cfg]) =>
-        `<button class="tab ${key === deckKey ? "on" : ""}" data-deck="${key}">${cfg.label}</button>`
-      ).join("");
+      .map(([k, c]) => `<button class="tab ${k === deckKey ? "on" : ""}" data-deck="${k}">${c.label}</button>`)
+      .join("");
   }
 
   el.tabs.addEventListener("click", (e) => {
@@ -385,21 +301,17 @@
     render();
   });
 
-  /* ---------------------------------------------------------------- */
-  /* Interakció                                                        */
-  /* ---------------------------------------------------------------- */
   el.card.addEventListener("click", (e) => {
-    // A hátlapon lévő vezérlők ne fordítsák meg a kártyát
     const gunBtn = e.target.closest("[data-gun]");
     if (gunBtn) {
-      gunChoice = gunBtn.dataset.gun;
+      gunIndex = Number(gunBtn.dataset.gun);
       render();
       setFlipped(true);
       return;
     }
-    if (e.target.closest("[data-zone]")) {
-      const id = e.target.closest("[data-zone]").dataset.zone;
-      if (id) highlightZone(id);
+    const zoneEl = e.target.closest("[data-zone]");
+    if (zoneEl) {
+      if (zoneEl.dataset.zone) highlightZone(zoneEl.dataset.zone);
       return;
     }
     setFlipped(!flipped);
@@ -422,8 +334,7 @@
     else if (e.key === " ") { e.preventDefault(); setFlipped(!flipped); }
   });
 
-  // Swipe — csak akkor lapoz, ha a mozdulat vízszintes, hogy a hátlap
-  // görgetését ne akassza meg.
+  // Swipe — csak vízszintes mozdulatra lapoz, hogy a hátlap görgetését ne akassza.
   let touch = null;
   el.card.addEventListener("touchstart", (e) => {
     const t = e.changedTouches[0];
@@ -433,15 +344,11 @@
   el.card.addEventListener("touchend", (e) => {
     if (!touch) return;
     const t = e.changedTouches[0];
-    const dx = t.clientX - touch.x;
-    const dy = t.clientY - touch.y;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      go(dx < 0 ? 1 : -1);
-    }
+    const dx = t.clientX - touch.x, dy = t.clientY - touch.y;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
     touch = null;
   }, { passive: true });
 
-  /* ---------------------------------------------------------------- */
   renderTabs();
   render();
 
