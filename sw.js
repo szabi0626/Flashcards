@@ -1,4 +1,17 @@
-const CACHE_NAME = "wot-flashcards-v3";
+/*
+ * Service worker.
+ *
+ * Stratégia: a kód (HTML/CSS/JS) HÁLÓZAT-ELSŐ, a képek CACHE-ELSŐK.
+ *
+ * Miért: cache-first mellett a frissítések csak két újratöltés után
+ * jelennek meg — a telefonon úgy tűnik, mintha a deploy nem ment volna ki.
+ * Hálózat-első mellett online mindig a friss verziót kapod, a cache pedig
+ * offline tartalékként szolgál. A képek viszont nem változnak, azokat
+ * felesleges újra letölteni.
+ */
+
+const CACHE_NAME = "wot-flashcards-v4";
+
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -19,15 +32,52 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+      )
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+function isImage(url) {
+  return url.pathname.includes("/img/") || url.pathname.includes("/icons/");
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response.ok) {
+    const cache = await caches.open(CACHE_NAME);
+    cache.put(request, response.clone());
+  }
+  return response;
+}
+
+async function networkFirst(request) {
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch (err) {
+    // Offline — abból dolgozunk, ami megvan
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    throw err;
+  }
+}
+
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
+  const { request } = event;
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(isImage(url) ? cacheFirst(request) : networkFirst(request));
 });
