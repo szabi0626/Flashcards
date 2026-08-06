@@ -19,7 +19,7 @@ NATION_HU = {"ussr":("Szovjet","🇷🇺"), "germany":("Német","🇩🇪"), "us
              "japan":("Japán","🇯🇵"), "czech":("Cseh","🇨🇿"), "sweden":("Svéd","🇸🇪"),
              "poland":("Lengyel","🇵🇱"), "italy":("Olasz","🇮🇹")}
 TYPE_HU = {"heavyTank":"Nehéz harckocsi","mediumTank":"Közepes harckocsi",
-           "lightTank":"Könnyű harckocsi","AT-SPG":"Vadászpáncélos","SPG":"Önjáró löveg"}
+           "lightTank":"Könnyű harckocsi","AT-SPG":"Páncélvadász","SPG":"Önjáró löveg"}
 
 def slug(name, tag):
     s = unicodedata.normalize("NFKD", name).encode("ascii","ignore").decode()

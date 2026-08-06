@@ -39,7 +39,7 @@
   const TYPE_ORDER = ["heavyTank", "mediumTank", "lightTank", "AT-SPG", "SPG"];
   const TYPE_SHORT = {
     heavyTank: "Nehéz", mediumTank: "Közepes", lightTank: "Könnyű",
-    "AT-SPG": "Vadász", SPG: "Tüzér",
+    "AT-SPG": "Páncélvadász", SPG: "Tüzér",
   };
   const NATION_FLAG = {
     ussr: "🇷🇺", germany: "🇩🇪", usa: "🇺🇸", france: "🇫🇷", uk: "🇬🇧",
