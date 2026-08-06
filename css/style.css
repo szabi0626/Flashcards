@@ -443,3 +443,25 @@ body {
 }
 
 .chip.on .chip-icon { opacity: 1; }
+
+/* ---------------- tüzelési mód jelvény ---------------- */
+.fire-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 20px;
+  padding: 3px 11px;
+  border: 1px solid;
+}
+
+.fire-badge.inline {
+  margin-top: 0;
+  margin-left: 7px;
+  font-size: 0.62rem;
+  vertical-align: 3px;
+}
+
+.fire-mag { color: #7fc4e8; border-color: #7fc4e8; }
+.fire-auto { color: #e8907f; border-color: #e8907f; }

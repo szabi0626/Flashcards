@@ -34,6 +34,25 @@ elöl/oldalt/hátul), zónabontás nélkül — inkább semmi, mint találgatás
 A színt a kód számolja az `effective` értékből, így nem tud elcsúszni az
 adattól.
 
+### Tüzelési mód
+
+A kártya megmutatja, hogy a tank **egylövetű**, **táras** (több lövedék egy
+sorozatban) vagy **sorozatlövő** (gépágyú, mint az Ares 75 vagy a Vz. 64
+Blesk). Harcban ez döntő: egy táras tank 40 másodpercig védtelen, miután
+kiürült.
+
+Az API ezt nem árulja el közvetlenül — nincs klip mező, a `rapid` mindig
+null. De a tűzgyorsaság elárulja: egylövetű ágyúnál `fire_rate = 60 /
+újratöltés`; ha ennél érdemben több lövés fér egy percbe, akkor tárból tüzel.
+A 260 járművön a két csoport között üres sáv van (12 és 20 lövés/perc között
+egyetlen fegyver sincs), így a besorolás egyértelmű.
+
+A klip **méretét** szándékosan nem becsüljük: az AMX 50 100 két fegyverére az
+API azonos tűzgyorsaságot ad, pedig eltér a klipjük — abból számolt
+lövedékszám kitalált adat lenne.
+
+Szűrni is lehet rá: 222 egylövetű, 35 táras, 3 sorozatlövő.
+
 ### Fegyver pakli
 
 **Stock / Fejlesztett** kapcsoló, és minden sornál látszik a különbség a

@@ -47,6 +47,42 @@
     poland: "🇵🇱", italy: "🇮🇹",
   };
 
+  /* ---------------------------------------------------------------- */
+  /* Tüzelési mód                                                       */
+  /*                                                                    */
+  /* Az API nem árulja el közvetlenül, hogy egy fegyver táras-e: nincs   */
+  /* klip mező, és a `rapid` mindig null. De a tűzgyorsaság elárulja.    */
+  /* Egylövetű ágyúnál fire_rate = 60 / újratöltés; ha ennél érdemben    */
+  /* több lövés fér bele egy percbe, akkor tárból tüzel.                 */
+  /*                                                                    */
+  /* A tűzgyorsaságot a DPM-ből nyerjük vissza (dpm = alpha * fire_rate);*/
+  /* a DPM egészre kerekítve van, de az ebből adódó hiba ezredrésznyi.   */
+  /*                                                                    */
+  /* A 260 járművön a két csoport között üres sáv van (12 és 20 lövés/   */
+  /* perc között egyetlen fegyver sincs), ezért a 15-ös határ biztonságos.*/
+  /*                                                                    */
+  /* A klip MÉRETÉT szándékosan nem becsüljük: az AMX 50 100 két         */
+  /* fegyverére az API azonos fire_rate-et ad, pedig eltér a klipjük —   */
+  /* az ebből számolt lövedékszám kitalált adat lenne.                   */
+  /* ---------------------------------------------------------------- */
+  function fireMode(gun) {
+    if (!gun || !gun.alpha || !gun.reload) return null;
+    const rate = gun.dpm / gun.alpha;              // lövés / perc
+    if (rate / (60 / gun.reload) < 1.05) return null;   // hagyományos ágyú
+    return rate >= 15
+      ? { key: "auto", label: "Sorozatlövő", rate }
+      : { key: "mag", label: "Táras", rate };
+  }
+
+  /** A tank legerősebb tüzelési módja — a kártya előlapjára. */
+  function tankFireMode(tank) {
+    for (const g of tank.guns || []) {
+      const m = fireMode(g);
+      if (m) return m;
+    }
+    return null;
+  }
+
   // A hivatalos WoT osztály-jelek (rombusz / csíkos rombusz / háromszög /
   // négyzet), a Wargaming saját webes tankopédiájából. Lásd CREDITS.md.
   const TYPE_ICON = {
@@ -58,7 +94,7 @@
       ? `<img class="${cls || "class-icon"}" src="img/class/${TYPE_ICON[type]}.png" alt="">`
       : "";
 
-  const filter = { nations: new Set(), types: new Set(), premium: "all" };
+  const filter = { nations: new Set(), types: new Set(), premium: "all", fire: "all" };
   let order = [];
   let filterOpen = false;
 
@@ -67,6 +103,10 @@
     if (filter.types.size && !filter.types.has(t.type)) return false;
     if (filter.premium === "tech" && t.isPremium) return false;
     if (filter.premium === "prem" && !t.isPremium) return false;
+    if (filter.fire !== "all") {
+      const m = tankFireMode(t);
+      if (filter.fire === "single" ? m : !m || m.key !== filter.fire) return false;
+    }
     return true;
   }
 
@@ -251,21 +291,31 @@
 
     const premLabel = gun.premType === "HEAT" ? "Pen HEAT" : "Pen APCR";
 
+    const mode = fireMode(gun);
     const rateRows = clip
       ? statRow("Klip", `${clip.shells} lövedék`) +
         statRow("Klip sebzés", `${clip.shells * gun.alpha}`) +
         statRow("Lövés a klipben", `${clip.intraClip} s`) +
         statRow("Klip újratöltés", `${gun.reload} s`, delta("reload", false))
-      : statRow("Újratöltés", `${gun.reload} s`, delta("reload", false));
+      : statRow(mode ? "Teljes újratöltés" : "Újratöltés",
+                `${gun.reload} s`, delta("reload", false));
 
     return `
       ${toggle}
-      <div class="gun-name">${esc(gun.name)}</div>
+      <div class="gun-name">${esc(gun.name)}
+        ${mode ? `<span class="fire-badge fire-${mode.key} inline">${mode.label}</span>` : ""}</div>
+      ${mode ? `<p class="lesson">${mode.key === "auto"
+        ? `Sorozatlövő: rövid idő alatt sok lövedéket zúdít rád, majd
+           <b>${gun.reload} másodpercig</b> tölt. Percenként kb.
+           ${Math.round(mode.rate)} lövés — a DPM ezt már tartalmazza.`
+        : `Tárból tüzel: egymás után több lövedéket ad le, utána
+           <b>${gun.reload} másodpercig</b> védtelen. Akkor támadd, ha kiürült.`}</p>` : ""}
       <div class="stats-block">
         ${statRow("Alpha (sebzés)", gun.alpha, delta("alpha", true))}
-        ${statRow("Pen AP", `${gun.penAP} mm`, delta("penAP", true))}
-        ${statRow(premLabel, `${gun.penPrem} mm`, delta("penPrem", true))}
-        ${statRow("Pen HE", `${gun.penHE} mm`, delta("penHE", true))}
+        ${/* Nem minden lövegnek van mindhárom lőszertípusa — a hiányzót kihagyjuk. */ ""}
+        ${gun.penAP != null ? statRow("Pen AP", `${gun.penAP} mm`, delta("penAP", true)) : ""}
+        ${gun.penPrem != null ? statRow(premLabel, `${gun.penPrem} mm`, delta("penPrem", true)) : ""}
+        ${gun.penHE != null ? statRow("Pen HE", `${gun.penHE} mm`, delta("penHE", true)) : ""}
         ${rateRows}
         ${statRow("DPM", gun.dpm, delta("dpm", true))}
         ${statRow("Szórás", gun.accuracy.toFixed(2), delta("accuracy", false))}
@@ -278,6 +328,9 @@
         : ""}
       ${clip ? `<p class="source source-manual">A klip mérete és a lövések közti idő
           <b>kézi adat</b> — a WG API ezeket nem adja. A klip újratöltés hiteles.</p>` : ""}
+      ${mode ? `<p class="source">A tüzelési mód a tűzgyorsaság és az újratöltés
+        viszonyából derül ki — az API nem adja meg közvetlenül, és a klip
+        méretét sem, ezért azt nem találgatjuk.</p>` : ""}
       <p class="source">Alapértékek legénységi képzettség és felszerelés nélkül · WG API</p>`;
   }
 
@@ -326,6 +379,10 @@
       <img class="tank-photo" src="${esc(tank.image)}" alt="${esc(tank.name)}">
       <div class="tank-name">${esc(tank.name)}</div>
       <div class="question">${esc(cfg.question)}</div>
+      ${(() => {
+        const m = tankFireMode(tank);
+        return m ? `<div class="fire-badge fire-${m.key}">${m.label}</div>` : "";
+      })()}
       ${warn ? `<div class="unverified">⚠︎ a páncélzónák becslések</div>` : ""}
       <div class="tap-hint">Koppints a válaszért</div>`;
 
@@ -370,6 +427,9 @@
     if (filter.types.size) bits.push([...filter.types].map((t) => TYPE_SHORT[t]).join(", "));
     if (filter.premium === "tech") bits.push("tech tree");
     if (filter.premium === "prem") bits.push("prémium");
+    if (filter.fire === "mag") bits.push("táras");
+    if (filter.fire === "auto") bits.push("sorozatlövő");
+    if (filter.fire === "single") bits.push("egylövetű");
     const summary = bits.length ? bits.join(" · ") : "Mind";
 
     const chip = (on, data, text) =>
@@ -387,6 +447,13 @@
       .join("");
     const prem = [["all", "Mind"], ["tech", "Tech tree"], ["prem", "Prémium"]]
       .map(([v, l]) => chip(filter.premium === v, `data-prem="${v}"`, l)).join("");
+    const nFire = (k) => deck.filter((t) => {
+      const m = tankFireMode(t);
+      return k === "single" ? !m : m && m.key === k;
+    }).length;
+    const fire = [["all", "Mind"], ["single", `Egylövetű ${nFire("single")}`],
+                  ["mag", `Táras ${nFire("mag")}`], ["auto", `Sorozatlövő ${nFire("auto")}`]]
+      .map(([v, l]) => chip(filter.fire === v, `data-fire="${v}"`, l)).join("");
 
     bar.innerHTML = `
       <button class="filter-toggle" id="filterToggle">
@@ -397,6 +464,7 @@
         <div class="filter-row">${nations}</div>
         <div class="filter-row">${types}</div>
         <div class="filter-row">${prem}</div>
+        <div class="filter-row">${fire}</div>
         <button class="filter-clear" id="filterClear">Szűrők törlése</button>
       </div>`;
   }
@@ -412,13 +480,15 @@
     if (!t) return;
     if (t.id === "filterToggle") { filterOpen = !filterOpen; renderFilterBar(); return; }
     if (t.id === "filterClear") {
-      filter.nations.clear(); filter.types.clear(); filter.premium = "all";
+      filter.nations.clear(); filter.types.clear();
+      filter.premium = "all"; filter.fire = "all";
       applyFilter(true); return;
     }
     const toggle = (set, v) => (set.has(v) ? set.delete(v) : set.add(v));
     if (t.dataset.nat) toggle(filter.nations, t.dataset.nat);
     else if (t.dataset.type) toggle(filter.types, t.dataset.type);
     else if (t.dataset.prem) filter.premium = t.dataset.prem;
+    else if (t.dataset.fire) filter.fire = t.dataset.fire;
     else return;
     applyFilter(true);
   });

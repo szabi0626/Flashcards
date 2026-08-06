@@ -124,7 +124,8 @@
     ).join("");
     const g = tank.guns[gunIdx];
     document.getElementById("shells").innerHTML =
-      [["AP", g.penAP], [g.premType || "APCR", g.penPrem], ["HE", g.penHE]].map(([t, p]) =>
+      [["AP", g.penAP], [g.premType || "APCR", g.penPrem], ["HE", g.penHE]]
+        .filter(([, p]) => p != null).map(([t, p]) =>
         `<button class="${t === shellType ? "on" : ""}" data-s="${t}">${t}<i class="tag-stock">${p} mm</i></button>`
       ).join("");
   }
