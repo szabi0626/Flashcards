@@ -10,8 +10,11 @@
  * felesleges újra letölteni.
  */
 
-const CACHE_NAME = "wot-flashcards-v7";
+const CACHE_NAME = "wot-flashcards-v8";
 
+// A képeket szándékosan NEM töltjük elő: 260 tank van, az több megabájt
+// lenne telepítéskor. A futásidejű cache-first stratégia úgyis eltárolja
+// mindegyiket, amint egyszer megnézted.
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -23,11 +26,6 @@ const APP_SHELL = [
   "./models/model-is-3.bin",
   "./models/model-is-3.json",
   "./armor3d.html",
-  "./img/is-3.png",
-  "./img/tiger-ii.png",
-  "./img/t32.png",
-  "./img/t-44.png",
-  "./img/amx-50-100.png",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",

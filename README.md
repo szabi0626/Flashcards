@@ -4,7 +4,8 @@ Mobilbarát flashcard webalkalmazás World of Tanks harckocsi statisztikák
 memorizálásához. Böngészőből használható, iPhone-on a kezdőképernyőre is
 felvehető (PWA), és offline is működik.
 
-Jelenleg **5 tier 8 tank** van benne: IS-3, Tiger II, T32, T-44, AMX 50 100.
+Benne van **mind a 260 tier 8 jármű** — tech tree és prémium egyaránt,
+mind a 11 nemzetből. Szűrhető nemzet, típus és prémium/tech tree szerint.
 
 ## Mit tanít
 
@@ -18,9 +19,13 @@ A kártyák nem stat-dumpok, hanem három harc közbeni kérdésre válaszolnak:
 
 ### Páncél pakli
 
-Színkódolt elölnézeti séma, ahol minden zóna az **effektív** (szögeléssel
-korrigált) vastagsága szerint kap színt — nem a nominális szerint, mert az
-félrevezet. Egy 110 mm-es lemez 60°-ban 220 mm-nek felel meg.
+Öt tankhoz (IS-3, Tiger II, T32, T-44, AMX 50 100) készült **kidolgozott
+zónatérkép**: színkódolt elölnézeti séma, ahol minden zóna az **effektív**
+(szögeléssel korrigált) vastagsága szerint kap színt — nem a nominális
+szerint, mert az félrevezet. Egy 110 mm-es lemez 60°-ban 220 mm-nek felel meg.
+
+A többi 255 tanknál a hiteles API-értékek látszanak (test és torony
+elöl/oldalt/hátul), zónabontás nélkül — inkább semmi, mint találgatás.
 
 - 🟢 &lt; 180 mm — átlövöd sima AP-vel
 - 🟡 180–250 mm — kell hozzá jó pen vagy prémium lőszer
@@ -89,6 +94,20 @@ eltűnik a kártyáról a figyelmeztetés.
 A tankok hivatalos WoT garázs-renderei az `img/` mappában, a WG API-ból
 (160×100, ezért kissé lágyak nagyítva — a WG nem ad nagyobbat). Ha jobb képed
 van, egyszerűen írd felül a fájlt: `img/<tank-id>.png`.
+
+## Szűrés
+
+A fejléc alatti sávra koppintva nyílik a szűrő: nemzet, típus
+(nehéz/közepes/könnyű/vadász/tüzér) és prémium vs. tech tree. A sáv jobb
+szélén mindig látszik, hány tank van a szűrt pakliban.
+
+Tanulásnál érdemes szűkíteni — 260 kártyát végigpörgetni értelmetlen.
+
+## Páncélnézegető (kísérleti)
+
+Az [`armor3d.html`](armor3d.html) oldalon egy forgatható 3D nézegető, ami a
+nézőszögből élőben számolja az effektív páncélt. Egyelőre csak az IS-3-hoz,
+és a zónahatárai pontatlanok — a mechanika kész, az adat még nem.
 
 ## Vezérlés
 

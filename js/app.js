@@ -29,10 +29,46 @@
   };
 
   let deckKey = "armor";
-  let order = deck.map((_, i) => i);
   let pos = 0;
   let flipped = false;
   let gunIndex = null; // null = alapértelmezés (az utolsó, teljesen fejlesztett)
+
+  /* ---------------------------------------------------------------- */
+  /* Szűrés — 260 tier 8 járműnél e nélkül használhatatlan a pakli.    */
+  /* ---------------------------------------------------------------- */
+  const TYPE_ORDER = ["heavyTank", "mediumTank", "lightTank", "AT-SPG", "SPG"];
+  const TYPE_SHORT = {
+    heavyTank: "Nehéz", mediumTank: "Közepes", lightTank: "Könnyű",
+    "AT-SPG": "Vadász", SPG: "Tüzér",
+  };
+  const NATION_FLAG = {
+    ussr: "🇷🇺", germany: "🇩🇪", usa: "🇺🇸", france: "🇫🇷", uk: "🇬🇧",
+    china: "🇨🇳", japan: "🇯🇵", czech: "🇨🇿", sweden: "🇸🇪",
+    poland: "🇵🇱", italy: "🇮🇹",
+  };
+
+  const filter = { nations: new Set(), types: new Set(), premium: "all" };
+  let order = [];
+  let filterOpen = false;
+
+  function matches(t) {
+    if (filter.nations.size && !filter.nations.has(t.nation)) return false;
+    if (filter.types.size && !filter.types.has(t.type)) return false;
+    if (filter.premium === "tech" && t.isPremium) return false;
+    if (filter.premium === "prem" && !t.isPremium) return false;
+    return true;
+  }
+
+  function applyFilter(keepTank) {
+    const before = keepTank && deck[order[pos]];
+    order = deck.map((_, i) => i).filter((i) => matches(deck[i]));
+    const at = before ? order.indexOf(deck.indexOf(before)) : -1;
+    pos = at >= 0 ? at : 0;
+    gunIndex = null;
+    setFlipped(false);
+    render();
+    renderFilterBar();
+  }
 
   const el = {
     card: document.getElementById("card"),
@@ -104,7 +140,32 @@
   /* ---------------------------------------------------------------- */
   function renderArmor(tank) {
     const zones = zonesOf(tank);
-    if (!zones.length) return `<p class="placeholder">Ehhez a tankhoz még nincsenek páncélzónák.</p>`;
+    const a = tank.armor;
+
+    // A legtöbb tankhoz nincs kézzel felvett zónánk (260 jármű van, öthöz
+    // készült). Ilyenkor a hiteles API-értékeket mutatjuk, találgatás nélkül.
+    if (!zones.length) {
+      const cmp = (v) => `<span class="dot dot-${verdictOf(v)}"></span>`;
+      const row = (label, v) => statRow(label, `${cmp(v)} ${v} mm`);
+      // A vadászpáncélosoknak és tüzéreknek gyakran nincs forgó tornyuk.
+      const turret = a.turret
+        ? row("Torony elöl", a.turret.front) + row("Torony oldalt", a.turret.sides)
+          + row("Torony hátul", a.turret.rear)
+        : statRow("Torony", "nincs (fix harcitér)");
+      return `
+        <div class="block-title">Nominális vastagság (WG API)</div>
+        <div class="stats-block">
+          ${row("Test elöl", a.hull.front)}
+          ${row("Test oldalt", a.hull.sides)}
+          ${row("Test hátul", a.hull.rear)}
+          ${turret}
+        </div>
+        <p class="source">A pontok a NOMINÁLIS értéket színezik. A valóságban a
+          szögelés ennél sokkal többet érhet — egy 110 mm-es lemez 60 fokban
+          220 mm-nek felel meg.</p>
+        <p class="source source-manual">Ehhez a tankhoz még nincsenek kidolgozott
+          páncélzónák (dőlésszögek, gyenge pontok). Egyelőre öt tankhoz készültek el.</p>`;
+    }
 
     const rows = zones.map((z) => {
       const v = verdictOf(z.effective);
@@ -123,7 +184,6 @@
         </div>`;
     }).join("");
 
-    const a = tank.armor;
     return `
       ${renderSchematic(tank)}
       <div class="legend">
@@ -136,7 +196,10 @@
       <div class="block-title">Nominális vastagság (WG API)</div>
       <div class="stats-block">
         ${statRow("Test elöl / oldalt / hátul", `${a.hull.front} / ${a.hull.sides} / ${a.hull.rear} mm`)}
-        ${statRow("Torony elöl / oldalt / hátul", `${a.turret.front} / ${a.turret.sides} / ${a.turret.rear} mm`)}
+        ${a.turret
+          ? statRow("Torony elöl / oldalt / hátul",
+                    `${a.turret.front} / ${a.turret.sides} / ${a.turret.rear} mm`)
+          : statRow("Torony", "nincs")}
       </div>
       <p class="source source-manual">A fenti zónák, szögek és effektív értékek
         <b>kézi becslések</b> — a WG API csak a nominális vastagságot adja.
@@ -219,7 +282,7 @@
         ${statRow("Motor", `${m.enginePower} LE`)}
         ${statRow("Teljesítmény", `${m.hpPerTon} LE/t`)}
         ${statRow("Test fordulás", `${m.hullTraverse} °/s`)}
-        ${statRow("Torony fordulás", `${m.turretTraverse} °/s`)}
+        ${m.turretTraverse != null ? statRow("Torony fordulás", `${m.turretTraverse} °/s`) : ""}
       </div>
       <div class="block-title">Felderítés</div>
       <div class="stats-block">
@@ -237,7 +300,7 @@
     const cfg = DECKS[deckKey];
 
     if (!tank) {
-      el.front.innerHTML = `<p class="placeholder">Üres a pakli.</p>`;
+      el.front.innerHTML = `<p class="placeholder">Egyetlen tank sem felel meg a szűrésnek.</p>`;
       el.back.innerHTML = "";
       el.progress.textContent = "0 / 0";
       return;
@@ -286,11 +349,66 @@
     render();
   }
 
+  function renderFilterBar() {
+    const bar = document.getElementById("filterBar");
+    if (!bar) return;
+
+    const bits = [];
+    if (filter.nations.size) bits.push([...filter.nations].map((n) => NATION_FLAG[n] || n).join(""));
+    if (filter.types.size) bits.push([...filter.types].map((t) => TYPE_SHORT[t]).join(", "));
+    if (filter.premium === "tech") bits.push("tech tree");
+    if (filter.premium === "prem") bits.push("prémium");
+    const summary = bits.length ? bits.join(" · ") : "Mind";
+
+    const chip = (on, data, text) =>
+      `<button class="chip ${on ? "on" : ""}" ${data}>${text}</button>`;
+
+    const nations = Object.keys(NATION_FLAG)
+      .filter((n) => deck.some((t) => t.nation === n))
+      .map((n) => chip(filter.nations.has(n), `data-nat="${n}"`,
+                       `${NATION_FLAG[n]} ${deck.filter((t) => t.nation === n).length}`))
+      .join("");
+    const types = TYPE_ORDER
+      .filter((ty) => deck.some((t) => t.type === ty))
+      .map((ty) => chip(filter.types.has(ty), `data-type="${ty}"`, TYPE_SHORT[ty]))
+      .join("");
+    const prem = [["all", "Mind"], ["tech", "Tech tree"], ["prem", "Prémium"]]
+      .map(([v, l]) => chip(filter.premium === v, `data-prem="${v}"`, l)).join("");
+
+    bar.innerHTML = `
+      <button class="filter-toggle" id="filterToggle">
+        <span>Szűrés: ${esc(summary)}</span>
+        <span class="filter-count">${order.length}</span>
+      </button>
+      <div class="filter-panel ${filterOpen ? "" : "hidden"}">
+        <div class="filter-row">${nations}</div>
+        <div class="filter-row">${types}</div>
+        <div class="filter-row">${prem}</div>
+        <button class="filter-clear" id="filterClear">Szűrők törlése</button>
+      </div>`;
+  }
+
   function renderTabs() {
     el.tabs.innerHTML = Object.entries(DECKS)
       .map(([k, c]) => `<button class="tab ${k === deckKey ? "on" : ""}" data-deck="${k}">${c.label}</button>`)
       .join("");
   }
+
+  document.getElementById("filterBar").addEventListener("click", (e) => {
+    const t = e.target.closest("button");
+    if (!t) return;
+    if (t.id === "filterToggle") { filterOpen = !filterOpen; renderFilterBar(); return; }
+    if (t.id === "filterClear") {
+      filter.nations.clear(); filter.types.clear(); filter.premium = "all";
+      applyFilter(true); return;
+    }
+    const toggle = (set, v) => (set.has(v) ? set.delete(v) : set.add(v));
+    if (t.dataset.nat) toggle(filter.nations, t.dataset.nat);
+    else if (t.dataset.type) toggle(filter.types, t.dataset.type);
+    else if (t.dataset.prem) filter.premium = t.dataset.prem;
+    else return;
+    applyFilter(true);
+  });
 
   el.tabs.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-deck]");
@@ -350,7 +468,7 @@
   }, { passive: true });
 
   renderTabs();
-  render();
+  applyFilter(false);
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
