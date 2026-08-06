@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Páncélnézegető — próba</title>
+<meta name="theme-color" content="#1a2016">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { overflow: auto; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 14px calc(14px) calc(30px + var(--safe-bottom)); }
+  h1 { font-size: 1rem; color: var(--gold); text-transform: uppercase; letter-spacing: .04em; margin: 6px 0 4px; }
+  .note { font-size: .78rem; color: var(--text-dim); line-height: 1.5; margin: 0 0 12px; }
+  #cv { width: 100%; height: auto; aspect-ratio: 4/3; background: #242c1b;
+        border: 1px solid #000; border-radius: 12px; touch-action: none; display: block; }
+  .hint { text-align: center; font-size: .72rem; color: var(--text-dim); margin: 6px 0 12px; }
+  .picked { background: rgba(0,0,0,.25); border-radius: 8px; padding: 11px 13px; margin-bottom: 12px;
+            min-height: 76px; }
+  .picked .pname { font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+  .picked .prow { display: flex; justify-content: space-between; font-size: .86rem; padding: 2px 0; }
+  .picked .prow span:first-child { color: var(--text-dim); }
+  .empty { color: var(--text-dim); font-size: .84rem; }
+  .ricochet { color: var(--no); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>IS-3 — páncélnézegető</h1>
+  <p class="note">Húzd az ujjad a tankon a forgatáshoz, koppints egy lemezre az adataiért.
+     A színek azt mutatják, hogy a <b>kiválasztott lövedékeddel</b> át tudod-e ütni
+     <b>abból a szögből, ahonnan épp nézed</b>.</p>
+
+  <canvas id="cv" width="600" height="450"></canvas>
+  <div class="hint">húzás = forgatás · koppintás = lemez adatai</div>
+
+  <div class="picked" id="picked"><div class="empty">Koppints egy lemezre.</div></div>
+
+  <div class="block-title">Mivel lősz?</div>
+  <div class="gun-toggle" id="guns"></div>
+  <div class="gun-toggle" id="shells"></div>
+
+  <div class="legend">
+    <span><i class="dot dot-easy"></i>átmegy</span>
+    <span><i class="dot dot-hard"></i>bizonytalan</span>
+    <span><i class="dot dot-no"></i>nem megy át</span>
+  </div>
+
+  <p class="source source-manual">A modell <b>sematikus</b>: az arányok a WG hivatalos
+     kontúrjából, a lemezszögek a jármű publikált adataiból. Nem a játék hálója —
+     a mechanizmust pontosan mutatja, a konkrét számokat közelítőleg.</p>
+  <p class="source"><a href="index.html" style="color:var(--gold)">← vissza a kártyákhoz</a></p>
+</div>
+
+<script src="js/tanks-data.js"></script>
+<script src="js/armor3d.js"></script>
+<script src="js/tank-models.js"></script>
+<script>
+(function () {
+  const cv = document.getElementById("cv");
+  const tank = window.TANKS.find(t => t.id === "is-3");
+  let gunIdx = tank.guns.length - 1, shellType = "AP";
+
+  const view = new Armor3D.Viewer(cv, { onPick: showPlate });
+  view.setModel(TANK_MODELS["is-3"]);
+
+  function currentPen() {
+    const g = tank.guns[gunIdx];
+    return shellType === "AP" ? g.penAP : shellType === "APCR" ? g.penPrem : g.penHE;
+  }
+  function apply() {
+    const g = tank.guns[gunIdx];
+    view.setShell(shellType, currentPen(), g.caliber);
+    drawButtons();
+  }
+  function drawButtons() {
+    document.getElementById("guns").innerHTML = tank.guns.map((g, i) =>
+      `<button class="${i === gunIdx ? "on" : ""}" data-g="${i}">${g.name.replace(/\s*\([^)]*\)\s*$/, "")}</button>`
+    ).join("");
+    const g = tank.guns[gunIdx];
+    const opts = [["AP", g.penAP], [g.premType || "APCR", g.penPrem], ["HE", g.penHE]];
+    document.getElementById("shells").innerHTML = opts.map(([t, pen]) =>
+      `<button class="${t === shellType ? "on" : ""}" data-s="${t}">${t}<i class="tag-stock">${pen} mm</i></button>`
+    ).join("");
+  }
+  document.getElementById("guns").addEventListener("click", e => {
+    const b = e.target.closest("[data-g]"); if (!b) return;
+    gunIdx = +b.dataset.g; apply();
+  });
+  document.getElementById("shells").addEventListener("click", e => {
+    const b = e.target.closest("[data-s]"); if (!b) return;
+    shellType = b.dataset.s; apply();
+  });
+
+  function showPlate(f) {
+    const box = document.getElementById("picked");
+    if (f.plate.decor) {
+      box.innerHTML = `<div class="pname">${f.plate.label}</div>
+        <div class="empty">Nem páncél — csak a sziluetthez tartozik.</div>`;
+      return;
+    }
+    const pen = currentPen();
+    const verdict = f.ricochet ? `<span class="ricochet">LEPATTAN</span>`
+      : pen >= f.effective * 1.15 ? `<span style="color:var(--easy)">átmegy</span>`
+      : pen >= f.effective * 0.95 ? `<span style="color:var(--hard)">bizonytalan</span>`
+      : `<span style="color:var(--no)">nem megy át</span>`;
+    box.innerHTML = `
+      <div class="pname">${f.plate.label}</div>
+      <div class="prow"><span>Nominális</span><span>${f.plate.nominal} mm</span></div>
+      <div class="prow"><span>Becsapódási szög</span><span>${f.angle.toFixed(0)}°</span></div>
+      <div class="prow"><span>Effektív</span><span>${f.ricochet ? "—" : f.effective.toFixed(0) + " mm"}</span></div>
+      <div class="prow"><span>A te pened</span><span>${pen} mm → ${verdict}</span></div>`;
+  }
+
+  apply();
+})();
+</script>
+</body>
+</html>
