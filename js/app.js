@@ -106,7 +106,47 @@
       ? `<img class="${cls || "class-icon"}" src="img/class/${TYPE_ICON[type]}.png" alt="">`
       : "";
 
-  const filter = { nations: new Set(), types: new Set(), premium: "all", fire: "all" };
+  /* ---------------------------------------------------------------- */
+  /* Játszottság — mit érdemes ELŐSZÖR megtanulni                       */
+  /*                                                                    */
+  /* A `play` mező a tomato.gg 30 napos EU adatából jön (lásd            */
+  /* tools/fetch_playrate.py). A `share` a lényeg: a tier 8-as forgalom  */
+  /* hány százaléka ez a jármű — vagyis mekkora eséllyel az, akire épp   */
+  /* ránézel. Az eloszlás nagyon egyenetlen: a top 20 tank adja a        */
+  /* tier 8-as meccsek 43%-át, a top 50 a 66%-át. Ezért alapból          */
+  /* játszottság szerint rendezünk.                                      */
+  /*                                                                    */
+  /* 32 járműnek nincs adata (Frontline-változatok, kiadatlan            */
+  /* prototípusok) — azok `play: null`-t kapnak, nem nullát, és a        */
+  /* sorrend végére kerülnek.                                            */
+  /* ---------------------------------------------------------------- */
+  const POP_TIERS = [
+    { max: 20, key: "top", label: "Nagyon gyakori" },
+    { max: 60, key: "high", label: "Gyakori" },
+    { max: 120, key: "mid", label: "Ritkább" },
+    { max: Infinity, key: "low", label: "Ritka" },
+  ];
+
+  const hu = (n) => String(n).replace(".", ",");
+
+  function popularity(tank) {
+    if (!tank.play) return null;
+    const tier = POP_TIERS.find((p) => tank.play.rank <= p.max);
+    return { ...tank.play, key: tier.key, label: tier.label };
+  }
+
+  /** Hány százalékát fedi le a tier 8-as forgalomnak a legjátszottabb N tank. */
+  function coverage(n) {
+    const shares = deck
+      .filter((t) => t.play)
+      .sort((a, b) => a.play.rank - b.play.rank)
+      .slice(0, n)
+      .map((t) => t.play.share);
+    return Math.round(shares.reduce((a, b) => a + b, 0));
+  }
+
+  const filter = { nations: new Set(), types: new Set(), premium: "all", fire: "all", top: 0 };
+  let sortKey = "pop"; // "pop" = játszottság szerint, "base" = nemzet/tech tree sorrend
   let order = [];
   let filterOpen = false;
 
@@ -115,6 +155,7 @@
     if (filter.types.size && !filter.types.has(t.type)) return false;
     if (filter.premium === "tech" && t.isPremium) return false;
     if (filter.premium === "prem" && !t.isPremium) return false;
+    if (filter.top && (!t.play || t.play.rank > filter.top)) return false;
     if (filter.fire !== "all") {
       const m = tankFireMode(t);
       if (filter.fire === "single" ? m : !m || m.key !== filter.fire) return false;
@@ -122,9 +163,13 @@
     return true;
   }
 
+  // Adat nélküli járművek a végére, egyébként helyezés szerint.
+  const popRank = (t) => (t.play ? t.play.rank : Infinity);
+
   function applyFilter(keepTank) {
     const before = keepTank && deck[order[pos]];
     order = deck.map((_, i) => i).filter((i) => matches(deck[i]));
+    if (sortKey === "pop") order.sort((a, b) => popRank(deck[a]) - popRank(deck[b]) || a - b);
     const at = before ? order.indexOf(deck.indexOf(before)) : -1;
     pos = at >= 0 ? at : 0;
     gunIndex = null;
@@ -412,10 +457,23 @@
       <img class="tank-photo" src="${esc(tank.image)}" alt="${esc(tank.name)}">
       <div class="tank-name">${esc(tank.name)}</div>
       <div class="question">${esc(cfg.question)}</div>
-      ${(() => {
-        const m = tankFireMode(tank);
-        return m ? `<div class="fire-badge fire-${m.key}">${m.label}</div>` : "";
-      })()}
+      <div class="badges">
+        ${(() => {
+          const p = popularity(tank);
+          if (!p) {
+            return `<span class="pop-badge pop-none"
+              title="Az elmúlt 30 napban nem jelent meg a statisztikában — esemény- vagy kiadatlan jármű.">
+              Random meccsen nem jön szembe</span>`;
+          }
+          return `<span class="pop-badge pop-${p.key}"
+            title="Az EU szerver tier 8-as forgalmának ${hu(p.share)}%-a, azaz nagyjából minden ${Math.max(1, Math.round(100 / p.share))}. tier 8-as ellenfél ez. Nyerési aránya ${hu(p.winrate)}%. Forrás: tomato.gg, elmúlt 30 nap.">
+            #${p.rank} ${p.label} · ${hu(p.share)}%</span>`;
+        })()}
+        ${(() => {
+          const m = tankFireMode(tank);
+          return m ? `<span class="fire-badge fire-${m.key}">${m.label}</span>` : "";
+        })()}
+      </div>
       ${warn ? `<div class="unverified">⚠︎ a páncélzónák becslések</div>` : ""}
       <div class="tap-hint">Koppints a válaszért</div>`;
 
@@ -464,6 +522,7 @@
     if (filter.fire === "reload") bits.push("töltényűrös");
     if (filter.fire === "auto") bits.push("gépágyú");
     if (filter.fire === "single") bits.push("egylövetű");
+    if (filter.top) bits.push(`top ${filter.top}`);
     const summary = bits.length ? bits.join(" · ") : "Mind";
 
     const chip = (on, data, text) =>
@@ -491,15 +550,31 @@
                   ["auto", `Gépágyú ${nFire("auto")}`]]
       .map(([v, l]) => chip(filter.fire === v, `data-fire="${v}"`, l)).join("");
 
+    // A lefedettség a lényegi szám: „ha ezt a N-et tudod, az ellenfelek
+    // ennyi százalékát ismered”. Ezért a chip felirata is ezt mondja.
+    const top = [[0, "Mind"], [25, "Top 25"], [50, "Top 50"], [100, "Top 100"]]
+      .map(([v, l]) => chip(filter.top === v, `data-top="${v}"`,
+                            v ? `${l} · ${coverage(v)}%` : l)).join("");
+    const sort = [["pop", "Játszottság"], ["base", "Nemzet szerint"]]
+      .map(([v, l]) => chip(sortKey === v, `data-sort="${v}"`, l)).join("");
+
     bar.innerHTML = `
       <button class="filter-toggle" id="filterToggle">
         <span>Szűrés: ${esc(summary)}</span>
         <span class="filter-count">${order.length}</span>
       </button>
       <div class="filter-panel ${filterOpen ? "" : "hidden"}">
+        <div class="filter-label">Sorrend</div>
+        <div class="filter-row">${sort}</div>
+        <div class="filter-label">Mennyire gyakori</div>
+        <div class="filter-hint">A % azt mondja meg, a tier 8-as ellenfelek hány
+          százalékát fedi le ez a válogatás.</div>
+        <div class="filter-row">${top}</div>
+        <div class="filter-label">Nemzet, típus, beszerzés</div>
         <div class="filter-row">${nations}</div>
         <div class="filter-row">${types}</div>
         <div class="filter-row">${prem}</div>
+        <div class="filter-label">Tüzelési mód</div>
         <div class="filter-row">${fire}</div>
         <button class="filter-clear" id="filterClear">Szűrők törlése</button>
       </div>`;
@@ -517,7 +592,7 @@
     if (t.id === "filterToggle") { filterOpen = !filterOpen; renderFilterBar(); return; }
     if (t.id === "filterClear") {
       filter.nations.clear(); filter.types.clear();
-      filter.premium = "all"; filter.fire = "all";
+      filter.premium = "all"; filter.fire = "all"; filter.top = 0;
       applyFilter(true); return;
     }
     const toggle = (set, v) => (set.has(v) ? set.delete(v) : set.add(v));
@@ -525,6 +600,8 @@
     else if (t.dataset.type) toggle(filter.types, t.dataset.type);
     else if (t.dataset.prem) filter.premium = t.dataset.prem;
     else if (t.dataset.fire) filter.fire = t.dataset.fire;
+    else if (t.dataset.top) filter.top = Number(t.dataset.top);
+    else if (t.dataset.sort) sortKey = t.dataset.sort;
     else return;
     applyFilter(true);
   });

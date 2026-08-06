@@ -10,7 +10,7 @@
  * felesleges újra letölteni.
  */
 
-const CACHE_NAME = "wot-flashcards-v9";
+const CACHE_NAME = "wot-flashcards-v10";
 
 // A képeket szándékosan NEM töltjük elő: 260 tank van, az több megabájt
 // lenne telepítéskor. A futásidejű cache-first stratégia úgyis eltárolja

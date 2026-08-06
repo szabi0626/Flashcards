@@ -392,6 +392,23 @@ body {
   margin-top: 7px;
 }
 
+.filter-label {
+  margin-top: 11px;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+.filter-hint {
+  margin-top: 3px;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.35;
+  opacity: 0.8;
+}
+
 .chip {
   /* a benne lévő ikonra koppintás is a gombot találja el */
   pointer-events: auto;
@@ -444,10 +461,36 @@ body {
 
 .chip.on .chip-icon { opacity: 1; }
 
-/* ---------------- tüzelési mód jelvény ---------------- */
+/* ---------------- előlapi jelvények ---------------- */
+/* Játszottság és tüzelési mód egy sorban, kis kijelzőn tördelve. */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.pop-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 20px;
+  padding: 3px 11px;
+  border: 1px solid;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A skála a ténylegesen mért eloszlást követi: a top 20 tank adja a tier
+   8-as forgalom 43%-át, ezért ott van a leghangsúlyosabb szín. */
+.pop-top  { color: #f2c14e; border-color: #f2c14e; background: rgba(242, 193, 78, 0.12); }
+.pop-high { color: #9fd08a; border-color: #9fd08a; }
+.pop-mid  { color: var(--text-dim); border-color: var(--line); }
+.pop-low  { color: var(--text-dim); border-color: var(--line); opacity: 0.75; }
+.pop-none { color: var(--text-dim); border-color: var(--line); opacity: 0.6; font-weight: 400; }
+
 .fire-badge {
   display: inline-block;
-  margin-top: 10px;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;

@@ -19,6 +19,19 @@ backendjéből származik:
 Ugyanaz a nyilvános forrás, amiből a tankopédia oldala is dolgozik. A
 hivatalos encyclopedia API ezeket nem tartalmazza.
 
+## Játszottsági adatok
+
+**[tomato.gg](https://tomato.gg)** — `tank-performance/recent/<szerver>/<nap>`
+
+A kártyákon látható helyezés, részesedés és szerverszintű nyerési arány
+onnan származik. A tomato.gg sok tízezer játékos statisztikáját aggregálja;
+ezt a hivatalos Wargaming API nem tudja, mert kizárólag játékosonként ad
+adatot.
+
+Csak a nyilvánosan, bejelentkezés nélkül kiszolgált oldalt olvassuk, és
+mindig egyetlen kérésből — a teljes táblázat szerver-oldalon renderelve
+benne van a HTML-ben, így nem kell járművenként kopogtatni.
+
 ## Osztály-ikonok
 
 Az `img/class/*.png` a World of Tanks hivatalos jármű-osztály jelei

@@ -5,7 +5,8 @@ memorizálásához. Böngészőből használható, iPhone-on a kezdőképernyőr
 felvehető (PWA), és offline is működik.
 
 Benne van **mind a 260 tier 8 jármű** — tech tree és prémium egyaránt,
-mind a 11 nemzetből. Szűrhető nemzet, típus és prémium/tech tree szerint.
+mind a 11 nemzetből. Alapból **játszottság szerint** sorrendben, hogy azzal
+kezdd, amivel tényleg találkozol.
 
 ## Mit tanít
 
@@ -33,6 +34,37 @@ elöl/oldalt/hátul), zónabontás nélkül — inkább semmi, mint találgatás
 
 A színt a kód számolja az `effective` értékből, így nem tud elcsúszni az
 adattól.
+
+### Játszottság — mit tanulj előbb
+
+260 kártyát elölről végigpörgetni pazarlás, mert a mezőny nagyon egyenetlen.
+Az EU szerver elmúlt 30 napjában:
+
+| Ha megtanulod… | …az ellenfelek ennyi százalékát ismered |
+|---|---|
+| top 25 tank | 48% |
+| top 50 tank | 66% |
+| top 100 tank | 85% |
+
+Egyetlen jármű, a **SU-130PM**, önmagában a tier 8-as forgalom **8,85%-a** —
+nagyjából minden 11. tier 8-as ellenfél az. A 228. helyezettel viszont
+gyakorlatilag sosem találkozol.
+
+Ezért a pakli alapból játszottság szerint van rendezve, és minden kártya
+előlapján ott a helyezés meg a részesedés: `#10 Gyakori · 1,36%`. A szűrőben
+átkapcsolhatsz nemzet szerinti sorrendre, és szűkíthetsz a top 25/50/100-ra.
+
+Ezt a hivatalos WG API **nem adja meg** — csak játékosonként tud statisztikát,
+szerverszintű forgalmat nem. A [tomato.gg](https://tomato.gg) viszont sok
+tízezer játékos adatát összegzi, és a
+`tank-performance/recent/<szerver>/<nap>` oldal a teljes táblázatot a HTML-be
+rendereli, így egyetlen kéréssel megvan. Ezt szedi le a
+[`tools/fetch_playrate.py`](tools/fetch_playrate.py).
+
+228 járműhöz van adat. A maradék 32 (Frontline-változatok, kiadatlan
+prototípusok) meg sem jelenik a forrásban — azok `null`-t kapnak, nem nullát,
+a sorrend végére kerülnek, és a kártya kiírja, hogy random meccsen nem jönnek
+szembe.
 
 ### Tüzelési mód
 
@@ -97,6 +129,9 @@ A WG **tankopédia backendje** adja (a hivatalos API nem): tár méret, lövése
 közti idő, töltényűrös visszatöltési idők, gépágyú/túlmelegedés jelző, és a
 valódi álca értékek.
 
+A **tomato.gg** adja (sem az API, sem a tankopédia nem): játszottság —
+30 napos meccsszám, helyezés, részesedés és szerverszintű nyerési arány.
+
 Sem az API, sem a tankopédia **nem** adja: dőlésszögeket, effektív páncélt,
 gyenge pontokat (kupola, ágyúpajzs, alsó lemez). Ezek az `armor-zones.js`-ben
 vannak kézzel, és az app meg is jelöli őket.
@@ -125,11 +160,14 @@ van, egyszerűen írd felül a fájlt: `img/<tank-id>.png`.
 
 ## Szűrés
 
-A fejléc alatti sávra koppintva nyílik a szűrő: nemzet, típus
-(nehéz/közepes/könnyű/vadász/tüzér) és prémium vs. tech tree. A sáv jobb
-szélén mindig látszik, hány tank van a szűrt pakliban.
+A fejléc alatti sávra koppintva nyílik a szűrő:
 
-Tanulásnál érdemes szűkíteni — 260 kártyát végigpörgetni értelmetlen.
+- **Sorrend** — játszottság (alap) vagy nemzet szerint
+- **Mennyire gyakori** — top 25 / 50 / 100, a chipen a lefedettség százaléka
+- **Nemzet, típus** (nehéz/közepes/könnyű/páncélvadász/tüzér), prémium vs. tech tree
+- **Tüzelési mód** — egylövetű / táras / töltényűrös / gépágyú
+
+A sáv jobb szélén mindig látszik, hány tank van a szűrt pakliban.
 
 ## Páncélnézegető (kísérleti)
 
