@@ -1,0 +1,23 @@
+{
+ "vertexCount": 87774,
+ "scale": 4168.4970703125,
+ "sizeMeters": [
+  2.8746579144595628,
+  2.4437617797851563,
+  8.336994159385974
+ ],
+ "zones": [
+  "gun",
+  "track",
+  "ufp",
+  "lfp",
+  "hull-side",
+  "hull-roof",
+  "hull-rear",
+  "turret-front",
+  "mantlet",
+  "turret-side",
+  "turret-rear",
+  "turret-roof"
+ ]
+}

@@ -10,7 +10,7 @@
  * felesleges újra letölteni.
  */
 
-const CACHE_NAME = "wot-flashcards-v6";
+const CACHE_NAME = "wot-flashcards-v7";
 
 const APP_SHELL = [
   "./",
@@ -19,8 +19,9 @@ const APP_SHELL = [
   "./js/app.js",
   "./js/tanks-data.js",
   "./js/armor-zones.js",
-  "./js/armor3d.js",
-  "./js/tank-models.js",
+  "./js/armor-gl.js",
+  "./models/model-is-3.bin",
+  "./models/model-is-3.json",
   "./armor3d.html",
   "./img/is-3.png",
   "./img/tiger-ii.png",
