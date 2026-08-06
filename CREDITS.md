@@ -8,6 +8,17 @@ A `js/tanks-data.js` teljes tartalma és az `img/*.png` képek innen származnak
 a hivatalos fejlesztői API-n keresztül. A World of Tanks és a hozzá tartozó
 tartalom a Wargaming.net tulajdona.
 
+## Klip- és álca adatok
+
+A tár mérete, a lövések közti idő, a töltényűrös visszatöltési idők, a
+túlmelegedés jelzője és az álca a Wargaming webes tankopédiájának
+backendjéből származik:
+
+    worldoftanks.eu/wotpbe/tankopedia/api/vehicle/modules/
+
+Ugyanaz a nyilvános forrás, amiből a tankopédia oldala is dolgozik. A
+hivatalos encyclopedia API ezeket nem tartalmazza.
+
 ## Osztály-ikonok
 
 Az `img/class/*.png` a World of Tanks hivatalos jármű-osztály jelei

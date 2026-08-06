@@ -100,20 +100,11 @@ const ARMOR_ZONES = {
 };
 
 /*
- * Autoloader klip adatok — az API ezeket sem adja.
- * A `reload` (teljes klip újratöltés) a tanks-data.js-ből jön, az hiteles.
- * Itt csak a klip mérete és a lövések közti idő szerepel, becsülve.
- */
-const CLIPS = {
-  "amx-50-100": {
-    "90 mm DCA 45 (50 100)":  { shells: 6, intraClip: 2.0 },
-    "100 mm SA47 (50 100)":   { shells: 4, intraClip: 3.0 },
-  },
-};
-
-/*
- * Álca értékek — az API nem adja, ezek is becslések.
- * Százalék, álló helyzetben / mozgás közben.
+ * Álca értékek — TARTALÉK.
+ *
+ * A valódi álca a WG tankopédiából jön, és a js/tanks-data.js-ben van
+ * (camoStill / camoMoving). Az alábbi kézi becslések csak arra a 30
+ * speciális járműre maradnak érvényben, amikhez a tankopédia nem ad adatot.
  */
 const CAMO = {
   "is-3":       { still: 8.9,  moving: 5.3 },
@@ -125,7 +116,6 @@ const CAMO = {
 
 if (typeof window !== "undefined") {
   window.ARMOR_ZONES = ARMOR_ZONES;
-  window.CLIPS = CLIPS;
   window.CAMO = CAMO;
 }
-if (typeof module !== "undefined") module.exports = { ARMOR_ZONES, CLIPS, CAMO };
+if (typeof module !== "undefined") module.exports = { ARMOR_ZONES, CAMO };

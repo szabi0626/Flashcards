@@ -3,7 +3,6 @@
 
   const deck = Array.isArray(window.TANKS) ? window.TANKS : [];
   const ZONES = window.ARMOR_ZONES || {};
-  const CLIPS = window.CLIPS || {};
   const CAMO = window.CAMO || {};
 
   /* ---------------------------------------------------------------- */
@@ -50,31 +49,44 @@
   /* ---------------------------------------------------------------- */
   /* Tüzelési mód                                                       */
   /*                                                                    */
-  /* Az API nem árulja el közvetlenül, hogy egy fegyver táras-e: nincs   */
-  /* klip mező, és a `rapid` mindig null. De a tűzgyorsaság elárulja.    */
-  /* Egylövetű ágyúnál fire_rate = 60 / újratöltés; ha ennél érdemben    */
-  /* több lövés fér bele egy percbe, akkor tárból tüzel.                 */
+  /* A klip adat a WG tankopédia backendjéből származik (lásd            */
+  /* tools/fetch_gun_mechanics.py) — a hivatalos encyclopedia API ezt    */
+  /* nem adja meg. Négy mechanikát különböztetünk meg:                   */
   /*                                                                    */
-  /* A tűzgyorsaságot a DPM-ből nyerjük vissza (dpm = alpha * fire_rate);*/
-  /* a DPM egészre kerekítve van, de az ebből adódó hiba ezredrésznyi.   */
+  /*   clip = 1                  egylövetű                              */
+  /*   autoreload nem üres       töltényűrös: a lövedékek egyenként      */
+  /*                             töltődnek vissza, egyre lassabban       */
+  /*   overheat vagy sűrű ütem   gépágyú (hevedéres, túlmelegedhet)      */
+  /*   clip > 1                  táras: a teljes tárat le kell lőni      */
   /*                                                                    */
-  /* A 260 járművön a két csoport között üres sáv van (12 és 20 lövés/   */
-  /* perc között egyetlen fegyver sincs), ezért a 15-ös határ biztonságos.*/
-  /*                                                                    */
-  /* A klip MÉRETÉT szándékosan nem becsüljük: az AMX 50 100 két         */
-  /* fegyverére az API azonos fire_rate-et ad, pedig eltér a klipjük —   */
-  /* az ebből számolt lövedékszám kitalált adat lenne.                   */
+  /* 30 speciális/esemény-járműhöz a tankopédia nem ad adatot; azoknál   */
+  /* a tűzgyorsaságból becsülünk, és ezt jelezzük is.                    */
   /* ---------------------------------------------------------------- */
   function fireMode(gun) {
-    if (!gun || !gun.alpha || !gun.reload) return null;
-    const rate = gun.dpm / gun.alpha;              // lövés / perc
-    if (rate / (60 / gun.reload) < 1.05) return null;   // hagyományos ágyú
+    if (!gun) return null;
+
+    if (gun.clip != null) {
+      if (gun.clip <= 1) return null;
+      if (gun.overheat || (gun.clipRate != null && gun.clipRate < 1)) {
+        return { key: "auto", label: "Gépágyú", exact: true };
+      }
+      if (gun.autoreload && gun.autoreload.length) {
+        return { key: "reload", label: "Töltényűrös", exact: true };
+      }
+      return { key: "mag", label: "Táras", exact: true };
+    }
+
+    // Nincs hiteles adat: a tűzgyorsaságból becsülünk. Egylövetű ágyúnál
+    // fire_rate = 60 / újratöltés; ha ennél érdemben több, tárból tüzel.
+    if (!gun.alpha || !gun.reload) return null;
+    const rate = gun.dpm / gun.alpha;
+    if (rate / (60 / gun.reload) < 1.05) return null;
     return rate >= 15
-      ? { key: "auto", label: "Sorozatlövő", rate }
-      : { key: "mag", label: "Táras", rate };
+      ? { key: "auto", label: "Gépágyú", exact: false }
+      : { key: "mag", label: "Táras", exact: false };
   }
 
-  /** A tank legerősebb tüzelési módja — a kártya előlapjára. */
+  /** A tank legfeltűnőbb tüzelési módja — a kártya előlapjára. */
   function tankFireMode(tank) {
     for (const g of tank.guns || []) {
       const m = fireMode(g);
@@ -269,7 +281,6 @@
     const idx = gunIndex === null ? guns.length - 1 : Math.min(gunIndex, guns.length - 1);
     const gun = guns[idx];
     const base = guns[0]; // a stock fegyver a viszonyítási alap
-    const clip = (CLIPS[tank.id] || {})[gun.name];
 
     // A számok a stock fegyverhez képesti különbséget mutatják.
     function delta(key, higherIsBetter) {
@@ -292,24 +303,42 @@
     const premLabel = gun.premType === "HEAT" ? "Pen HEAT" : "Pen APCR";
 
     const mode = fireMode(gun);
-    const rateRows = clip
-      ? statRow("Klip", `${clip.shells} lövedék`) +
-        statRow("Klip sebzés", `${clip.shells * gun.alpha}`) +
-        statRow("Lövés a klipben", `${clip.intraClip} s`) +
-        statRow("Klip újratöltés", `${gun.reload} s`, delta("reload", false))
-      : statRow(mode ? "Teljes újratöltés" : "Újratöltés",
-                `${gun.reload} s`, delta("reload", false));
+
+    // Klip sorok a hiteles adatból. A töltényűrösnél a lövedékek egyenként
+    // töltődnek vissza, egyre lassabban — ezért soronként listázzuk őket.
+    let rateRows;
+    if (gun.clip > 1) {
+      rateRows =
+        statRow(mode && mode.key === "auto" ? "Hevederben" : "Tárban",
+                `${gun.clip} lövedék`) +
+        (gun.alpha ? statRow("Teljes tár sebzése", gun.alpha * gun.clip) : "") +
+        (gun.clipRate ? statRow("Lövések között", `${gun.clipRate} s`) : "") +
+        (gun.autoreload && gun.autoreload.length
+          ? statRow("Visszatöltés lövedékenként",
+                    gun.autoreload.map((x) => `${x}s`).join(" · "))
+          : statRow(gun.overheat ? "Lehűlés" : "Teljes újratöltés",
+                    `${gun.reload} s`, delta("reload", false)));
+    } else {
+      rateRows = statRow("Újratöltés", `${gun.reload} s`, delta("reload", false));
+    }
 
     return `
       ${toggle}
       <div class="gun-name">${esc(gun.name)}
         ${mode ? `<span class="fire-badge fire-${mode.key} inline">${mode.label}</span>` : ""}</div>
-      ${mode ? `<p class="lesson">${mode.key === "auto"
-        ? `Sorozatlövő: rövid idő alatt sok lövedéket zúdít rád, majd
-           <b>${gun.reload} másodpercig</b> tölt. Percenként kb.
-           ${Math.round(mode.rate)} lövés — a DPM ezt már tartalmazza.`
-        : `Tárból tüzel: egymás után több lövedéket ad le, utána
-           <b>${gun.reload} másodpercig</b> védtelen. Akkor támadd, ha kiürült.`}</p>` : ""}
+      ${mode ? `<p class="lesson">${
+        mode.key === "auto"
+          ? `Gépágyú: ${gun.clip || "sok"} lövedéket zúdít rád${gun.clipRate
+              ? ` ${gun.clipRate} másodpercenként` : ""}${gun.overheat
+              ? ", majd a cső túlmelegszik és lehűl" : ""}.`
+        : mode.key === "reload"
+          ? `Töltényűrös: ${gun.clip} lövedék, de nem kell mind ellőnie — a tár
+             egyenként töltődik vissza, egyre lassabban. Rövid szünet után is
+             tud kettőt-hármat egymás után.`
+          : `Táras: ${gun.clip || "több"} lövedéket ad le gyorsan egymás után${
+             gun.clip && gun.alpha ? ` (összesen ${gun.alpha * gun.clip} sebzés)` : ""},
+             utána <b>${gun.reload} másodpercig</b> védtelen. Akkor támadd, ha kiürült.`
+      }${mode.exact ? "" : " <i>(becsült)</i>"}</p>` : ""}
       <div class="stats-block">
         ${statRow("Alpha (sebzés)", gun.alpha, delta("alpha", true))}
         ${/* Nem minden lövegnek van mindhárom lőszertípusa — a hiányzót kihagyjuk. */ ""}
@@ -326,8 +355,6 @@
         ? `<p class="lesson">A ▲/▼ a <b>stock</b> fegyverhez képesti különbség.
              <span style="color:var(--easy)">Zöld</span> = ez jobb benne.</p>`
         : ""}
-      ${clip ? `<p class="source source-manual">A klip mérete és a lövések közti idő
-          <b>kézi adat</b> — a WG API ezeket nem adja. A klip újratöltés hiteles.</p>` : ""}
       ${mode ? `<p class="source">A tüzelési mód a tűzgyorsaság és az újratöltés
         viszonyából derül ki — az API nem adja meg közvetlenül, és a klip
         méretét sem, ezért azt nem találgatjuk.</p>` : ""}
@@ -336,7 +363,11 @@
 
   function renderMobility(tank) {
     const m = tank.mobility || {};
-    const camo = CAMO[tank.id];
+    // Az álca a WG tankopédiából jön (hiteles); a régi kézi becslést kiváltja.
+    const v = tank.vision || {};
+    const camo = v.camoStill != null
+      ? { still: v.camoStill, moving: v.camoMoving }
+      : CAMO[tank.id];
     return `
       <div class="stats-block">
         ${statRow("Életerő", `${tank.hp} HP`)}
@@ -354,7 +385,9 @@
         ${camo ? statRow("Álca (állva)", `${camo.still}%`) : ""}
         ${camo ? statRow("Álca (mozgás)", `${camo.moving}%`) : ""}
       </div>
-      ${camo ? `<p class="source source-manual">Az álca értékek <b>kézi adatok</b> — az API nem adja.</p>` : ""}
+      ${camo && v.camoStill == null
+        ? `<p class="source source-manual">Az álca <b>kézi becslés</b> — ehhez a járműhöz
+           a tankopédia nem ad adatot.</p>` : ""}
       <p class="source">A többi WG API-ból, alapértékek felszerelés nélkül</p>`;
   }
 
@@ -428,7 +461,8 @@
     if (filter.premium === "tech") bits.push("tech tree");
     if (filter.premium === "prem") bits.push("prémium");
     if (filter.fire === "mag") bits.push("táras");
-    if (filter.fire === "auto") bits.push("sorozatlövő");
+    if (filter.fire === "reload") bits.push("töltényűrös");
+    if (filter.fire === "auto") bits.push("gépágyú");
     if (filter.fire === "single") bits.push("egylövetű");
     const summary = bits.length ? bits.join(" · ") : "Mind";
 
@@ -452,7 +486,9 @@
       return k === "single" ? !m : m && m.key === k;
     }).length;
     const fire = [["all", "Mind"], ["single", `Egylövetű ${nFire("single")}`],
-                  ["mag", `Táras ${nFire("mag")}`], ["auto", `Sorozatlövő ${nFire("auto")}`]]
+                  ["mag", `Táras ${nFire("mag")}`],
+                  ["reload", `Töltényűrös ${nFire("reload")}`],
+                  ["auto", `Gépágyú ${nFire("auto")}`]]
       .map(([v, l]) => chip(filter.fire === v, `data-fire="${v}"`, l)).join("");
 
     bar.innerHTML = `

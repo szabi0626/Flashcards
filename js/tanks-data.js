@@ -22,10 +22,10 @@ const TANKS = [
     hp: 1650, weight: 51.0,
     armor: { hull: { front: 110, sides: 90, rear: 60 }, turret: { front: 235, sides: 140, rear: 120 } },
     mobility: { topSpeed: 38, reverse: 15, enginePower: 750, hpPerTon: 14.7, turretTraverse: 26, hullTraverse: 34 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "85 mm D-5TD", caliber: 85, stock: true, alpha: 230, penAP: 212, penPrem: 238, premType: "APCR", penHE: 43, reload: 6.3, dpm: 2190, accuracy: 0.38, aimTime: 2.2, depression: -7 },
-      { name: "100 mm S-34D (IS-2-II)", caliber: 100, stock: false, alpha: 300, penAP: 221, penPrem: 256, premType: "APCR", penHE: 50, reload: 8.0, dpm: 2250, accuracy: 0.38, aimTime: 2.3, depression: -7 },
+      { name: "85 mm D-5TD", caliber: 85, stock: true, alpha: 230, penAP: 212, penPrem: 238, premType: "APCR", penHE: 43, reload: 6.3, dpm: 2190, accuracy: 0.38, aimTime: 2.2, depression: -7 , clip: 1 },
+      { name: "100 mm S-34D (IS-2-II)", caliber: 100, stock: false, alpha: 300, penAP: 221, penPrem: 256, premType: "APCR", penHE: 50, reload: 8.0, dpm: 2250, accuracy: 0.38, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -37,10 +37,10 @@ const TANKS = [
     hp: 1650, weight: 49.1,
     armor: { hull: { front: 110, sides: 90, rear: 60 }, turret: { front: 249, sides: 172, rear: 100 } },
     mobility: { topSpeed: 45, reverse: 15, enginePower: 800, hpPerTon: 16.3, turretTraverse: 26, hullTraverse: 36 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25T (IS-3)", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 225, premType: "APCR", penHE: 61, reload: 12.3, dpm: 1903, accuracy: 0.42, aimTime: 3.4, depression: -5 },
-      { name: "122 mm BL-9 (IS-3)", caliber: 122, stock: false, alpha: 390, penAP: 225, penPrem: 265, premType: "APCR", penHE: 68, reload: 13.3, dpm: 1759, accuracy: 0.4, aimTime: 3.0, depression: -5 },
+      { name: "122 mm D-25T (IS-3)", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 225, premType: "APCR", penHE: 61, reload: 12.3, dpm: 1903, accuracy: 0.42, aimTime: 3.4, depression: -5 , clip: 1 },
+      { name: "122 mm BL-9 (IS-3)", caliber: 122, stock: false, alpha: 390, penAP: 225, penPrem: 265, premType: "APCR", penHE: 68, reload: 13.3, dpm: 1759, accuracy: 0.4, aimTime: 3.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -52,9 +52,9 @@ const TANKS = [
     hp: 1550, weight: 49.0,
     armor: { hull: { front: 110, sides: 90, rear: 60 }, turret: { front: 249, sides: 172, rear: 100 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 520, hpPerTon: 10.6, turretTraverse: 22, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 11.0, dpm: 1950, accuracy: 0.46, aimTime: 3.0, depression: -5 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 11.0, dpm: 1950, accuracy: 0.46, aimTime: 3.0, depression: -5 , clip: 3, clipRate: 3.0, autoreload: [12.0, 15.0, 18.0] },
     ],
   },
   {
@@ -66,9 +66,9 @@ const TANKS = [
     hp: 1550, weight: 49.0,
     armor: { hull: { front: 110, sides: 90, rear: 60 }, turret: { front: 249, sides: 172, rear: 100 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 520, hpPerTon: 10.6, turretTraverse: 22, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA-2", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 11.0, dpm: 1950, accuracy: 0.46, aimTime: 3.0, depression: -5 },
+      { name: "122 mm D-25TA-2", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 11.0, dpm: 1950, accuracy: 0.46, aimTime: 3.0, depression: -5 , clip: 3, clipRate: 3.0, autoreload: [12.0, 15.0, 18.0] },
     ],
   },
   {
@@ -80,9 +80,9 @@ const TANKS = [
     hp: 1550, weight: 49.0,
     armor: { hull: { front: 120, sides: 120, rear: 60 }, turret: { front: 201, sides: 129, rear: 90 } },
     mobility: { topSpeed: 42, reverse: 14, enginePower: 700, hpPerTon: 14.3, turretTraverse: 24, hullTraverse: 26 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 12.6, dpm: 1856, accuracy: 0.42, aimTime: 2.7, depression: -7 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 12.6, dpm: 1856, accuracy: 0.42, aimTime: 2.7, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -94,9 +94,9 @@ const TANKS = [
     hp: 1550, weight: 51.5,
     armor: { hull: { front: 110, sides: 100, rear: 60 }, turret: { front: 150, sides: 150, rear: 100 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 700, hpPerTon: 13.6, turretTraverse: 24, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-30", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 225, premType: "APCR", penHE: 61, reload: 11.7, dpm: 2001, accuracy: 0.44, aimTime: 2.8, depression: -6 },
+      { name: "122 mm D-30", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 225, premType: "APCR", penHE: 61, reload: 11.7, dpm: 2001, accuracy: 0.44, aimTime: 2.8, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -108,9 +108,9 @@ const TANKS = [
     hp: 1550, weight: 51.5,
     armor: { hull: { front: 110, sides: 100, rear: 60 }, turret: { front: 150, sides: 150, rear: 100 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 700, hpPerTon: 13.6, turretTraverse: 24, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-30", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 225, premType: "APCR", penHE: 61, reload: 11.7, dpm: 2001, accuracy: 0.44, aimTime: 2.8, depression: -6 },
+      { name: "122 mm D-30", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 225, premType: "APCR", penHE: 61, reload: 11.7, dpm: 2001, accuracy: 0.44, aimTime: 2.8, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -136,10 +136,10 @@ const TANKS = [
     hp: 1650, weight: 55.0,
     armor: { hull: { front: 130, sides: 120, rear: 80 }, turret: { front: 250, sides: 140, rear: 120 } },
     mobility: { topSpeed: 35, reverse: 12, enginePower: 750, hpPerTon: 13.6, turretTraverse: 32, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25T (IS-M)", caliber: 122, stock: true, alpha: 390, penAP: 206, penPrem: 242, premType: "APCR", penHE: 61, reload: 12.3, dpm: 1903, accuracy: 0.43, aimTime: 3.0, depression: -5 },
-      { name: "122 mm D-25BM", caliber: 122, stock: false, alpha: 390, penAP: 221, penPrem: 258, premType: "APCR", penHE: 68, reload: 11.7, dpm: 2001, accuracy: 0.42, aimTime: 2.8, depression: -5 },
+      { name: "122 mm D-25T (IS-M)", caliber: 122, stock: true, alpha: 390, penAP: 206, penPrem: 242, premType: "APCR", penHE: 61, reload: 12.3, dpm: 1903, accuracy: 0.43, aimTime: 3.0, depression: -5 , clip: 1 },
+      { name: "122 mm D-25BM", caliber: 122, stock: false, alpha: 390, penAP: 221, penPrem: 258, premType: "APCR", penHE: 68, reload: 11.7, dpm: 2001, accuracy: 0.42, aimTime: 2.8, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -151,9 +151,9 @@ const TANKS = [
     hp: 1650, weight: 55.0,
     armor: { hull: { front: 160, sides: 150, rear: 120 }, turret: { front: 250, sides: 160, rear: 160 } },
     mobility: { topSpeed: 30, reverse: 12, enginePower: 715, hpPerTon: 13.0, turretTraverse: 21, hullTraverse: 21 },
-    vision: { viewRange: 340 },
+    vision: { viewRange: 340 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25T-N", caliber: 122, stock: true, alpha: 390, penAP: 203, penPrem: 270, premType: "HEAT", penHE: 68, reload: 15.0, dpm: 1560, accuracy: 0.44, aimTime: 2.9, depression: -6 },
+      { name: "122 mm D-25T-N", caliber: 122, stock: true, alpha: 390, penAP: 203, penPrem: 270, premType: "HEAT", penHE: 68, reload: 15.0, dpm: 1560, accuracy: 0.44, aimTime: 2.9, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -165,11 +165,11 @@ const TANKS = [
     hp: 1800, weight: 106.7,
     armor: { hull: { front: 180, sides: 150, rear: 90 }, turret: { front: 220, sides: 150, rear: 140 } },
     mobility: { topSpeed: 32, reverse: 11, enginePower: 1330, hpPerTon: 12.5, turretTraverse: 20, hullTraverse: 25 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "107 mm ZiS-6 (KV-4)", caliber: 107, stock: true, alpha: 300, penAP: 204, penPrem: 265, premType: "APCR", penHE: 54, reload: 8.2, dpm: 2196, accuracy: 0.37, aimTime: 2.4, depression: -6 },
-      { name: "122 mm D-25T (KV-4)", caliber: 122, stock: false, alpha: 390, penAP: null, penPrem: 217, premType: "APCR", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.42, aimTime: 3.0, depression: -8 },
-      { name: "107 mm ZiS-24", caliber: 107, stock: false, alpha: 320, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 8.6, dpm: 2234, accuracy: 0.36, aimTime: 2.3, depression: -6 },
+      { name: "107 mm ZiS-6 (KV-4)", caliber: 107, stock: true, alpha: 300, penAP: 204, penPrem: 265, premType: "APCR", penHE: 54, reload: 8.2, dpm: 2196, accuracy: 0.37, aimTime: 2.4, depression: -6 , clip: 1 },
+      { name: "122 mm D-25T (KV-4)", caliber: 122, stock: false, alpha: 390, penAP: null, penPrem: 217, premType: "APCR", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.42, aimTime: 3.0, depression: -8 , clip: 1 },
+      { name: "107 mm ZiS-24", caliber: 107, stock: false, alpha: 320, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 8.6, dpm: 2234, accuracy: 0.36, aimTime: 2.3, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -181,9 +181,9 @@ const TANKS = [
     hp: 1700, weight: 92.6,
     armor: { hull: { front: 180, sides: 125, rear: 90 }, turret: { front: 200, sides: 160, rear: 100 } },
     mobility: { topSpeed: 40, reverse: 16, enginePower: 1350, hpPerTon: 14.6, turretTraverse: 24, hullTraverse: 20 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 4.0, camoMoving: 2.0 },
     guns: [
-      { name: "107 mm M-75", caliber: 107, stock: true, alpha: 320, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 11.3, dpm: 1699, accuracy: 0.38, aimTime: 2.9, depression: -7 },
+      { name: "107 mm M-75", caliber: 107, stock: true, alpha: 320, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 11.3, dpm: 1699, accuracy: 0.38, aimTime: 2.9, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -195,9 +195,9 @@ const TANKS = [
     hp: 1600, weight: 90.0,
     armor: { hull: { front: 180, sides: 150, rear: 140 }, turret: { front: 220, sides: 150, rear: 100 } },
     mobility: { topSpeed: 30, reverse: 12, enginePower: 1140, hpPerTon: 12.7, turretTraverse: 22, hullTraverse: 22 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "107 mm ZiS-6U", caliber: 107, stock: true, alpha: 300, penAP: 225, penPrem: 255, premType: "APCR", penHE: 53, reload: 8.5, dpm: 2118, accuracy: 0.42, aimTime: 2.3, depression: -6 },
+      { name: "107 mm ZiS-6U", caliber: 107, stock: true, alpha: 300, penAP: 225, penPrem: 255, premType: "APCR", penHE: 53, reload: 8.5, dpm: 2118, accuracy: 0.42, aimTime: 2.3, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -209,9 +209,9 @@ const TANKS = [
     hp: 1780, weight: 100.2,
     armor: { hull: { front: 180, sides: 150, rear: 140 }, turret: { front: 190, sides: 180, rear: 180 } },
     mobility: { topSpeed: 40, reverse: 14, enginePower: 1200, hpPerTon: 12.0, turretTraverse: 21, hullTraverse: 18 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 5.0, camoMoving: 3.0 },
     guns: [
-      { name: "107 mm ZiS-6M", caliber: 107, stock: true, alpha: 300, penAP: 196, penPrem: 219, premType: "APCR", penHE: 54, reload: 8.57, dpm: 2100, accuracy: 0.4, aimTime: 2.3, depression: -7 },
+      { name: "107 mm ZiS-6M", caliber: 107, stock: true, alpha: 300, penAP: 196, penPrem: 219, premType: "APCR", penHE: 54, reload: 8.57, dpm: 2100, accuracy: 0.4, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -223,9 +223,9 @@ const TANKS = [
     hp: 1550, weight: 47.5,
     armor: { hull: { front: 140, sides: 100, rear: 60 }, turret: { front: 195, sides: 120, rear: 100 } },
     mobility: { topSpeed: 42, reverse: 20, enginePower: 720, hpPerTon: 15.2, turretTraverse: 24, hullTraverse: 26 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.45, aimTime: 3.1, depression: -5 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.45, aimTime: 3.1, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -237,9 +237,9 @@ const TANKS = [
     hp: 1500, weight: 51.5,
     armor: { hull: { front: 130, sides: 100, rear: 90 }, turret: { front: 250, sides: 150, rear: 100 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 700, hpPerTon: 13.6, turretTraverse: 24, hullTraverse: 30 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm BL-13", caliber: 122, stock: true, alpha: 440, penAP: 225, penPrem: 265, premType: "APCR", penHE: 68, reload: 15.0, dpm: 1760, accuracy: 0.44, aimTime: 3.2, depression: -6 },
+      { name: "122 mm BL-13", caliber: 122, stock: true, alpha: 440, penAP: 225, penPrem: 265, premType: "APCR", penHE: 68, reload: 15.0, dpm: 1760, accuracy: 0.44, aimTime: 3.2, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -251,9 +251,9 @@ const TANKS = [
     hp: 1500, weight: 51.5,
     armor: { hull: { front: 130, sides: 100, rear: 90 }, turret: { front: 250, sides: 150, rear: 100 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 700, hpPerTon: 13.6, turretTraverse: 24, hullTraverse: 30 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm BL-13", caliber: 122, stock: true, alpha: 440, penAP: 225, penPrem: 265, premType: "APCR", penHE: 68, reload: 15.0, dpm: 1760, accuracy: 0.44, aimTime: 3.2, depression: -6 },
+      { name: "122 mm BL-13", caliber: 122, stock: true, alpha: 440, penAP: 225, penPrem: 265, premType: "APCR", penHE: 68, reload: 15.0, dpm: 1760, accuracy: 0.44, aimTime: 3.2, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -293,9 +293,9 @@ const TANKS = [
     hp: 1500, weight: 60.0,
     armor: { hull: { front: 140, sides: 100, rear: 60 }, turret: { front: 220, sides: 120, rear: 90 } },
     mobility: { topSpeed: 38, reverse: 15, enginePower: 720, hpPerTon: 12.0, turretTraverse: 20, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25E-A2", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 12.5, dpm: 1872, accuracy: 0.44, aimTime: 3.5, depression: -5 },
+      { name: "122 mm D-25E-A2", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 12.5, dpm: 1872, accuracy: 0.44, aimTime: 3.5, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -307,9 +307,9 @@ const TANKS = [
     hp: 1600, weight: 65.0,
     armor: { hull: { front: 150, sides: 100, rear: 90 }, turret: { front: 300, sides: 155, rear: 100 } },
     mobility: { topSpeed: 45, reverse: 12, enginePower: 900, hpPerTon: 13.8, turretTraverse: 25, hullTraverse: 27 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "122 mm S-34-IIM", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.42, aimTime: 3.1, depression: -6 },
+      { name: "122 mm S-34-IIM", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 221, premType: "APCR", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.42, aimTime: 3.1, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -321,9 +321,9 @@ const TANKS = [
     hp: 1300, weight: 40.0,
     armor: { hull: { front: 70, sides: 50, rear: 40 }, turret: { front: 150, sides: 80, rear: 45 } },
     mobility: { topSpeed: 60, reverse: 18, enginePower: 800, hpPerTon: 20.0, turretTraverse: 36, hullTraverse: 50 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 29.0, camoMoving: 21.0 },
     guns: [
-      { name: "107 mm LP-21", caliber: 107, stock: true, alpha: 340, penAP: 227, penPrem: 285, premType: "APCR", penHE: 62, reload: 9.7, dpm: 2105, accuracy: 0.34, aimTime: 2.1, depression: -5 },
+      { name: "107 mm LP-21", caliber: 107, stock: true, alpha: 340, penAP: 227, penPrem: 285, premType: "APCR", penHE: 62, reload: 9.7, dpm: 2105, accuracy: 0.34, aimTime: 2.1, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -335,9 +335,9 @@ const TANKS = [
     hp: 1200, weight: 40.0,
     armor: { hull: { front: 95, sides: 70, rear: 45 }, turret: { front: 220, sides: 130, rear: 60 } },
     mobility: { topSpeed: 58, reverse: 15, enginePower: 690, hpPerTon: 17.3, turretTraverse: 36, hullTraverse: 45 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "107 mm 9S1", caliber: 107, stock: true, alpha: 320, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 9.0, dpm: 2134, accuracy: 0.38, aimTime: 2.7, depression: -6 },
+      { name: "107 mm 9S1", caliber: 107, stock: true, alpha: 320, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 9.0, dpm: 2134, accuracy: 0.38, aimTime: 2.7, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -349,10 +349,10 @@ const TANKS = [
     hp: 1450, weight: 24.0,
     armor: { hull: { front: 75, sides: 45, rear: 45 }, turret: { front: 110, sides: 75, rear: 45 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 440, hpPerTon: 18.3, turretTraverse: 40, hullTraverse: 52 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 42.0, camoMoving: 31.0 },
     guns: [
-      { name: "100 mm D-10T", caliber: 100, stock: true, alpha: 250, penAP: 195, penPrem: 235, premType: "APCR", penHE: 50, reload: 6.0, dpm: 2500, accuracy: 0.35, aimTime: 2.0, depression: -4 },
-      { name: "100 mm M-63 (416)", caliber: 100, stock: false, alpha: 320, penAP: 216, penPrem: 330, premType: "HEAT", penHE: 50, reload: 8.0, dpm: 2400, accuracy: 0.35, aimTime: 2.0, depression: -4 },
+      { name: "100 mm D-10T", caliber: 100, stock: true, alpha: 250, penAP: 195, penPrem: 235, premType: "APCR", penHE: 50, reload: 6.0, dpm: 2500, accuracy: 0.35, aimTime: 2.0, depression: -4 , clip: 1 },
+      { name: "100 mm M-63 (416)", caliber: 100, stock: false, alpha: 320, penAP: 216, penPrem: 330, premType: "HEAT", penHE: 50, reload: 8.0, dpm: 2400, accuracy: 0.35, aimTime: 2.0, depression: -4 , clip: 1 },
     ],
   },
   {
@@ -364,9 +364,9 @@ const TANKS = [
     hp: 1300, weight: 40.0,
     armor: { hull: { front: 120, sides: 65, rear: 40 }, turret: { front: 205, sides: 100, rear: 40 } },
     mobility: { topSpeed: 42, reverse: 16, enginePower: 520, hpPerTon: 13.0, turretTraverse: 36, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 29.0, camoMoving: 22.0 },
     guns: [
-      { name: "85 mm N-3-457", caliber: 85, stock: true, alpha: 200, penAP: 212, penPrem: 242, premType: "APCR", penHE: 50, reload: 5.2, dpm: 2308, accuracy: 0.34, aimTime: 2.0, depression: -6 },
+      { name: "85 mm N-3-457", caliber: 85, stock: true, alpha: 200, penAP: 212, penPrem: 242, premType: "APCR", penHE: 50, reload: 5.2, dpm: 2308, accuracy: 0.34, aimTime: 2.0, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -378,9 +378,9 @@ const TANKS = [
     hp: 1300, weight: 40.0,
     armor: { hull: { front: 120, sides: 60, rear: 45 }, turret: { front: 250, sides: 100, rear: 60 } },
     mobility: { topSpeed: 50, reverse: 16, enginePower: 720, hpPerTon: 18.0, turretTraverse: 35, hullTraverse: 40 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 24.0, camoMoving: 18.0 },
     guns: [
-      { name: "100 mm T-12 (a)", caliber: 100, stock: true, alpha: 300, penAP: null, penPrem: 217, premType: "APCR", penHE: 50, reload: 8.2, dpm: 2196, accuracy: 0.37, aimTime: 1.9, depression: -6 },
+      { name: "100 mm T-12 (a)", caliber: 100, stock: true, alpha: 300, penAP: null, penPrem: 217, premType: "APCR", penHE: 50, reload: 8.2, dpm: 2196, accuracy: 0.37, aimTime: 1.9, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -392,9 +392,9 @@ const TANKS = [
     hp: 1350, weight: 28.0,
     armor: { hull: { front: 100, sides: 45, rear: 45 }, turret: { front: 210, sides: 180, rear: 45 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 450, hpPerTon: 16.1, turretTraverse: 35, hullTraverse: 45 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 30.0, camoMoving: 23.0 },
     guns: [
-      { name: "122 mm D-25TS", caliber: 122, stock: true, alpha: 390, penAP: 212, penPrem: 248, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.33, aimTime: 2.5, depression: -6 },
+      { name: "122 mm D-25TS", caliber: 122, stock: true, alpha: 390, penAP: 212, penPrem: 248, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.33, aimTime: 2.5, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -406,9 +406,9 @@ const TANKS = [
     hp: 1350, weight: 28.0,
     armor: { hull: { front: 100, sides: 45, rear: 45 }, turret: { front: 210, sides: 180, rear: 45 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 450, hpPerTon: 16.1, turretTraverse: 35, hullTraverse: 45 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 30.0, camoMoving: 23.0 },
     guns: [
-      { name: "122 mm D-25TS", caliber: 122, stock: true, alpha: 390, penAP: 212, penPrem: 248, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.33, aimTime: 2.5, depression: -6 },
+      { name: "122 mm D-25TS", caliber: 122, stock: true, alpha: 390, penAP: 212, penPrem: 248, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.33, aimTime: 2.5, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -420,11 +420,11 @@ const TANKS = [
     hp: 1450, weight: 34.2,
     armor: { hull: { front: 105, sides: 75, rear: 45 }, turret: { front: 200, sides: 130, rear: 100 } },
     mobility: { topSpeed: 56, reverse: 23, enginePower: 730, hpPerTon: 21.4, turretTraverse: 48, hullTraverse: 56 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 29.0, camoMoving: 21.0 },
     guns: [
-      { name: "85 mm ZiS-S-53", caliber: 85, stock: true, alpha: 220, penAP: 198, penPrem: 245, premType: "APCR", penHE: 44, reload: 6.0, dpm: 2200, accuracy: 0.34, aimTime: 2.1, depression: -7 },
-      { name: "100 mm LB-1", caliber: 100, stock: false, alpha: 250, penAP: 215, penPrem: 267, premType: "APCR", penHE: 50, reload: 6.8, dpm: 2205, accuracy: 0.35, aimTime: 2.1, depression: -7 },
-      { name: "122 mm D-25-44T", caliber: 122, stock: false, alpha: 390, penAP: 175, penPrem: 217, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.4, aimTime: 3.0, depression: -5 },
+      { name: "85 mm ZiS-S-53", caliber: 85, stock: true, alpha: 220, penAP: 198, penPrem: 245, premType: "APCR", penHE: 44, reload: 6.0, dpm: 2200, accuracy: 0.34, aimTime: 2.1, depression: -7 , clip: 1 },
+      { name: "100 mm LB-1", caliber: 100, stock: false, alpha: 250, penAP: 215, penPrem: 267, premType: "APCR", penHE: 50, reload: 6.8, dpm: 2205, accuracy: 0.35, aimTime: 2.1, depression: -7 , clip: 1 },
+      { name: "122 mm D-25-44T", caliber: 122, stock: false, alpha: 390, penAP: 175, penPrem: 217, premType: "APCR", penHE: 61, reload: 13.0, dpm: 1802, accuracy: 0.4, aimTime: 3.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -450,9 +450,9 @@ const TANKS = [
     hp: 1350, weight: 33.5,
     armor: { hull: { front: 90, sides: 75, rear: 45 }, turret: { front: 190, sides: 130, rear: 100 } },
     mobility: { topSpeed: 52, reverse: 23, enginePower: 760, hpPerTon: 22.7, turretTraverse: 48, hullTraverse: 51 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 29.0, camoMoving: 22.0 },
     guns: [
-      { name: "100 mm LB-1", caliber: 100, stock: true, alpha: 250, penAP: 210, penPrem: 253, premType: "APCR", penHE: 50, reload: 6.5, dpm: 2308, accuracy: 0.35, aimTime: 2.0, depression: -7 },
+      { name: "100 mm LB-1", caliber: 100, stock: true, alpha: 250, penAP: 210, penPrem: 253, premType: "APCR", penHE: 50, reload: 6.5, dpm: 2308, accuracy: 0.35, aimTime: 2.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -478,9 +478,9 @@ const TANKS = [
     hp: 1300, weight: 35.5,
     armor: { hull: { front: 120, sides: 90, rear: 45 }, turret: { front: 200, sides: 120, rear: 75 } },
     mobility: { topSpeed: 44, reverse: 18, enginePower: 760, hpPerTon: 21.4, turretTraverse: 40, hullTraverse: 42 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 29.0, camoMoving: 22.0 },
     guns: [
-      { name: "100 mm D10T-K", caliber: 100, stock: true, alpha: 250, penAP: 190, penPrem: 247, premType: "APCR", penHE: 50, reload: 8.0, dpm: 1875, accuracy: 0.36, aimTime: 2.2, depression: -7 },
+      { name: "100 mm D10T-K", caliber: 100, stock: true, alpha: 250, penAP: 190, penPrem: 247, premType: "APCR", penHE: 50, reload: 8.0, dpm: 1875, accuracy: 0.36, aimTime: 2.2, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -520,9 +520,9 @@ const TANKS = [
     hp: 1100, weight: 27.0,
     armor: { hull: { front: 70, sides: 40, rear: 40 }, turret: { front: 160, sides: 100, rear: 60 } },
     mobility: { topSpeed: 70, reverse: 23, enginePower: 900, hpPerTon: 33.3, turretTraverse: 48, hullTraverse: 48 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 33.0, camoMoving: 33.0 },
     guns: [
-      { name: "85 mm D-58", caliber: 85, stock: true, alpha: 180, penAP: 218, penPrem: 176, premType: "APCR", penHE: 44, reload: 5.2, dpm: 2077, accuracy: 0.38, aimTime: 2.0, depression: -7 },
+      { name: "85 mm D-58", caliber: 85, stock: true, alpha: 180, penAP: 218, penPrem: 176, premType: "APCR", penHE: 44, reload: 5.2, dpm: 2077, accuracy: 0.38, aimTime: 2.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -548,10 +548,10 @@ const TANKS = [
     hp: 1200, weight: 22.7,
     armor: { hull: { front: 90, sides: 45, rear: 40 }, turret: { front: 90, sides: 75, rear: 52 } },
     mobility: { topSpeed: 68, reverse: 20, enginePower: 770, hpPerTon: 34.0, turretTraverse: 48, hullTraverse: 62 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 27.0, camoMoving: 27.0 },
     guns: [
-      { name: "85 mm D-5T-85BMU", caliber: 85, stock: true, alpha: 180, penAP: 144, penPrem: 194, premType: "APCR", penHE: 44, reload: 5.2, dpm: 2077, accuracy: 0.36, aimTime: 2.0, depression: -5 },
-      { name: "85 mm D-10-85", caliber: 85, stock: false, alpha: 180, penAP: 185, penPrem: 216, premType: "APCR", penHE: 44, reload: 5.1, dpm: 2117, accuracy: 0.35, aimTime: 2.0, depression: -5 },
+      { name: "85 mm D-5T-85BMU", caliber: 85, stock: true, alpha: 180, penAP: 144, penPrem: 194, premType: "APCR", penHE: 44, reload: 5.2, dpm: 2077, accuracy: 0.36, aimTime: 2.0, depression: -5 , clip: 1 },
+      { name: "85 mm D-10-85", caliber: 85, stock: false, alpha: 180, penAP: 185, penPrem: 216, premType: "APCR", penHE: 44, reload: 5.1, dpm: 2117, accuracy: 0.35, aimTime: 2.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -563,9 +563,9 @@ const TANKS = [
     hp: 1100, weight: 24.0,
     armor: { hull: { front: 20, sides: 15, rear: 8 }, turret: null },
     mobility: { topSpeed: 65, reverse: 20, enginePower: 400, hpPerTon: 16.7, turretTraverse: null, hullTraverse: 36 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 34.0, camoMoving: 20.0 },
     guns: [
-      { name: "130 mm M-65D", caliber: 130, stock: true, alpha: 520, penAP: 243, penPrem: 320, premType: "HEAT", penHE: 65, reload: 13.6, dpm: 2293, accuracy: 0.35, aimTime: 2.3, depression: -7 },
+      { name: "130 mm M-65D", caliber: 130, stock: true, alpha: 520, penAP: 243, penPrem: 320, premType: "HEAT", penHE: 65, reload: 13.6, dpm: 2293, accuracy: 0.35, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -577,9 +577,9 @@ const TANKS = [
     hp: 1300, weight: 50.0,
     armor: { hull: { front: 190, sides: 65, rear: 40 }, turret: null },
     mobility: { topSpeed: 40, reverse: 20, enginePower: 750, hpPerTon: 15.0, turretTraverse: null, hullTraverse: 30 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 23.0, camoMoving: 14.0 },
     guns: [
-      { name: "122 mm BL-13S", caliber: 122, stock: true, alpha: 390, penAP: 258, penPrem: 300, premType: "HEAT", penHE: 68, reload: 10.0, dpm: 2340, accuracy: 0.37, aimTime: 2.0, depression: -5 },
+      { name: "122 mm BL-13S", caliber: 122, stock: true, alpha: 390, penAP: 258, penPrem: 300, premType: "HEAT", penHE: 68, reload: 10.0, dpm: 2340, accuracy: 0.37, aimTime: 2.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -591,9 +591,9 @@ const TANKS = [
     hp: 1000, weight: 47.0,
     armor: { hull: { front: 90, sides: 90, rear: 60 }, turret: null },
     mobility: { topSpeed: 38, reverse: 14, enginePower: 600, hpPerTon: 12.8, turretTraverse: null, hullTraverse: 28 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 17.0 },
     guns: [
-      { name: "130 mm S-26", caliber: 130, stock: true, alpha: 570, penAP: 212, penPrem: null, premType: null, penHE: 65, reload: 10.3, dpm: 3323, accuracy: 0.37, aimTime: 2.1, depression: -8 },
+      { name: "130 mm S-26", caliber: 130, stock: true, alpha: 570, penAP: 212, penPrem: null, premType: null, penHE: 65, reload: 10.3, dpm: 3323, accuracy: 0.37, aimTime: 2.1, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -605,10 +605,10 @@ const TANKS = [
     hp: 1250, weight: 49.2,
     armor: { hull: { front: 90, sides: 90, rear: 60 }, turret: null },
     mobility: { topSpeed: 43, reverse: 13, enginePower: 780, hpPerTon: 15.9, turretTraverse: null, hullTraverse: 30 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 26.0, camoMoving: 16.0 },
     guns: [
-      { name: "152 mm ML-20S", caliber: 152, stock: true, alpha: 700, penAP: null, penPrem: 280, premType: "HEAT", penHE: 86, reload: 17.1, dpm: 2457, accuracy: 0.44, aimTime: 3.2, depression: -6 },
-      { name: "152 mm D-4S", caliber: 152, stock: false, alpha: 750, penAP: 260, penPrem: 292, premType: "APCR", penHE: 90, reload: 17.6, dpm: 2558, accuracy: 0.38, aimTime: 3.1, depression: -6 },
+      { name: "152 mm ML-20S", caliber: 152, stock: true, alpha: 700, penAP: null, penPrem: 280, premType: "HEAT", penHE: 86, reload: 17.1, dpm: 2457, accuracy: 0.44, aimTime: 3.2, depression: -6 , clip: 1 },
+      { name: "152 mm D-4S", caliber: 152, stock: false, alpha: 750, penAP: 260, penPrem: 292, premType: "APCR", penHE: 90, reload: 17.6, dpm: 2558, accuracy: 0.38, aimTime: 3.1, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -620,9 +620,9 @@ const TANKS = [
     hp: 1200, weight: 47.2,
     armor: { hull: { front: 90, sides: 90, rear: 60 }, turret: null },
     mobility: { topSpeed: 40, reverse: 12, enginePower: 600, hpPerTon: 12.7, turretTraverse: null, hullTraverse: 22 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 26.0, camoMoving: 16.0 },
     guns: [
-      { name: "152 mm BL-10A", caliber: 152, stock: true, alpha: 750, penAP: 286, penPrem: 329, premType: "APCR", penHE: 90, reload: 19.0, dpm: 2370, accuracy: 0.42, aimTime: 3.4, depression: -5 },
+      { name: "152 mm BL-10A", caliber: 152, stock: true, alpha: 750, penAP: 286, penPrem: 329, premType: "APCR", penHE: 90, reload: 19.0, dpm: 2370, accuracy: 0.42, aimTime: 3.4, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -634,9 +634,9 @@ const TANKS = [
     hp: 1400, weight: 100.0,
     armor: { hull: { front: 200, sides: 125, rear: 125 }, turret: null },
     mobility: { topSpeed: 35, reverse: 10, enginePower: 1200, hpPerTon: 12.0, turretTraverse: null, hullTraverse: 24 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 10.0, camoMoving: 6.0 },
     guns: [
-      { name: "107 mm M-75K", caliber: 107, stock: true, alpha: 360, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 8.4, dpm: 2570, accuracy: 0.36, aimTime: 2.5, depression: -5 },
+      { name: "107 mm M-75K", caliber: 107, stock: true, alpha: 360, penAP: 227, penPrem: 289, premType: "APCR", penHE: 62, reload: 8.4, dpm: 2570, accuracy: 0.36, aimTime: 2.5, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -648,9 +648,9 @@ const TANKS = [
     hp: 1200, weight: 37.0,
     armor: { hull: { front: 110, sides: 40, rear: 30 }, turret: null },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 680, hpPerTon: 18.4, turretTraverse: null, hullTraverse: 30 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 31.0, camoMoving: 19.0 },
     guns: [
-      { name: "130 mm M-65B", caliber: 130, stock: true, alpha: 550, penAP: 279, penPrem: 320, premType: "HEAT", penHE: 65, reload: 17.8, dpm: 1854, accuracy: 0.43, aimTime: 3.0, depression: -5 },
+      { name: "130 mm M-65B", caliber: 130, stock: true, alpha: 550, penAP: 279, penPrem: 320, premType: "HEAT", penHE: 65, reload: 17.8, dpm: 1854, accuracy: 0.43, aimTime: 3.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -662,10 +662,10 @@ const TANKS = [
     hp: 1300, weight: 35.2,
     armor: { hull: { front: 150, sides: 90, rear: 40 }, turret: null },
     mobility: { topSpeed: 54, reverse: 18, enginePower: 620, hpPerTon: 17.6, turretTraverse: null, hullTraverse: 25 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 36.0, camoMoving: 21.0 },
     guns: [
-      { name: "100 mm D-10S mod. 1944", caliber: 100, stock: true, alpha: 320, penAP: 232, penPrem: 330, premType: "HEAT", penHE: 50, reload: 8.7, dpm: 2208, accuracy: 0.39, aimTime: 2.1, depression: -3 },
-      { name: "122 mm M62-S2 (SU-101)", caliber: 122, stock: false, alpha: 440, penAP: 258, penPrem: 340, premType: "HEAT", penHE: 68, reload: 12.6, dpm: 2094, accuracy: 0.42, aimTime: 2.5, depression: -3 },
+      { name: "100 mm D-10S mod. 1944", caliber: 100, stock: true, alpha: 320, penAP: 232, penPrem: 330, premType: "HEAT", penHE: 50, reload: 8.7, dpm: 2208, accuracy: 0.39, aimTime: 2.1, depression: -3 , clip: 1 },
+      { name: "122 mm M62-S2 (SU-101)", caliber: 122, stock: false, alpha: 440, penAP: 258, penPrem: 340, premType: "HEAT", penHE: 68, reload: 12.6, dpm: 2094, accuracy: 0.42, aimTime: 2.5, depression: -3 , clip: 1 },
     ],
   },
   {
@@ -677,9 +677,9 @@ const TANKS = [
     hp: 1100, weight: 24.0,
     armor: { hull: { front: 20, sides: 15, rear: 8 }, turret: null },
     mobility: { topSpeed: 65, reverse: 20, enginePower: 400, hpPerTon: 16.7, turretTraverse: null, hullTraverse: 36 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 34.0, camoMoving: 20.0 },
     guns: [
-      { name: "130 mm M-65S", caliber: 130, stock: true, alpha: 520, penAP: 243, penPrem: 320, premType: "HEAT", penHE: 65, reload: 13.6, dpm: 2293, accuracy: 0.35, aimTime: 2.3, depression: -7 },
+      { name: "130 mm M-65S", caliber: 130, stock: true, alpha: 520, penAP: 243, penPrem: 320, premType: "HEAT", penHE: 65, reload: 13.6, dpm: 2293, accuracy: 0.35, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -691,9 +691,9 @@ const TANKS = [
     hp: 1250, weight: 63.0,
     armor: { hull: { front: 100, sides: 100, rear: 60 }, turret: { front: 220, sides: 145, rear: 60 } },
     mobility: { topSpeed: 40, reverse: 12, enginePower: 900, hpPerTon: 14.3, turretTraverse: 15, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 8.0, camoMoving: 5.0 },
     guns: [
-      { name: "130 mm B-13", caliber: 130, stock: true, alpha: 440, penAP: 307, penPrem: null, premType: null, penHE: 65, reload: 11.2, dpm: 2358, accuracy: 0.36, aimTime: 2.3, depression: -8 },
+      { name: "130 mm B-13", caliber: 130, stock: true, alpha: 440, penAP: 307, penPrem: null, premType: null, penHE: 65, reload: 11.2, dpm: 2358, accuracy: 0.36, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -705,10 +705,10 @@ const TANKS = [
     hp: 410, weight: 63.5,
     armor: { hull: { front: 50, sides: 30, rear: 20 }, turret: null },
     mobility: { topSpeed: 30, reverse: 8, enginePower: 700, hpPerTon: 11.0, turretTraverse: null, hullTraverse: 16 },
-    vision: { viewRange: 260 },
+    vision: { viewRange: 260 , camoStill: 6.0, camoMoving: 3.0 },
     guns: [
-      { name: "152 mm BR-2 (SU-14)", caliber: 152, stock: true, alpha: 440, penAP: 216, penPrem: null, premType: null, penHE: 48, reload: 27.0, dpm: 977, accuracy: 0.66, aimTime: 4.5, depression: 0 },
-      { name: "203 mm B-4 (SU-14)", caliber: 203, stock: false, alpha: 600, penAP: 258, penPrem: null, premType: null, penHE: 65, reload: 44.0, dpm: 816, accuracy: 0.77, aimTime: 5.6, depression: 0 },
+      { name: "152 mm BR-2 (SU-14)", caliber: 152, stock: true, alpha: 440, penAP: 216, penPrem: null, premType: null, penHE: 48, reload: 27.0, dpm: 977, accuracy: 0.66, aimTime: 4.5, depression: 0 , clip: 1 },
+      { name: "203 mm B-4 (SU-14)", caliber: 203, stock: false, alpha: 600, penAP: 258, penPrem: null, premType: null, penHE: 65, reload: 44.0, dpm: 816, accuracy: 0.77, aimTime: 5.6, depression: 0 , clip: 1 },
     ],
   },
   {
@@ -720,9 +720,9 @@ const TANKS = [
     hp: 1500, weight: 65.0,
     armor: { hull: { front: 160, sides: 70, rear: 50 }, turret: { front: 270, sides: 120, rear: 50 } },
     mobility: { topSpeed: 38, reverse: 15, enginePower: 1000, hpPerTon: 15.4, turretTraverse: 25, hullTraverse: 27 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 9.0, camoMoving: 4.0 },
     guns: [
-      { name: "8,8 cm Zwillingskanone L/71", caliber: 88, stock: true, alpha: 280, penAP: 221, penPrem: 273, premType: "APCR", penHE: 44, reload: 7.0, dpm: 2400, accuracy: 0.35, aimTime: 2.0, depression: -9 },
+      { name: "8,8 cm Zwillingskanone L/71", caliber: 88, stock: true, alpha: 280, penAP: 221, penPrem: 273, premType: "APCR", penHE: 44, reload: 7.0, dpm: 2400, accuracy: 0.35, aimTime: 2.0, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -734,9 +734,9 @@ const TANKS = [
     hp: 1500, weight: 80.0,
     armor: { hull: { front: 120, sides: 80, rear: 80 }, turret: { front: 230, sides: 120, rear: 80 } },
     mobility: { topSpeed: 45, reverse: 18, enginePower: 1280, hpPerTon: 16.0, turretTraverse: 22, hullTraverse: 26 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 6.0, camoMoving: 3.0 },
     guns: [
-      { name: "10,5 cm Kw.K. L/73", caliber: 105, stock: true, alpha: 360, penAP: 227, penPrem: 282, premType: "APCR", penHE: 60, reload: 11.3, dpm: 1912, accuracy: 0.38, aimTime: 2.5, depression: -8 },
+      { name: "10,5 cm Kw.K. L/73", caliber: 105, stock: true, alpha: 360, penAP: 227, penPrem: 282, premType: "APCR", penHE: 60, reload: 11.3, dpm: 1912, accuracy: 0.38, aimTime: 2.5, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -748,9 +748,9 @@ const TANKS = [
     hp: 1650, weight: 90.0,
     armor: { hull: { front: 150, sides: 100, rear: 80 }, turret: { front: 120, sides: 80, rear: 80 } },
     mobility: { topSpeed: 35, reverse: 15, enginePower: 1000, hpPerTon: 11.1, turretTraverse: 23, hullTraverse: 24 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 7.0, camoMoving: 3.0 },
     guns: [
-      { name: "10,5 cm Kw.K. L/70", caliber: 105, stock: true, alpha: 320, penAP: 234, penPrem: 294, premType: "APCR", penHE: 60, reload: 12.0, dpm: 1600, accuracy: 0.33, aimTime: 2.86, depression: -10 },
+      { name: "10,5 cm Kw.K. L/70", caliber: 105, stock: true, alpha: 320, penAP: 234, penPrem: 294, premType: "APCR", penHE: 60, reload: 12.0, dpm: 1600, accuracy: 0.33, aimTime: 2.86, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -776,10 +776,10 @@ const TANKS = [
     hp: 1800, weight: 70.9,
     armor: { hull: { front: 160, sides: 80, rear: 80 }, turret: { front: 245, sides: 120, rear: 80 } },
     mobility: { topSpeed: 38, reverse: 12, enginePower: 900, hpPerTon: 12.7, turretTraverse: 27, hullTraverse: 32 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "8.8 cm Kw.K. 43 L/71 Ausf. E", caliber: 88, stock: true, alpha: 280, penAP: 218, penPrem: 251, premType: "APCR", penHE: 44, reload: 7.0, dpm: 2400, accuracy: 0.3, aimTime: 1.8, depression: -8 },
-      { name: "10.5 cm Kw.K. L/68 Ausf. B", caliber: 105, stock: false, alpha: 360, penAP: 225, penPrem: 285, premType: "APCR", penHE: 60, reload: 10.4, dpm: 2077, accuracy: 0.31, aimTime: 2.3, depression: -8 },
+      { name: "8.8 cm Kw.K. 43 L/71 Ausf. E", caliber: 88, stock: true, alpha: 280, penAP: 218, penPrem: 251, premType: "APCR", penHE: 44, reload: 7.0, dpm: 2400, accuracy: 0.3, aimTime: 1.8, depression: -8 , clip: 1 },
+      { name: "10.5 cm Kw.K. L/68 Ausf. B", caliber: 105, stock: false, alpha: 360, penAP: 225, penPrem: 285, premType: "APCR", penHE: 60, reload: 10.4, dpm: 2077, accuracy: 0.31, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -805,10 +805,10 @@ const TANKS = [
     hp: 1800, weight: 120.5,
     armor: { hull: { front: 200, sides: 130, rear: 120 }, turret: { front: 230, sides: 160, rear: 140 } },
     mobility: { topSpeed: 20, reverse: 15, enginePower: 1200, hpPerTon: 10.0, turretTraverse: 15, hullTraverse: 15 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 6.0, camoMoving: 3.0 },
     guns: [
-      { name: "10,5 cm Kw.K. L/52", caliber: 105, stock: true, alpha: 320, penAP: 200, penPrem: 244, premType: "APCR", penHE: 60, reload: 9.8, dpm: 1958, accuracy: 0.36, aimTime: 2.1, depression: -8 },
-      { name: "12,8 cm Kw.K. L/50 (100)", caliber: 128, stock: false, alpha: 440, penAP: 220, penPrem: 260, premType: "APCR", penHE: 65, reload: 15.0, dpm: 1760, accuracy: 0.4, aimTime: 2.7, depression: -8 },
+      { name: "10,5 cm Kw.K. L/52", caliber: 105, stock: true, alpha: 320, penAP: 200, penPrem: 244, premType: "APCR", penHE: 60, reload: 9.8, dpm: 1958, accuracy: 0.36, aimTime: 2.1, depression: -8 , clip: 1 },
+      { name: "12,8 cm Kw.K. L/50 (100)", caliber: 128, stock: false, alpha: 440, penAP: 220, penPrem: 260, premType: "APCR", penHE: 65, reload: 15.0, dpm: 1760, accuracy: 0.4, aimTime: 2.7, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -820,9 +820,9 @@ const TANKS = [
     hp: 1700, weight: 168.0,
     armor: { hull: { front: 180, sides: 130, rear: 100 }, turret: { front: 230, sides: 160, rear: 100 } },
     mobility: { topSpeed: 20, reverse: 15, enginePower: 1600, hpPerTon: 9.5, turretTraverse: 15, hullTraverse: 18 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 4.0, camoMoving: 2.0 },
     guns: [
-      { name: "12,8 cm Kw.K. L/50 A", caliber: 128, stock: true, alpha: 440, penAP: 220, penPrem: 260, premType: "APCR", penHE: 65, reload: 15.0, dpm: 1760, accuracy: 0.4, aimTime: 2.7, depression: -8 },
+      { name: "12,8 cm Kw.K. L/50 A", caliber: 128, stock: true, alpha: 440, penAP: 220, penPrem: 260, premType: "APCR", penHE: 65, reload: 15.0, dpm: 1760, accuracy: 0.4, aimTime: 2.7, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -834,9 +834,9 @@ const TANKS = [
     hp: 1700, weight: 168.0,
     armor: { hull: { front: 180, sides: 130, rear: 100 }, turret: { front: 230, sides: 160, rear: 100 } },
     mobility: { topSpeed: 20, reverse: 15, enginePower: 1600, hpPerTon: 9.5, turretTraverse: 15, hullTraverse: 18 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 4.0, camoMoving: 2.0 },
     guns: [
-      { name: "12,8 cm Kw.K. L/50 A", caliber: 128, stock: true, alpha: 440, penAP: 220, penPrem: 260, premType: "APCR", penHE: 65, reload: 15.0, dpm: 1760, accuracy: 0.4, aimTime: 2.7, depression: -8 },
+      { name: "12,8 cm Kw.K. L/50 A", caliber: 128, stock: true, alpha: 440, penAP: 220, penPrem: 260, premType: "APCR", penHE: 65, reload: 15.0, dpm: 1760, accuracy: 0.4, aimTime: 2.7, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -848,10 +848,10 @@ const TANKS = [
     hp: 1750, weight: 57.0,
     armor: { hull: { front: 150, sides: 80, rear: 80 }, turret: { front: 255, sides: 120, rear: 120 } },
     mobility: { topSpeed: 38, reverse: 16, enginePower: 920, hpPerTon: 16.1, turretTraverse: 25, hullTraverse: 43 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "8,8 cm Kw.K. 43 L/71 (180A)", caliber: 88, stock: true, alpha: 280, penAP: 203, penPrem: 237, premType: "APCR", penHE: 44, reload: 7.0, dpm: 2400, accuracy: 0.34, aimTime: 1.8, depression: -8 },
-      { name: "10,5 cm Kw.K. L/52 (180A)", caliber: 105, stock: false, alpha: 320, penAP: 212, penPrem: 260, premType: "APCR", penHE: 60, reload: 8.7, dpm: 2208, accuracy: 0.35, aimTime: 2.0, depression: -8 },
+      { name: "8,8 cm Kw.K. 43 L/71 (180A)", caliber: 88, stock: true, alpha: 280, penAP: 203, penPrem: 237, premType: "APCR", penHE: 44, reload: 7.0, dpm: 2400, accuracy: 0.34, aimTime: 1.8, depression: -8 , clip: 1 },
+      { name: "10,5 cm Kw.K. L/52 (180A)", caliber: 105, stock: false, alpha: 320, penAP: 212, penPrem: 260, premType: "APCR", penHE: 60, reload: 8.7, dpm: 2208, accuracy: 0.35, aimTime: 2.0, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -863,9 +863,9 @@ const TANKS = [
     hp: 1600, weight: 75.0,
     armor: { hull: { front: 180, sides: 100, rear: 80 }, turret: { front: 250, sides: 100, rear: 80 } },
     mobility: { topSpeed: 30, reverse: 15, enginePower: 900, hpPerTon: 12.0, turretTraverse: 22, hullTraverse: 22 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "12,8 cm Kw.K. L/61K", caliber: 128, stock: true, alpha: 490, penAP: 226, penPrem: 263, premType: "APCR", penHE: 65, reload: 17.8, dpm: 1651, accuracy: 0.39, aimTime: 2.7, depression: -5 },
+      { name: "12,8 cm Kw.K. L/61K", caliber: 128, stock: true, alpha: 490, penAP: 226, penPrem: 263, premType: "APCR", penHE: 65, reload: 17.8, dpm: 1651, accuracy: 0.39, aimTime: 2.7, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -877,10 +877,10 @@ const TANKS = [
     hp: 1450, weight: 39.5,
     armor: { hull: { front: 90, sides: 90, rear: 45 }, turret: { front: 90, sides: 90, rear: 45 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 670, hpPerTon: 17.0, turretTraverse: 36, hullTraverse: 52 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 21.0, camoMoving: 16.0 },
     guns: [
-      { name: "8,8 cm Kw.K. 43 L/71", caliber: 88, stock: true, alpha: 240, penAP: 203, penPrem: 237, premType: "APCR", penHE: 44, reload: 6.3, dpm: 2285, accuracy: 0.32, aimTime: 1.7, depression: -10 },
-      { name: "9 cm Kanone (I-P)", caliber: 90, stock: false, alpha: 300, penAP: 218, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.9, dpm: 2022, accuracy: 0.32, aimTime: 1.9, depression: -10 },
+      { name: "8,8 cm Kw.K. 43 L/71", caliber: 88, stock: true, alpha: 240, penAP: 203, penPrem: 237, premType: "APCR", penHE: 44, reload: 6.3, dpm: 2285, accuracy: 0.32, aimTime: 1.7, depression: -10 , clip: 1 },
+      { name: "9 cm Kanone (I-P)", caliber: 90, stock: false, alpha: 300, penAP: 218, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.9, dpm: 2022, accuracy: 0.32, aimTime: 1.9, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -892,9 +892,9 @@ const TANKS = [
     hp: 1350, weight: 30.0,
     armor: { hull: { front: 115, sides: 75, rear: 25 }, turret: { front: 80, sides: 60, rear: 60 } },
     mobility: { topSpeed: 65, reverse: 25, enginePower: 700, hpPerTon: 23.3, turretTraverse: 50, hullTraverse: 55 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "9 cm Kanone RhD", caliber: 90, stock: true, alpha: 200, penAP: 205, penPrem: 255, premType: "HEAT", penHE: 90, reload: 5.0, dpm: 2400, accuracy: 0.35, aimTime: 1.5, depression: -9 },
+      { name: "9 cm Kanone RhD", caliber: 90, stock: true, alpha: 200, penAP: 205, penPrem: 255, premType: "HEAT", penHE: 90, reload: 5.0, dpm: 2400, accuracy: 0.35, aimTime: 1.5, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -906,9 +906,9 @@ const TANKS = [
     hp: 1500, weight: 50.0,
     armor: { hull: { front: 152, sides: 76, rear: 25 }, turret: { front: 254, sides: 76, rear: 51 } },
     mobility: { topSpeed: 40, reverse: 18, enginePower: 750, hpPerTon: 15.0, turretTraverse: 30, hullTraverse: 35 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 14.0, camoMoving: 10.0 },
     guns: [
-      { name: "9 cm Kanone M41", caliber: 90, stock: true, alpha: 280, penAP: 212, penPrem: 255, premType: "APCR", penHE: 45, reload: 7.0, dpm: 2400, accuracy: 0.4, aimTime: 1.7, depression: -9 },
+      { name: "9 cm Kanone M41", caliber: 90, stock: true, alpha: 280, penAP: 212, penPrem: 255, premType: "APCR", penHE: 45, reload: 7.0, dpm: 2400, accuracy: 0.4, aimTime: 1.7, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -920,9 +920,9 @@ const TANKS = [
     hp: 1300, weight: 46.0,
     armor: { hull: { front: 90, sides: 30, rear: 20 }, turret: { front: 85, sides: 60, rear: 35 } },
     mobility: { topSpeed: 50, reverse: 18, enginePower: 780, hpPerTon: 17.0, turretTraverse: 35, hullTraverse: 38 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "120 mm RhD", caliber: 120, stock: true, alpha: 400, penAP: 230, penPrem: 300, premType: "HEAT", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.33, aimTime: 2.0, depression: -5 },
+      { name: "120 mm RhD", caliber: 120, stock: true, alpha: 400, penAP: 230, penPrem: 300, premType: "HEAT", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.33, aimTime: 2.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -934,10 +934,10 @@ const TANKS = [
     hp: 1650, weight: 53.9,
     armor: { hull: { front: 120, sides: 80, rear: 40 }, turret: { front: 180, sides: 80, rear: 80 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 800, hpPerTon: 14.8, turretTraverse: 30, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 15.0, camoMoving: 11.0 },
     guns: [
-      { name: "7,5 cm Kw.K. 42 L/70 (II)", caliber: 75, stock: true, alpha: 135, penAP: 198, penPrem: 244, premType: "APCR", penHE: 38, reload: 3.0, dpm: 2700, accuracy: 0.3, aimTime: 1.9, depression: -8 },
-      { name: "8,8 cm Kw.K. 43 L/71 (II)", caliber: 88, stock: false, alpha: 280, penAP: 223, penPrem: 261, premType: "APCR", penHE: 44, reload: 8.0, dpm: 2100, accuracy: 0.3, aimTime: 2.2, depression: -8 },
+      { name: "7,5 cm Kw.K. 42 L/70 (II)", caliber: 75, stock: true, alpha: 135, penAP: 198, penPrem: 244, premType: "APCR", penHE: 38, reload: 3.0, dpm: 2700, accuracy: 0.3, aimTime: 1.9, depression: -8 , clip: 1 },
+      { name: "8,8 cm Kw.K. 43 L/71 (II)", caliber: 88, stock: false, alpha: 280, penAP: 223, penPrem: 261, premType: "APCR", penHE: 44, reload: 8.0, dpm: 2100, accuracy: 0.3, aimTime: 2.2, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -949,9 +949,9 @@ const TANKS = [
     hp: 1600, weight: 46.5,
     armor: { hull: { front: 85, sides: 50, rear: 40 }, turret: { front: 120, sides: 60, rear: 60 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 850, hpPerTon: 18.3, turretTraverse: 32, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 16.0, camoMoving: 12.0 },
     guns: [
-      { name: "8.8 cm Kw.K. 43 L/71 mod.Vlt", caliber: 88, stock: true, alpha: 280, penAP: 230, penPrem: 265, premType: "APCR", penHE: 44, reload: 6.7, dpm: 2509, accuracy: 0.29, aimTime: 2.2, depression: -8 },
+      { name: "8.8 cm Kw.K. 43 L/71 mod.Vlt", caliber: 88, stock: true, alpha: 280, penAP: 230, penPrem: 265, premType: "APCR", penHE: 44, reload: 6.7, dpm: 2509, accuracy: 0.29, aimTime: 2.2, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -963,9 +963,9 @@ const TANKS = [
     hp: 1350, weight: 35.1,
     armor: { hull: { front: 90, sides: 30, rear: 40 }, turret: { front: 120, sides: 65, rear: 40 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 700, hpPerTon: 19.9, turretTraverse: 36, hullTraverse: 45 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "9 cm Kanone", caliber: 90, stock: true, alpha: 300, penAP: 212, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.0, dpm: 2250, accuracy: 0.34, aimTime: 2.3, depression: -10 },
+      { name: "9 cm Kanone", caliber: 90, stock: true, alpha: 300, penAP: 212, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.0, dpm: 2250, accuracy: 0.34, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -991,9 +991,9 @@ const TANKS = [
     hp: 1350, weight: 35.1,
     armor: { hull: { front: 90, sides: 30, rear: 40 }, turret: { front: 120, sides: 65, rear: 40 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 700, hpPerTon: 19.9, turretTraverse: 36, hullTraverse: 45 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "9 cm Kanone", caliber: 90, stock: true, alpha: 300, penAP: 212, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.0, dpm: 2250, accuracy: 0.34, aimTime: 2.3, depression: -10 },
+      { name: "9 cm Kanone", caliber: 90, stock: true, alpha: 300, penAP: 212, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.0, dpm: 2250, accuracy: 0.34, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1005,9 +1005,9 @@ const TANKS = [
     hp: 1350, weight: 35.1,
     armor: { hull: { front: 90, sides: 30, rear: 40 }, turret: { front: 120, sides: 65, rear: 40 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 700, hpPerTon: 19.9, turretTraverse: 36, hullTraverse: 45 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "9 cm Kanone", caliber: 90, stock: true, alpha: 300, penAP: 212, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.0, dpm: 2250, accuracy: 0.34, aimTime: 2.3, depression: -10 },
+      { name: "9 cm Kanone", caliber: 90, stock: true, alpha: 300, penAP: 212, penPrem: 259, premType: "APCR", penHE: 90, reload: 8.0, dpm: 2250, accuracy: 0.34, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1019,9 +1019,9 @@ const TANKS = [
     hp: 1350, weight: 30.0,
     armor: { hull: { front: 115, sides: 75, rear: 25 }, turret: { front: 80, sides: 60, rear: 60 } },
     mobility: { topSpeed: 65, reverse: 25, enginePower: 700, hpPerTon: 23.3, turretTraverse: 50, hullTraverse: 55 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "9 cm Kanone RhD", caliber: 90, stock: true, alpha: 200, penAP: 205, penPrem: 255, premType: "HEAT", penHE: 90, reload: 5.0, dpm: 2400, accuracy: 0.35, aimTime: 1.5, depression: -9 },
+      { name: "9 cm Kanone RhD", caliber: 90, stock: true, alpha: 200, penAP: 205, penPrem: 255, premType: "HEAT", penHE: 90, reload: 5.0, dpm: 2400, accuracy: 0.35, aimTime: 1.5, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -1033,9 +1033,9 @@ const TANKS = [
     hp: 1250, weight: 12.5,
     armor: { hull: { front: 15, sides: 15, rear: 15 }, turret: { front: 15, sides: 10, rear: 10 } },
     mobility: { topSpeed: 65, reverse: 23, enginePower: 450, hpPerTon: 36.0, turretTraverse: 44, hullTraverse: 64 },
-    vision: { viewRange: 410 },
+    vision: { viewRange: 410 , camoStill: 29.0, camoMoving: 29.0 },
     guns: [
-      { name: "90 mm Mecar N", caliber: 90, stock: true, alpha: 240, penAP: 180, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.7, dpm: 1870, accuracy: 0.36, aimTime: 2.0, depression: -10 },
+      { name: "90 mm Mecar N", caliber: 90, stock: true, alpha: 240, penAP: 180, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.7, dpm: 1870, accuracy: 0.36, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1047,9 +1047,9 @@ const TANKS = [
     hp: 1150, weight: 28.0,
     armor: { hull: { front: 25, sides: 20, rear: 8 }, turret: { front: 20, sides: 20, rear: 20 } },
     mobility: { topSpeed: 70, reverse: 24, enginePower: 800, hpPerTon: 28.6, turretTraverse: 42, hullTraverse: 50 },
-    vision: { viewRange: 410 },
+    vision: { viewRange: 410 , camoStill: 27.0, camoMoving: 27.0 },
     guns: [
-      { name: "90 mm Rheinmetall DM1M", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 187, premType: "APCR", penHE: 102, reload: 7.2, dpm: 1999, accuracy: 0.36, aimTime: 2.1, depression: -10 },
+      { name: "90 mm Rheinmetall DM1M", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 187, premType: "APCR", penHE: 102, reload: 7.2, dpm: 1999, accuracy: 0.36, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1061,9 +1061,9 @@ const TANKS = [
     hp: 1150, weight: 25.0,
     armor: { hull: { front: 30, sides: 15, rear: 15 }, turret: { front: 40, sides: 25, rear: 20 } },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 700, hpPerTon: 28.0, turretTraverse: 40, hullTraverse: 50 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 29.0, camoMoving: 29.0 },
     guns: [
-      { name: "90 mm Rh 69-1", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 190, premType: "APCR", penHE: 105, reload: 8.5, dpm: 1694, accuracy: 0.33, aimTime: 2.1, depression: -10 },
+      { name: "90 mm Rh 69-1", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 190, premType: "APCR", penHE: 105, reload: 8.5, dpm: 1694, accuracy: 0.33, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1075,9 +1075,9 @@ const TANKS = [
     hp: 1100, weight: 23.5,
     armor: { hull: { front: 25, sides: 25, rear: 19 }, turret: { front: 25, sides: 25, rear: 25 } },
     mobility: { topSpeed: 72, reverse: 24, enginePower: 500, hpPerTon: 21.3, turretTraverse: 50, hullTraverse: 54 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 25.0, camoMoving: 25.0 },
     guns: [
-      { name: "90/76 mm US-Kanone M 32", caliber: 90, stock: true, alpha: 240, penAP: 182, penPrem: 250, premType: "HEAT", penHE: 102, reload: 6.6, dpm: 2182, accuracy: 0.38, aimTime: 1.8, depression: -8 },
+      { name: "90/76 mm US-Kanone M 32", caliber: 90, stock: true, alpha: 240, penAP: 182, penPrem: 250, premType: "HEAT", penHE: 102, reload: 6.6, dpm: 2182, accuracy: 0.38, aimTime: 1.8, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1089,9 +1089,9 @@ const TANKS = [
     hp: 1100, weight: 23.5,
     armor: { hull: { front: 25, sides: 25, rear: 19 }, turret: { front: 25, sides: 25, rear: 25 } },
     mobility: { topSpeed: 72, reverse: 24, enginePower: 500, hpPerTon: 21.3, turretTraverse: 50, hullTraverse: 54 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 25.0, camoMoving: 25.0 },
     guns: [
-      { name: "90/76 mm US-Kanone M 32", caliber: 90, stock: true, alpha: 240, penAP: 182, penPrem: 250, premType: "HEAT", penHE: 102, reload: 6.6, dpm: 2182, accuracy: 0.38, aimTime: 1.8, depression: -8 },
+      { name: "90/76 mm US-Kanone M 32", caliber: 90, stock: true, alpha: 240, penAP: 182, penPrem: 250, premType: "HEAT", penHE: 102, reload: 6.6, dpm: 2182, accuracy: 0.38, aimTime: 1.8, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1103,9 +1103,9 @@ const TANKS = [
     hp: 1500, weight: 69.7,
     armor: { hull: { front: 250, sides: 80, rear: 80 }, turret: null },
     mobility: { topSpeed: 38, reverse: 16, enginePower: 700, hpPerTon: 10.0, turretTraverse: null, hullTraverse: 32 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 19.0, camoMoving: 11.0 },
     guns: [
-      { name: "8,8 cm Pak 43 L/71A", caliber: 88, stock: true, alpha: 240, penAP: 212, penPrem: 237, premType: "APCR", penHE: 44, reload: 5.1, dpm: 2822, accuracy: 0.31, aimTime: 1.8, depression: -7 },
+      { name: "8,8 cm Pak 43 L/71A", caliber: 88, stock: true, alpha: 240, penAP: 212, penPrem: 237, premType: "APCR", penHE: 44, reload: 5.1, dpm: 2822, accuracy: 0.31, aimTime: 1.8, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -1117,10 +1117,10 @@ const TANKS = [
     hp: 1600, weight: 66.8,
     armor: { hull: { front: 220, sides: 80, rear: 80 }, turret: null },
     mobility: { topSpeed: 30, reverse: 10, enginePower: 900, hpPerTon: 13.5, turretTraverse: null, hullTraverse: 33 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 19.0, camoMoving: 12.0 },
     guns: [
-      { name: "8,8 cm Pak 43 L/71 (F)", caliber: 88, stock: true, alpha: 280, penAP: 232, penPrem: 272, premType: "APCR", penHE: 44, reload: 6.0, dpm: 2800, accuracy: 0.32, aimTime: 2.0, depression: -8 },
-      { name: "12,8 cm Pak 44 L/55 (F)", caliber: 128, stock: false, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 11.7, dpm: 2514, accuracy: 0.35, aimTime: 2.3, depression: -8 },
+      { name: "8,8 cm Pak 43 L/71 (F)", caliber: 88, stock: true, alpha: 280, penAP: 232, penPrem: 272, premType: "APCR", penHE: 44, reload: 6.0, dpm: 2800, accuracy: 0.32, aimTime: 2.0, depression: -8 , clip: 1 },
+      { name: "12,8 cm Pak 44 L/55 (F)", caliber: 128, stock: false, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 11.7, dpm: 2514, accuracy: 0.35, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1146,11 +1146,11 @@ const TANKS = [
     hp: 1150, weight: 53.0,
     armor: { hull: { front: 100, sides: 60, rear: 40 }, turret: null },
     mobility: { topSpeed: 55, reverse: 12, enginePower: 700, hpPerTon: 13.2, turretTraverse: null, hullTraverse: 38 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 18.0, camoMoving: 11.0 },
     guns: [
-      { name: "8,8 cm Pak 43 L/71", caliber: 88, stock: true, alpha: 240, penAP: 203, penPrem: 237, premType: "APCR", penHE: 44, reload: 6.0, dpm: 2400, accuracy: 0.32, aimTime: 2.3, depression: -7 },
-      { name: "10,5 cm Pak L/52", caliber: 105, stock: false, alpha: 320, penAP: 200, penPrem: 244, premType: "APCR", penHE: 60, reload: 8.0, dpm: 2400, accuracy: 0.34, aimTime: 1.7, depression: -7 },
-      { name: "12,8 cm Pak 44 L/55", caliber: 128, stock: false, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 11.7, dpm: 2514, accuracy: 0.35, aimTime: 2.3, depression: -7 },
+      { name: "8,8 cm Pak 43 L/71", caliber: 88, stock: true, alpha: 240, penAP: 203, penPrem: 237, premType: "APCR", penHE: 44, reload: 6.0, dpm: 2400, accuracy: 0.32, aimTime: 2.3, depression: -7 , clip: 1 },
+      { name: "10,5 cm Pak L/52", caliber: 105, stock: false, alpha: 320, penAP: 200, penPrem: 244, premType: "APCR", penHE: 60, reload: 8.0, dpm: 2400, accuracy: 0.34, aimTime: 1.7, depression: -7 , clip: 1 },
+      { name: "12,8 cm Pak 44 L/55", caliber: 128, stock: false, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 11.7, dpm: 2514, accuracy: 0.35, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -1162,9 +1162,9 @@ const TANKS = [
     hp: 1600, weight: 74.9,
     armor: { hull: { front: 250, sides: 80, rear: 80 }, turret: null },
     mobility: { topSpeed: 38, reverse: 12, enginePower: 700, hpPerTon: 9.3, turretTraverse: null, hullTraverse: 20 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 19.0, camoMoving: 11.0 },
     guns: [
-      { name: "12,8 cm Pak 44/1 L/55", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 13.0, dpm: 2264, accuracy: 0.35, aimTime: 2.3, depression: -7 },
+      { name: "12,8 cm Pak 44/1 L/55", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 13.0, dpm: 2264, accuracy: 0.35, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -1176,9 +1176,9 @@ const TANKS = [
     hp: 1200, weight: 25.7,
     armor: { hull: { front: 30, sides: 30, rear: 8 }, turret: null },
     mobility: { topSpeed: 70, reverse: 20, enginePower: 500, hpPerTon: 19.5, turretTraverse: null, hullTraverse: 46 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 41.0, camoMoving: 25.0 },
     guns: [
-      { name: "90 mm Rheinmetall DM1", caliber: 90, stock: true, alpha: 240, penAP: 238, penPrem: 250, premType: "HEAT", penHE: 102, reload: 6.3, dpm: 2285, accuracy: 0.32, aimTime: 1.8, depression: -8 },
+      { name: "90 mm Rheinmetall DM1", caliber: 90, stock: true, alpha: 240, penAP: 238, penPrem: 250, premType: "HEAT", penHE: 102, reload: 6.3, dpm: 2285, accuracy: 0.32, aimTime: 1.8, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1190,9 +1190,9 @@ const TANKS = [
     hp: 1050, weight: 26.0,
     armor: { hull: { front: 30, sides: 30, rear: 8 }, turret: null },
     mobility: { topSpeed: 70, reverse: 20, enginePower: 500, hpPerTon: 19.2, turretTraverse: null, hullTraverse: 46 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 41.0, camoMoving: 25.0 },
     guns: [
-      { name: "10,5 cm Bordkanone L7", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 268, premType: "APCR", penHE: 53, reload: 12.0, dpm: 1950, accuracy: 0.32, aimTime: 1.8, depression: -8 },
+      { name: "10,5 cm Bordkanone L7", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 268, premType: "APCR", penHE: 53, reload: 12.0, dpm: 1950, accuracy: 0.32, aimTime: 1.8, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1204,9 +1204,9 @@ const TANKS = [
     hp: 1300, weight: 30.0,
     armor: { hull: { front: 50, sides: 20, rear: 15 }, turret: null },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 600, hpPerTon: 20.0, turretTraverse: null, hullTraverse: 40 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 43.0, camoMoving: 26.0 },
     guns: [
-      { name: "11 cm Mittelgeschw.-Kanone", caliber: 110, stock: true, alpha: 370, penAP: 263, penPrem: 311, premType: "APCR", penHE: 53, reload: 8.5, dpm: 2612, accuracy: 0.4, aimTime: 3.0, depression: -5 },
+      { name: "11 cm Mittelgeschw.-Kanone", caliber: 110, stock: true, alpha: 370, penAP: 263, penPrem: 311, premType: "APCR", penHE: 53, reload: 8.5, dpm: 2612, accuracy: 0.4, aimTime: 3.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -1218,9 +1218,9 @@ const TANKS = [
     hp: 1300, weight: 51.2,
     armor: { hull: { front: 180, sides: 70, rear: 20 }, turret: { front: 250, sides: 80, rear: 20 } },
     mobility: { topSpeed: 38, reverse: 12, enginePower: 770, hpPerTon: 15.0, turretTraverse: 30, hullTraverse: 33 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 31.0, camoMoving: 18.0 },
     guns: [
-      { name: "12 cm Kan L/60", caliber: 120, stock: true, alpha: 400, penAP: 244, penPrem: 300, premType: "HEAT", penHE: 60, reload: 10.3, dpm: 2332, accuracy: 0.36, aimTime: 2.2, depression: -8 },
+      { name: "12 cm Kan L/60", caliber: 120, stock: true, alpha: 400, penAP: 244, penPrem: 300, premType: "HEAT", penHE: 60, reload: 10.3, dpm: 2332, accuracy: 0.36, aimTime: 2.2, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1232,9 +1232,9 @@ const TANKS = [
     hp: 1150, weight: 38.2,
     armor: { hull: { front: 30, sides: 16, rear: 20 }, turret: null },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 650, hpPerTon: 17.0, turretTraverse: null, hullTraverse: 30 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 16.0, camoMoving: 10.0 },
     guns: [
-      { name: "12,8 cm Kanone 43 L/55", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 12.2, dpm: 2411, accuracy: 0.3, aimTime: 2.1, depression: -7 },
+      { name: "12,8 cm Kanone 43 L/55", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 12.2, dpm: 2411, accuracy: 0.3, aimTime: 2.1, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -1246,9 +1246,9 @@ const TANKS = [
     hp: 1150, weight: 38.2,
     armor: { hull: { front: 30, sides: 16, rear: 20 }, turret: null },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 650, hpPerTon: 17.0, turretTraverse: null, hullTraverse: 30 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 16.0, camoMoving: 10.0 },
     guns: [
-      { name: "12,8 cm Kanone 43 L/55", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 12.2, dpm: 2411, accuracy: 0.3, aimTime: 2.1, depression: -7 },
+      { name: "12,8 cm Kanone 43 L/55", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 12.2, dpm: 2411, accuracy: 0.3, aimTime: 2.1, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -1260,10 +1260,10 @@ const TANKS = [
     hp: 1150, weight: 18.6,
     armor: { hull: { front: 20, sides: 10, rear: 8 }, turret: null },
     mobility: { topSpeed: 35, reverse: 12, enginePower: 230, hpPerTon: 12.4, turretTraverse: null, hullTraverse: 45 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 40.0, camoMoving: 24.0 },
     guns: [
-      { name: "12,8 cm Kanone 44 L/55 (Rhm)", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 11.5, dpm: 2558, accuracy: 0.35, aimTime: 2.3, depression: -5 },
-      { name: "15 cm Pak L/29.5", caliber: 150, stock: false, alpha: 750, penAP: 215, penPrem: 334, premType: "HEAT", penHE: 85, reload: 20.0, dpm: 2250, accuracy: 0.4, aimTime: 2.7, depression: -5 },
+      { name: "12,8 cm Kanone 44 L/55 (Rhm)", caliber: 128, stock: true, alpha: 490, penAP: 246, penPrem: 311, premType: "APCR", penHE: 65, reload: 11.5, dpm: 2558, accuracy: 0.35, aimTime: 2.3, depression: -5 , clip: 1 },
+      { name: "15 cm Pak L/29.5", caliber: 150, stock: false, alpha: 750, penAP: 215, penPrem: 334, premType: "HEAT", penHE: 85, reload: 20.0, dpm: 2250, accuracy: 0.4, aimTime: 2.7, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -1275,9 +1275,9 @@ const TANKS = [
     hp: 1300, weight: 32.0,
     armor: { hull: { front: 50, sides: 30, rear: 30 }, turret: null },
     mobility: { topSpeed: 50, reverse: 30, enginePower: 700, hpPerTon: 21.9, turretTraverse: null, hullTraverse: 44 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 38.0, camoMoving: 23.0 },
     guns: [
-      { name: "10,5 cm Bordkanone L7W", caliber: 105, stock: true, alpha: 320, penAP: 271, penPrem: 315, premType: "APCR", penHE: 53, reload: 7.9, dpm: 2429, accuracy: 0.38, aimTime: 2.5, depression: 0 },
+      { name: "10,5 cm Bordkanone L7W", caliber: 105, stock: true, alpha: 320, penAP: 271, penPrem: 315, premType: "APCR", penHE: 53, reload: 7.9, dpm: 2429, accuracy: 0.38, aimTime: 2.5, depression: 0 , clip: 1 },
     ],
   },
   {
@@ -1289,10 +1289,10 @@ const TANKS = [
     hp: 440, weight: 74.2,
     armor: { hull: { front: 100, sides: 80, rear: 16 }, turret: null },
     mobility: { topSpeed: 35, reverse: 10, enginePower: 640, hpPerTon: 8.6, turretTraverse: null, hullTraverse: 16 },
-    vision: { viewRange: 290 },
+    vision: { viewRange: 290 , camoStill: 6.0, camoMoving: 3.0 },
     guns: [
-      { name: "17 cm Kanone 72 (GW P)", caliber: 170, stock: true, alpha: 500, penAP: 268, penPrem: null, premType: null, penHE: 55, reload: 33.0, dpm: 910, accuracy: 0.67, aimTime: 4.8, depression: -2 },
-      { name: "21 cm Mörser 18/1 (GW P)", caliber: 210, stock: false, alpha: 640, penAP: 296, penPrem: null, premType: null, penHE: 66, reload: 46.0, dpm: 832, accuracy: 0.79, aimTime: 5.2, depression: -2 },
+      { name: "17 cm Kanone 72 (GW P)", caliber: 170, stock: true, alpha: 500, penAP: 268, penPrem: null, premType: null, penHE: 55, reload: 33.0, dpm: 910, accuracy: 0.67, aimTime: 4.8, depression: -2 , clip: 1 },
+      { name: "21 cm Mörser 18/1 (GW P)", caliber: 210, stock: false, alpha: 640, penAP: 296, penPrem: null, premType: null, penHE: 66, reload: 46.0, dpm: 832, accuracy: 0.79, aimTime: 5.2, depression: -2 , clip: 1 },
     ],
   },
   {
@@ -1304,9 +1304,9 @@ const TANKS = [
     hp: 1500, weight: 60.0,
     armor: { hull: { front: 152, sides: 102, rear: 76 }, turret: { front: 254, sides: 127, rear: 89 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 1200, hpPerTon: 20.0, turretTraverse: 24, hullTraverse: 32 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "105-mm Gun T5E1A", caliber: 105, stock: true, alpha: 320, penAP: 198, penPrem: 260, premType: "APCR", penHE: 53, reload: 10.1, dpm: 1901, accuracy: 0.36, aimTime: 1.9, depression: -6 },
+      { name: "105-mm Gun T5E1A", caliber: 105, stock: true, alpha: 320, penAP: 198, penPrem: 260, premType: "APCR", penHE: 53, reload: 10.1, dpm: 1901, accuracy: 0.36, aimTime: 1.9, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -1318,9 +1318,9 @@ const TANKS = [
     hp: 1500, weight: 60.0,
     armor: { hull: { front: 152, sides: 102, rear: 76 }, turret: { front: 254, sides: 127, rear: 89 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 1200, hpPerTon: 20.0, turretTraverse: 24, hullTraverse: 32 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "105-mm Gun T5E1A", caliber: 105, stock: true, alpha: 320, penAP: 198, penPrem: 260, premType: "APCR", penHE: 53, reload: 10.1, dpm: 1901, accuracy: 0.36, aimTime: 1.9, depression: -6 },
+      { name: "105-mm Gun T5E1A", caliber: 105, stock: true, alpha: 320, penAP: 198, penPrem: 260, premType: "APCR", penHE: 53, reload: 10.1, dpm: 1901, accuracy: 0.36, aimTime: 1.9, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -1332,10 +1332,10 @@ const TANKS = [
     hp: 1650, weight: 45.0,
     armor: { hull: { front: 178, sides: 89, rear: 38 }, turret: { front: 279, sides: 89, rear: 38 } },
     mobility: { topSpeed: 40, reverse: 17, enginePower: 675, hpPerTon: 15.0, turretTraverse: 30, hullTraverse: 33 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 9.0, camoMoving: 4.0 },
     guns: [
-      { name: "90 mm Gun T208 (rifled)", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 223, premType: "APCR", penHE: 45, reload: 6.4, dpm: 2251, accuracy: 0.35, aimTime: 1.9, depression: -10 },
-      { name: "105 mm Gun T254 Y III", caliber: 105, stock: false, alpha: 320, penAP: 215, penPrem: 251, premType: "APCR", penHE: 53, reload: 8.9, dpm: 2157, accuracy: 0.37, aimTime: 2.0, depression: -10 },
+      { name: "90 mm Gun T208 (rifled)", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 223, premType: "APCR", penHE: 45, reload: 6.4, dpm: 2251, accuracy: 0.35, aimTime: 1.9, depression: -10 , clip: 1 },
+      { name: "105 mm Gun T254 Y III", caliber: 105, stock: false, alpha: 320, penAP: 215, penPrem: 251, premType: "APCR", penHE: 53, reload: 8.9, dpm: 2157, accuracy: 0.37, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1347,9 +1347,9 @@ const TANKS = [
     hp: 1500, weight: 47.0,
     armor: { hull: { front: 178, sides: 76, rear: 51 }, turret: { front: 279, sides: 241, rear: 38 } },
     mobility: { topSpeed: 45, reverse: 18, enginePower: 850, hpPerTon: 18.1, turretTraverse: 35, hullTraverse: 35 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 6.0, camoMoving: 3.0 },
     guns: [
-      { name: "105 mm T140 Y IV", caliber: 105, stock: true, alpha: 360, penAP: 220, penPrem: 250, premType: "APCR", penHE: 53, reload: 11.3, dpm: 1912, accuracy: 0.4, aimTime: 2.5, depression: -10 },
+      { name: "105 mm T140 Y IV", caliber: 105, stock: true, alpha: 360, penAP: 220, penPrem: 250, premType: "APCR", penHE: 53, reload: 11.3, dpm: 1912, accuracy: 0.4, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1361,9 +1361,9 @@ const TANKS = [
     hp: 1500, weight: 49.5,
     armor: { hull: { front: 152, sides: 76, rear: 38 }, turret: { front: 250, sides: 140, rear: 40 } },
     mobility: { topSpeed: 45, reverse: 17, enginePower: 800, hpPerTon: 16.1, turretTraverse: 34, hullTraverse: 35 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 9.0, camoMoving: 5.0 },
     guns: [
-      { name: "105 mm Gun T140E3", caliber: 105, stock: true, alpha: 360, penAP: 226, penPrem: 255, premType: "APCR", penHE: 53, reload: 10.2, dpm: 2117, accuracy: 0.38, aimTime: 2.5, depression: -10 },
+      { name: "105 mm Gun T140E3", caliber: 105, stock: true, alpha: 360, penAP: 226, penPrem: 255, premType: "APCR", penHE: 53, reload: 10.2, dpm: 2117, accuracy: 0.38, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1375,9 +1375,9 @@ const TANKS = [
     hp: 1550, weight: 67.0,
     armor: { hull: { front: 191, sides: 66, rear: 51 }, turret: { front: 229, sides: 89, rear: 208 } },
     mobility: { topSpeed: 29, reverse: 14, enginePower: 960, hpPerTon: 14.3, turretTraverse: 23, hullTraverse: 28 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 2.0, camoMoving: 1.0 },
     guns: [
-      { name: "105 mm Gun T5E1E", caliber: 105, stock: true, alpha: 320, penAP: 204, penPrem: 245, premType: "APCR", penHE: 53, reload: 11.89, dpm: 1616, accuracy: 0.4, aimTime: 2.1, depression: -10 },
+      { name: "105 mm Gun T5E1E", caliber: 105, stock: true, alpha: 320, penAP: 204, penPrem: 245, premType: "APCR", penHE: 53, reload: 11.89, dpm: 1616, accuracy: 0.4, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1389,9 +1389,9 @@ const TANKS = [
     hp: 1550, weight: 57.5,
     armor: { hull: { front: 127, sides: 76, rear: 51 }, turret: { front: 298, sides: 197, rear: 152 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 865, hpPerTon: 15.0, turretTraverse: 25, hullTraverse: 29 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "105 mm Gun T5E1M", caliber: 105, stock: true, alpha: 320, penAP: 218, penPrem: 252, premType: "APCR", penHE: 53, reload: 10.6, dpm: 1811, accuracy: 0.33, aimTime: 1.7, depression: -10 },
+      { name: "105 mm Gun T5E1M", caliber: 105, stock: true, alpha: 320, penAP: 218, penPrem: 252, premType: "APCR", penHE: 53, reload: 10.6, dpm: 1811, accuracy: 0.33, aimTime: 1.7, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1403,9 +1403,9 @@ const TANKS = [
     hp: 1500, weight: 46.4,
     armor: { hull: { front: 152, sides: 76, rear: 51 }, turret: { front: 191, sides: 114, rear: 127 } },
     mobility: { topSpeed: 45, reverse: 17, enginePower: 704, hpPerTon: 15.2, turretTraverse: 25, hullTraverse: 35 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "90 mm Gun T7E1", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 259, premType: "APCR", penHE: 45, reload: 7.2, dpm: 1999, accuracy: 0.36, aimTime: 2.1, depression: -10 },
+      { name: "90 mm Gun T7E1", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 259, premType: "APCR", penHE: 45, reload: 7.2, dpm: 1999, accuracy: 0.36, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1431,9 +1431,9 @@ const TANKS = [
     hp: 1500, weight: 46.4,
     armor: { hull: { front: 152, sides: 76, rear: 51 }, turret: { front: 191, sides: 114, rear: 127 } },
     mobility: { topSpeed: 45, reverse: 17, enginePower: 704, hpPerTon: 15.2, turretTraverse: 25, hullTraverse: 35 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "90 mm Gun T7E1", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 259, premType: "APCR", penHE: 45, reload: 7.2, dpm: 1999, accuracy: 0.36, aimTime: 2.1, depression: -10 },
+      { name: "90 mm Gun T7E1", caliber: 90, stock: true, alpha: 240, penAP: null, penPrem: 259, premType: "APCR", penHE: 45, reload: 7.2, dpm: 1999, accuracy: 0.36, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1445,10 +1445,10 @@ const TANKS = [
     hp: 1650, weight: 57.5,
     armor: { hull: { front: 127, sides: 76, rear: 51 }, turret: { front: 298, sides: 197, rear: 152 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 865, hpPerTon: 15.0, turretTraverse: 25, hullTraverse: 29 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "90 mm Gun T15E2", caliber: 90, stock: true, alpha: 240, penAP: 198, penPrem: 258, premType: "APCR", penHE: 45, reload: 6.7, dpm: 2150, accuracy: 0.36, aimTime: 1.8, depression: -10 },
-      { name: "105 mm Gun T5E1/45", caliber: 105, stock: false, alpha: 320, penAP: 218, penPrem: 252, premType: "APCR", penHE: 53, reload: 9.0, dpm: 2134, accuracy: 0.38, aimTime: 1.9, depression: -10 },
+      { name: "90 mm Gun T15E2", caliber: 90, stock: true, alpha: 240, penAP: 198, penPrem: 258, premType: "APCR", penHE: 45, reload: 6.7, dpm: 2150, accuracy: 0.36, aimTime: 1.8, depression: -10 , clip: 1 },
+      { name: "105 mm Gun T5E1/45", caliber: 105, stock: false, alpha: 320, penAP: 218, penPrem: 252, premType: "APCR", penHE: 53, reload: 9.0, dpm: 2134, accuracy: 0.38, aimTime: 1.9, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1474,9 +1474,9 @@ const TANKS = [
     hp: 1500, weight: 65.1,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 279, sides: 127, rear: 203 } },
     mobility: { topSpeed: 35, reverse: 12, enginePower: 930, hpPerTon: 14.3, turretTraverse: 24, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 7.0, camoMoving: 3.0 },
     guns: [
-      { name: "120 mm Gun T53A1", caliber: 120, stock: true, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.35, aimTime: 3.2, depression: -10 },
+      { name: "120 mm Gun T53A1", caliber: 120, stock: true, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.35, aimTime: 3.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1488,9 +1488,9 @@ const TANKS = [
     hp: 1500, weight: 65.1,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 279, sides: 127, rear: 203 } },
     mobility: { topSpeed: 35, reverse: 12, enginePower: 930, hpPerTon: 14.3, turretTraverse: 24, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 7.0, camoMoving: 3.0 },
     guns: [
-      { name: "120 mm Gun T53A1", caliber: 120, stock: true, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.35, aimTime: 3.2, depression: -10 },
+      { name: "120 mm Gun T53A1", caliber: 120, stock: true, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.35, aimTime: 3.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1516,9 +1516,9 @@ const TANKS = [
     hp: 1450, weight: 49.0,
     armor: { hull: { front: 125, sides: 76, rear: 35 }, turret: { front: 152, sides: 70, rear: 50 } },
     mobility: { topSpeed: 48, reverse: 12, enginePower: 800, hpPerTon: 16.3, turretTraverse: 36, hullTraverse: 30 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 9.0, camoMoving: 4.0 },
     guns: [
-      { name: "120 mm Gun T179 in Mount 169", caliber: 120, stock: true, alpha: 360, penAP: null, penPrem: 232, premType: "APCR", penHE: 60, reload: 40.0, dpm: 1472, accuracy: 0.37, aimTime: 2.7, depression: -8 },
+      { name: "120 mm Gun T179 in Mount 169", caliber: 120, stock: true, alpha: 360, penAP: null, penPrem: 232, premType: "APCR", penHE: 60, reload: 40.0, dpm: 1472, accuracy: 0.37, aimTime: 2.7, depression: -8 , clip: 3, clipRate: 2.0 },
     ],
   },
   {
@@ -1530,9 +1530,9 @@ const TANKS = [
     hp: 1500, weight: 50.0,
     armor: { hull: { front: 102, sides: 64, rear: 38 }, turret: { front: 305, sides: 127, rear: 76 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 800, hpPerTon: 16.0, turretTraverse: 28, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "94 mm British DB Gun", caliber: 94, stock: true, alpha: 280, penAP: 218, penPrem: 252, premType: "APCR", penHE: 47, reload: 7.5, dpm: 2240, accuracy: 0.38, aimTime: 2.0, depression: -8 },
+      { name: "94 mm British DB Gun", caliber: 94, stock: true, alpha: 280, penAP: 218, penPrem: 252, premType: "APCR", penHE: 47, reload: 7.5, dpm: 2240, accuracy: 0.38, aimTime: 2.0, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1544,9 +1544,9 @@ const TANKS = [
     hp: 1400, weight: 43.0,
     armor: { hull: { front: 70, sides: 50, rear: 25 }, turret: { front: 150, sides: 50, rear: 30 } },
     mobility: { topSpeed: 44, reverse: 22, enginePower: 750, hpPerTon: 17.4, turretTraverse: 45, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "105 mm T141E5 AT", caliber: 105, stock: true, alpha: 320, penAP: null, penPrem: 230, premType: "APCR", penHE: 53, reload: 8.7, dpm: 2208, accuracy: 0.35, aimTime: 2.0, depression: -10 },
+      { name: "105 mm T141E5 AT", caliber: 105, stock: true, alpha: 320, penAP: null, penPrem: 230, premType: "APCR", penHE: 53, reload: 8.7, dpm: 2208, accuracy: 0.35, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1558,9 +1558,9 @@ const TANKS = [
     hp: 1300, weight: 36.0,
     armor: { hull: { front: 70, sides: 40, rear: 30 }, turret: { front: 250, sides: 70, rear: 50 } },
     mobility: { topSpeed: 40, reverse: 14, enginePower: 650, hpPerTon: 18.1, turretTraverse: 28, hullTraverse: 32 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "105 mm Gun M68P", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 278, premType: "APCR", penHE: 53, reload: 15.0, dpm: 1800, accuracy: 0.38, aimTime: 2.7, depression: -9 },
+      { name: "105 mm Gun M68P", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 278, premType: "APCR", penHE: 53, reload: 15.0, dpm: 1800, accuracy: 0.38, aimTime: 2.7, depression: -9 , clip: 3, clipRate: 3.0, autoreload: [19.0, 15.0, 12.0] },
     ],
   },
   {
@@ -1572,9 +1572,9 @@ const TANKS = [
     hp: 1300, weight: 31.0,
     armor: { hull: { front: 85, sides: 70, rear: 50 }, turret: { front: 220, sides: 100, rear: 75 } },
     mobility: { topSpeed: 52, reverse: 30, enginePower: 450, hpPerTon: 14.5, turretTraverse: 44, hullTraverse: 60 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "105 mm T254A", caliber: 105, stock: true, alpha: 320, penAP: 190, penPrem: 250, premType: "APCR", penHE: 53, reload: 34.0, dpm: 1920, accuracy: 0.43, aimTime: 2.0, depression: -10 },
+      { name: "105 mm T254A", caliber: 105, stock: true, alpha: 320, penAP: 190, penPrem: 250, premType: "APCR", penHE: 53, reload: 34.0, dpm: 1920, accuracy: 0.43, aimTime: 2.0, depression: -10 , clip: 5, clipRate: 4.0 },
     ],
   },
   {
@@ -1586,9 +1586,9 @@ const TANKS = [
     hp: 1300, weight: 31.0,
     armor: { hull: { front: 85, sides: 70, rear: 50 }, turret: { front: 220, sides: 100, rear: 75 } },
     mobility: { topSpeed: 52, reverse: 30, enginePower: 450, hpPerTon: 14.5, turretTraverse: 44, hullTraverse: 60 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 25.0, camoMoving: 19.0 },
     guns: [
-      { name: "105 mm T254A", caliber: 105, stock: true, alpha: 320, penAP: 190, penPrem: 250, premType: "APCR", penHE: 53, reload: 34.0, dpm: 1920, accuracy: 0.43, aimTime: 2.0, depression: -10 },
+      { name: "105 mm T254A", caliber: 105, stock: true, alpha: 320, penAP: 190, penPrem: 250, premType: "APCR", penHE: 53, reload: 34.0, dpm: 1920, accuracy: 0.43, aimTime: 2.0, depression: -10 , clip: 5, clipRate: 4.0 },
     ],
   },
   {
@@ -1600,10 +1600,10 @@ const TANKS = [
     hp: 1600, weight: 39.0,
     armor: { hull: { front: 64, sides: 64, rear: 38 }, turret: { front: 133, sides: 76, rear: 38 } },
     mobility: { topSpeed: 50, reverse: 17, enginePower: 710, hpPerTon: 18.2, turretTraverse: 38, hullTraverse: 45 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 27.0, camoMoving: 20.0 },
     guns: [
-      { name: "75 mm Ares MC-AAAC", caliber: 75, stock: true, alpha: 56, penAP: 185, penPrem: 202, premType: "APCR", penHE: 10, reload: 6.0, dpm: 1574, accuracy: 0.38, aimTime: 2.3, depression: -7 },
-      { name: "75 mm Ares ADMAG", caliber: 75, stock: false, alpha: 56, penAP: 195, penPrem: 212, premType: "APCR", penHE: 10, reload: 5.0, dpm: 1750, accuracy: 0.37, aimTime: 2.2, depression: -7 },
+      { name: "75 mm Ares MC-AAAC", caliber: 75, stock: true, alpha: 56, penAP: 185, penPrem: 202, premType: "APCR", penHE: 10, reload: 6.0, dpm: 1574, accuracy: 0.38, aimTime: 2.3, depression: -7 , clip: 350, clipRate: 0.3, overheat: true },
+      { name: "75 mm Ares ADMAG", caliber: 75, stock: false, alpha: 56, penAP: 195, penPrem: 212, premType: "APCR", penHE: 10, reload: 5.0, dpm: 1750, accuracy: 0.37, aimTime: 2.2, depression: -7 , clip: 350, clipRate: 0.3, overheat: true },
     ],
   },
   {
@@ -1615,9 +1615,9 @@ const TANKS = [
     hp: 1400, weight: 50.0,
     armor: { hull: { front: 102, sides: 51, rear: 38 }, turret: { front: 229, sides: 76, rear: 51 } },
     mobility: { topSpeed: 45, reverse: 20, enginePower: 850, hpPerTon: 17.0, turretTraverse: 40, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 27.0, camoMoving: 20.0 },
     guns: [
-      { name: "105mm Gun T140E5", caliber: 105, stock: true, alpha: 360, penAP: 220, penPrem: 248, premType: "APCR", penHE: 53, reload: 10.8, dpm: 2002, accuracy: 0.37, aimTime: 2.3, depression: -8 },
+      { name: "105mm Gun T140E5", caliber: 105, stock: true, alpha: 360, penAP: 220, penPrem: 248, premType: "APCR", penHE: 53, reload: 10.8, dpm: 2002, accuracy: 0.37, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1629,9 +1629,9 @@ const TANKS = [
     hp: 1350, weight: 45.0,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 121, sides: 57, rear: 25 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 900, hpPerTon: 20.0, turretTraverse: 34, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "105 mm Gun T8", caliber: 105, stock: true, alpha: 360, penAP: 210, penPrem: 246, premType: "APCR", penHE: 53, reload: 12.3, dpm: 1757, accuracy: 0.37, aimTime: 2.0, depression: -10 },
+      { name: "105 mm Gun T8", caliber: 105, stock: true, alpha: 360, penAP: 210, penPrem: 246, premType: "APCR", penHE: 53, reload: 12.3, dpm: 1757, accuracy: 0.37, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1643,10 +1643,10 @@ const TANKS = [
     hp: 1600, weight: 42.9,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 127, sides: 76, rear: 64 } },
     mobility: { topSpeed: 48, reverse: 20, enginePower: 770, hpPerTon: 17.9, turretTraverse: 38, hullTraverse: 50 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 23.0, camoMoving: 17.0 },
     guns: [
-      { name: "90 mm Gun M3E26", caliber: 90, stock: true, alpha: 240, penAP: 198, penPrem: 243, premType: "APCR", penHE: 45, reload: 6.3, dpm: 2285, accuracy: 0.34, aimTime: 2.0, depression: -10 },
-      { name: "90 mm Gun T15E2M2", caliber: 90, stock: false, alpha: 280, penAP: 212, penPrem: 268, premType: "APCR", penHE: 45, reload: 7.6, dpm: 2209, accuracy: 0.34, aimTime: 2.0, depression: -10 },
+      { name: "90 mm Gun M3E26", caliber: 90, stock: true, alpha: 240, penAP: 198, penPrem: 243, premType: "APCR", penHE: 45, reload: 6.3, dpm: 2285, accuracy: 0.34, aimTime: 2.0, depression: -10 , clip: 1 },
+      { name: "90 mm Gun T15E2M2", caliber: 90, stock: false, alpha: 280, penAP: 212, penPrem: 268, premType: "APCR", penHE: 45, reload: 7.6, dpm: 2209, accuracy: 0.34, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1658,9 +1658,9 @@ const TANKS = [
     hp: 1450, weight: 44.0,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 127, sides: 76, rear: 76 } },
     mobility: { topSpeed: 48, reverse: 20, enginePower: 810, hpPerTon: 18.4, turretTraverse: 38, hullTraverse: 38 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 22.0, camoMoving: 16.0 },
     guns: [
-      { name: "90 mm Gun M3A1", caliber: 90, stock: true, alpha: 240, penAP: 192, penPrem: 243, premType: "APCR", penHE: 45, reload: 7.4, dpm: 1946, accuracy: 0.38, aimTime: 2.2, depression: -10 },
+      { name: "90 mm Gun M3A1", caliber: 90, stock: true, alpha: 240, penAP: 192, penPrem: 243, premType: "APCR", penHE: 45, reload: 7.4, dpm: 1946, accuracy: 0.38, aimTime: 2.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1672,9 +1672,9 @@ const TANKS = [
     hp: 1300, weight: 47.2,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 330, sides: 64, rear: 76 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 800, hpPerTon: 17.0, turretTraverse: 30, hullTraverse: 32 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 20.0, camoMoving: 14.0 },
     guns: [
-      { name: "105 mm Gun M68A1E4", caliber: 105, stock: true, alpha: 320, penAP: 230, penPrem: 300, premType: "HEAT", penHE: 53, reload: 11.3, dpm: 1699, accuracy: 0.44, aimTime: 3.0, depression: -10 },
+      { name: "105 mm Gun M68A1E4", caliber: 105, stock: true, alpha: 320, penAP: 230, penPrem: 300, premType: "HEAT", penHE: 53, reload: 11.3, dpm: 1699, accuracy: 0.44, aimTime: 3.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1700,9 +1700,9 @@ const TANKS = [
     hp: 1450, weight: 37.3,
     armor: { hull: { front: 76, sides: 51, rear: 38 }, turret: { front: 76, sides: 64, rear: 64 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 530, hpPerTon: 14.2, turretTraverse: 45, hullTraverse: 43 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 24.0, camoMoving: 18.0 },
     guns: [
-      { name: "90 mm Gun T7", caliber: 90, stock: true, alpha: 240, penAP: 208, penPrem: 268, premType: "APCR", penHE: 45, reload: 7.8, dpm: 1846, accuracy: 0.36, aimTime: 2.0, depression: -10 },
+      { name: "90 mm Gun T7", caliber: 90, stock: true, alpha: 240, penAP: 208, penPrem: 268, premType: "APCR", penHE: 45, reload: 7.8, dpm: 1846, accuracy: 0.36, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1714,9 +1714,9 @@ const TANKS = [
     hp: 1500, weight: 50.5,
     armor: { hull: { front: 102, sides: 76, rear: 51 }, turret: { front: 102, sides: 76, rear: 76 } },
     mobility: { topSpeed: 40, reverse: 18, enginePower: 720, hpPerTon: 14.2, turretTraverse: 30, hullTraverse: 32 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 23.0, camoMoving: 17.0 },
     guns: [
-      { name: "90 mm Gun T15E1", caliber: 90, stock: true, alpha: 240, penAP: 202, penPrem: 258, premType: "APCR", penHE: 45, reload: 8.0, dpm: 1800, accuracy: 0.38, aimTime: 2.3, depression: -10 },
+      { name: "90 mm Gun T15E1", caliber: 90, stock: true, alpha: 240, penAP: 202, penPrem: 258, premType: "APCR", penHE: 45, reload: 8.0, dpm: 1800, accuracy: 0.38, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1742,9 +1742,9 @@ const TANKS = [
     hp: 1350, weight: 33.8,
     armor: { hull: { front: 102, sides: 76, rear: 25 }, turret: { front: 216, sides: 64, rear: 76 } },
     mobility: { topSpeed: 52, reverse: 20, enginePower: 500, hpPerTon: 14.8, turretTraverse: 37, hullTraverse: 42 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 21.0, camoMoving: 16.0 },
     guns: [
-      { name: "90 mm Gun T114", caliber: 90, stock: true, alpha: 280, penAP: 190, penPrem: 268, premType: "APCR", penHE: 45, reload: 9.1, dpm: 1845, accuracy: 0.33, aimTime: 2.0, depression: -10 },
+      { name: "90 mm Gun T114", caliber: 90, stock: true, alpha: 280, penAP: 190, penPrem: 268, premType: "APCR", penHE: 45, reload: 9.1, dpm: 1845, accuracy: 0.33, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1756,10 +1756,10 @@ const TANKS = [
     hp: 1500, weight: 34.5,
     armor: { hull: { front: 102, sides: 76, rear: 38 }, turret: { front: 152, sides: 114, rear: 64 } },
     mobility: { topSpeed: 52, reverse: 20, enginePower: 600, hpPerTon: 17.4, turretTraverse: 38, hullTraverse: 53 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 22.0, camoMoving: 17.0 },
     guns: [
-      { name: "76 mm Gun T185", caliber: 76, stock: true, alpha: 175, penAP: null, penPrem: 190, premType: "APCR", penHE: 38, reload: 15.0, dpm: 2000, accuracy: 0.36, aimTime: 2.0, depression: -9 },
-      { name: "90 mm Gun T178 (T69)", caliber: 90, stock: false, alpha: 240, penAP: 212, penPrem: 280, premType: "HEAT", penHE: 45, reload: 24.0, dpm: 1920, accuracy: 0.38, aimTime: 2.5, depression: -9 },
+      { name: "76 mm Gun T185", caliber: 76, stock: true, alpha: 175, penAP: null, penPrem: 190, premType: "APCR", penHE: 38, reload: 15.0, dpm: 2000, accuracy: 0.36, aimTime: 2.0, depression: -9 , clip: 4, clipRate: 2.0 },
+      { name: "90 mm Gun T178 (T69)", caliber: 90, stock: false, alpha: 240, penAP: 212, penPrem: 280, premType: "HEAT", penHE: 45, reload: 24.0, dpm: 1920, accuracy: 0.38, aimTime: 2.5, depression: -9 , clip: 4, clipRate: 2.0 },
     ],
   },
   {
@@ -1771,9 +1771,9 @@ const TANKS = [
     hp: 1500, weight: 36.9,
     armor: { hull: { front: 114, sides: 51, rear: 19 }, turret: { front: 178, sides: 76, rear: 51 } },
     mobility: { topSpeed: 56, reverse: 21, enginePower: 560, hpPerTon: 15.2, turretTraverse: 44, hullTraverse: 36 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 17.0, camoMoving: 13.0 },
     guns: [
-      { name: "90 mm Gun M41E1", caliber: 90, stock: true, alpha: 240, penAP: 190, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.5, dpm: 1920, accuracy: 0.36, aimTime: 2.0, depression: -9 },
+      { name: "90 mm Gun M41E1", caliber: 90, stock: true, alpha: 240, penAP: 190, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.5, dpm: 1920, accuracy: 0.36, aimTime: 2.0, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -1785,9 +1785,9 @@ const TANKS = [
     hp: 1400, weight: 36.9,
     armor: { hull: { front: 89, sides: 51, rear: 25 }, turret: { front: 178, sides: 76, rear: 51 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 665, hpPerTon: 18.0, turretTraverse: 38, hullTraverse: 46 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 17.0, camoMoving: 13.0 },
     guns: [
-      { name: "90 mm Gun M41E1L", caliber: 90, stock: true, alpha: 280, penAP: 208, penPrem: 280, premType: "HEAT", penHE: 45, reload: 8.8, dpm: 1910, accuracy: 0.38, aimTime: 2.3, depression: -9 },
+      { name: "90 mm Gun M41E1L", caliber: 90, stock: true, alpha: 280, penAP: 208, penPrem: 280, premType: "HEAT", penHE: 45, reload: 8.8, dpm: 1910, accuracy: 0.38, aimTime: 2.3, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -1799,10 +1799,10 @@ const TANKS = [
     hp: 1200, weight: 23.5,
     armor: { hull: { front: 25, sides: 25, rear: 19 }, turret: { front: 25, sides: 25, rear: 25 } },
     mobility: { topSpeed: 68, reverse: 24, enginePower: 800, hpPerTon: 34.0, turretTraverse: 50, hullTraverse: 65 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 25.0, camoMoving: 25.0 },
     guns: [
-      { name: "76 mm Gun M32", caliber: 76, stock: true, alpha: 170, penAP: null, penPrem: 181, premType: "APCR", penHE: 38, reload: 4.6, dpm: 2217, accuracy: 0.36, aimTime: 1.8, depression: -10 },
-      { name: "76 mm Gun M32 late", caliber: 76, stock: false, alpha: 175, penAP: null, penPrem: 190, premType: "APCR", penHE: 38, reload: 4.5, dpm: 2333, accuracy: 0.35, aimTime: 1.7, depression: -10 },
+      { name: "76 mm Gun M32", caliber: 76, stock: true, alpha: 170, penAP: null, penPrem: 181, premType: "APCR", penHE: 38, reload: 4.6, dpm: 2217, accuracy: 0.36, aimTime: 1.8, depression: -10 , clip: 1 },
+      { name: "76 mm Gun M32 late", caliber: 76, stock: false, alpha: 175, penAP: null, penPrem: 190, premType: "APCR", penHE: 38, reload: 4.5, dpm: 2333, accuracy: 0.35, aimTime: 1.7, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1828,9 +1828,9 @@ const TANKS = [
     hp: 1000, weight: 17.0,
     armor: { hull: { front: 32, sides: 25, rear: 19 }, turret: { front: 29, sides: 29, rear: 29 } },
     mobility: { topSpeed: 60, reverse: 25, enginePower: 600, hpPerTon: 35.3, turretTraverse: 50, hullTraverse: 55 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 32.0, camoMoving: 32.0 },
     guns: [
-      { name: "76 mm Gun T185E1", caliber: 76, stock: true, alpha: 150, penAP: null, penPrem: 189, premType: "APCR", penHE: 38, reload: 4.5, dpm: 2000, accuracy: 0.38, aimTime: 1.8, depression: -10 },
+      { name: "76 mm Gun T185E1", caliber: 76, stock: true, alpha: 150, penAP: null, penPrem: 189, premType: "APCR", penHE: 38, reload: 4.5, dpm: 2000, accuracy: 0.38, aimTime: 1.8, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1842,10 +1842,10 @@ const TANKS = [
     hp: 1600, weight: 59.9,
     armor: { hull: { front: 270, sides: 102, rear: 51 }, turret: null },
     mobility: { topSpeed: 22, reverse: 10, enginePower: 780, hpPerTon: 13.0, turretTraverse: null, hullTraverse: 24 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 32.0, camoMoving: 19.0 },
     guns: [
-      { name: "105 mm AT Gun T5E1 (T28)", caliber: 105, stock: true, alpha: 360, penAP: 234, penPrem: 277, premType: "APCR", penHE: 53, reload: 8.3, dpm: 2603, accuracy: 0.37, aimTime: 1.7, depression: -5 },
-      { name: "120 mm AT Gun T53 (T28)", caliber: 120, stock: false, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 9.1, dpm: 2636, accuracy: 0.38, aimTime: 2.1, depression: -5 },
+      { name: "105 mm AT Gun T5E1 (T28)", caliber: 105, stock: true, alpha: 360, penAP: 234, penPrem: 277, premType: "APCR", penHE: 53, reload: 8.3, dpm: 2603, accuracy: 0.37, aimTime: 1.7, depression: -5 , clip: 1 },
+      { name: "120 mm AT Gun T53 (T28)", caliber: 120, stock: false, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 9.1, dpm: 2636, accuracy: 0.38, aimTime: 2.1, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -1857,10 +1857,10 @@ const TANKS = [
     hp: 1400, weight: 66.3,
     armor: { hull: { front: 203, sides: 51, rear: 51 }, turret: { front: 203, sides: 127, rear: 102 } },
     mobility: { topSpeed: 32, reverse: 12, enginePower: 830, hpPerTon: 12.5, turretTraverse: 18, hullTraverse: 24 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 22.0, camoMoving: 13.0 },
     guns: [
-      { name: "105 mm AT Gun T5E1/28P", caliber: 105, stock: true, alpha: 360, penAP: 234, penPrem: 265, premType: "APCR", penHE: 53, reload: 9.3, dpm: 2322, accuracy: 0.37, aimTime: 1.7, depression: -10 },
-      { name: "120 mm AT Gun T53/28P", caliber: 120, stock: false, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 9.8, dpm: 2448, accuracy: 0.38, aimTime: 2.1, depression: -10 },
+      { name: "105 mm AT Gun T5E1/28P", caliber: 105, stock: true, alpha: 360, penAP: 234, penPrem: 265, premType: "APCR", penHE: 53, reload: 9.3, dpm: 2322, accuracy: 0.37, aimTime: 1.7, depression: -10 , clip: 1 },
+      { name: "120 mm AT Gun T53/28P", caliber: 120, stock: false, alpha: 400, penAP: 248, penPrem: 297, premType: "APCR", penHE: 60, reload: 9.8, dpm: 2448, accuracy: 0.38, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1872,9 +1872,9 @@ const TANKS = [
     hp: 1500, weight: 60.0,
     armor: { hull: { front: 260, sides: 100, rear: 51 }, turret: null },
     mobility: { topSpeed: 26, reverse: 12, enginePower: 750, hpPerTon: 12.5, turretTraverse: null, hullTraverse: 24 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 27.0, camoMoving: 16.0 },
     guns: [
-      { name: "120 mm AT Gun M58", caliber: 120, stock: true, alpha: 400, penAP: 248, penPrem: 300, premType: "HEAT", penHE: 60, reload: 8.5, dpm: 2824, accuracy: 0.44, aimTime: 1.8, depression: -5 },
+      { name: "120 mm AT Gun M58", caliber: 120, stock: true, alpha: 400, penAP: 248, penPrem: 300, premType: "HEAT", penHE: 60, reload: 8.5, dpm: 2824, accuracy: 0.44, aimTime: 1.8, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -1886,9 +1886,9 @@ const TANKS = [
     hp: 1300, weight: 60.0,
     armor: { hull: { front: 121, sides: 89, rear: 38 }, turret: { front: 305, sides: 102, rear: 38 } },
     mobility: { topSpeed: 24, reverse: 12, enginePower: 810, hpPerTon: 13.5, turretTraverse: 22, hullTraverse: 22 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 29.0, camoMoving: 17.0 },
     guns: [
-      { name: "155 mm Gun T7XM", caliber: 155, stock: true, alpha: 630, penAP: 270, penPrem: 315, premType: "APCR", penHE: 90, reload: 19.0, dpm: 1991, accuracy: 0.43, aimTime: 3.0, depression: -7 },
+      { name: "155 mm Gun T7XM", caliber: 155, stock: true, alpha: 630, penAP: 270, penPrem: 315, premType: "APCR", penHE: 90, reload: 19.0, dpm: 1991, accuracy: 0.43, aimTime: 3.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -1900,9 +1900,9 @@ const TANKS = [
     hp: 1300, weight: 55.0,
     armor: { hull: { front: 95, sides: 50, rear: 40 }, turret: { front: 230, sides: 120, rear: 40 } },
     mobility: { topSpeed: 35, reverse: 15, enginePower: 850, hpPerTon: 15.5, turretTraverse: 16, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 25.0, camoMoving: 15.0 },
     guns: [
-      { name: "120 mm Gun T123E6/66", caliber: 120, stock: true, alpha: 400, penAP: 232, penPrem: 276, premType: "APCR", penHE: 60, reload: 9.5, dpm: 2528, accuracy: 0.38, aimTime: 2.0, depression: -10 },
+      { name: "120 mm Gun T123E6/66", caliber: 120, stock: true, alpha: 400, penAP: 232, penPrem: 276, premType: "APCR", penHE: 60, reload: 9.5, dpm: 2528, accuracy: 0.38, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1914,10 +1914,10 @@ const TANKS = [
     hp: 400, weight: 37.2,
     armor: { hull: { front: 108, sides: 13, rear: 13 }, turret: null },
     mobility: { topSpeed: 39, reverse: 10, enginePower: 500, hpPerTon: 13.5, turretTraverse: null, hullTraverse: 22 },
-    vision: { viewRange: 290 },
+    vision: { viewRange: 290 , camoStill: 18.0, camoMoving: 9.0 },
     guns: [
-      { name: "155 mm Gun M1A1", caliber: 155, stock: true, alpha: 420, penAP: 218, penPrem: null, premType: null, penHE: 49, reload: 31.0, dpm: 815, accuracy: 0.65, aimTime: 4.6, depression: -5 },
-      { name: "8-inch Howitzer M1", caliber: 203, stock: false, alpha: 600, penAP: 272, penPrem: null, premType: null, penHE: 65, reload: 46.0, dpm: 780, accuracy: 0.77, aimTime: 5.3, depression: -5 },
+      { name: "155 mm Gun M1A1", caliber: 155, stock: true, alpha: 420, penAP: 218, penPrem: null, premType: null, penHE: 49, reload: 31.0, dpm: 815, accuracy: 0.65, aimTime: 4.6, depression: -5 , clip: 1 },
+      { name: "8-inch Howitzer M1", caliber: 203, stock: false, alpha: 600, penAP: 272, penPrem: null, premType: null, penHE: 65, reload: 46.0, dpm: 780, accuracy: 0.77, aimTime: 5.3, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -1929,10 +1929,10 @@ const TANKS = [
     hp: 1600, weight: 49.9,
     armor: { hull: { front: 90, sides: 35, rear: 30 }, turret: { front: 90, sides: 30, rear: 30 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 920, hpPerTon: 18.4, turretTraverse: 32, hullTraverse: 52 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "90 mm DCA 45 (50 100)", caliber: 90, stock: true, alpha: 280, penAP: 224, penPrem: 259, premType: "APCR", penHE: 45, reload: 43.0, dpm: 1817, accuracy: 0.36, aimTime: 2.5, depression: -9 },
-      { name: "100 mm SA47 (50 100)", caliber: 100, stock: false, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 43.0, dpm: 1947, accuracy: 0.36, aimTime: 2.5, depression: -9 },
+      { name: "90 mm DCA 45 (50 100)", caliber: 90, stock: true, alpha: 280, penAP: 224, penPrem: 259, premType: "APCR", penHE: 45, reload: 43.0, dpm: 1817, accuracy: 0.36, aimTime: 2.5, depression: -9 , clip: 6, clipRate: 2.5 },
+      { name: "100 mm SA47 (50 100)", caliber: 100, stock: false, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 43.0, dpm: 1947, accuracy: 0.36, aimTime: 2.5, depression: -9 , clip: 6, clipRate: 2.5 },
     ],
   },
   {
@@ -1944,10 +1944,10 @@ const TANKS = [
     hp: 1700, weight: 65.0,
     armor: { hull: { front: 115, sides: 80, rear: 60 }, turret: { front: 250, sides: 80, rear: 60 } },
     mobility: { topSpeed: 35, reverse: 15, enginePower: 1200, hpPerTon: 18.5, turretTraverse: 26, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 7.0, camoMoving: 3.0 },
     guns: [
-      { name: "100 mm SA47 (65)", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 8.5, dpm: 2118, accuracy: 0.34, aimTime: 2.0, depression: -8 },
-      { name: "120 mm D. 1203", caliber: 120, stock: false, alpha: 420, penAP: 225, penPrem: 252, premType: "APCR", penHE: 65, reload: 12.9, dpm: 1953, accuracy: 0.36, aimTime: 2.3, depression: -8 },
+      { name: "100 mm SA47 (65)", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 8.5, dpm: 2118, accuracy: 0.34, aimTime: 2.0, depression: -8 , clip: 1 },
+      { name: "120 mm D. 1203", caliber: 120, stock: false, alpha: 420, penAP: 225, penPrem: 252, premType: "APCR", penHE: 65, reload: 12.9, dpm: 1953, accuracy: 0.36, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -1959,9 +1959,9 @@ const TANKS = [
     hp: 1500, weight: 70.0,
     armor: { hull: { front: 190, sides: 55, rear: 40 }, turret: { front: 250, sides: 120, rear: 60 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 1000, hpPerTon: 14.3, turretTraverse: 28, hullTraverse: 30 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "100 mm SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 10.3, dpm: 1749, accuracy: 0.36, aimTime: 2.5, depression: -10 },
+      { name: "100 mm SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 10.3, dpm: 1749, accuracy: 0.36, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -1987,9 +1987,9 @@ const TANKS = [
     hp: 1500, weight: 70.0,
     armor: { hull: { front: 190, sides: 55, rear: 40 }, turret: { front: 250, sides: 120, rear: 60 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 1000, hpPerTon: 14.3, turretTraverse: 28, hullTraverse: 30 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 7.0, camoMoving: 4.0 },
     guns: [
-      { name: "100 mm SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 10.3, dpm: 1749, accuracy: 0.36, aimTime: 2.5, depression: -10 },
+      { name: "100 mm SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 10.3, dpm: 1749, accuracy: 0.36, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2001,9 +2001,9 @@ const TANKS = [
     hp: 1500, weight: 65.0,
     armor: { hull: { front: 105, sides: 90, rear: 40 }, turret: { front: 250, sides: 90, rear: 60 } },
     mobility: { topSpeed: 40, reverse: 18, enginePower: 1170, hpPerTon: 18.0, turretTraverse: 33, hullTraverse: 42 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 4.0, camoMoving: 2.0 },
     guns: [
-      { name: "105 mm SK L/70", caliber: 105, stock: true, alpha: 320, penAP: 234, penPrem: 280, premType: "APCR", penHE: 65, reload: 10.8, dpm: 1779, accuracy: 0.37, aimTime: 1.8, depression: -10 },
+      { name: "105 mm SK L/70", caliber: 105, stock: true, alpha: 320, penAP: 234, penPrem: 280, premType: "APCR", penHE: 65, reload: 10.8, dpm: 1779, accuracy: 0.37, aimTime: 1.8, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2015,9 +2015,9 @@ const TANKS = [
     hp: 1500, weight: 54.2,
     armor: { hull: { front: 120, sides: 80, rear: 80 }, turret: { front: 120, sides: 80, rear: 60 } },
     mobility: { topSpeed: 51, reverse: 20, enginePower: 1250, hpPerTon: 23.0, turretTraverse: 36, hullTraverse: 40 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "90 mm DCA 45A", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 5.8, dpm: 2482, accuracy: 0.36, aimTime: 2.0, depression: -10 },
+      { name: "90 mm DCA 45A", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 5.8, dpm: 2482, accuracy: 0.36, aimTime: 2.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2029,9 +2029,9 @@ const TANKS = [
     hp: 1450, weight: 56.0,
     armor: { hull: { front: 140, sides: 90, rear: 70 }, turret: { front: 120, sides: 60, rear: 60 } },
     mobility: { topSpeed: 37, reverse: 20, enginePower: 700, hpPerTon: 12.5, turretTraverse: 26, hullTraverse: 32 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "100 mm SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 37.0, dpm: 1956, accuracy: 0.4, aimTime: 2.4, depression: -10 },
+      { name: "100 mm SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 37.0, dpm: 1956, accuracy: 0.4, aimTime: 2.4, depression: -10 , clip: 5, clipRate: 2.25 },
     ],
   },
   {
@@ -2043,9 +2043,9 @@ const TANKS = [
     hp: 1400, weight: 34.0,
     armor: { hull: { front: 30, sides: 20, rear: 20 }, turret: { front: 30, sides: 20, rear: 20 } },
     mobility: { topSpeed: 57, reverse: 23, enginePower: 1200, hpPerTon: 35.3, turretTraverse: 38, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 20.0, camoMoving: 15.0 },
     guns: [
-      { name: "90 mm AC DCA 45", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 7.3, dpm: 1973, accuracy: 0.34, aimTime: 1.8, depression: -10 },
+      { name: "90 mm AC DCA 45", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 7.3, dpm: 1973, accuracy: 0.34, aimTime: 1.8, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2057,9 +2057,9 @@ const TANKS = [
     hp: 1250, weight: 28.0,
     armor: { hull: { front: 60, sides: 40, rear: 30 }, turret: { front: 150, sides: 40, rear: 30 } },
     mobility: { topSpeed: 65, reverse: 23, enginePower: 680, hpPerTon: 24.3, turretTraverse: 42, hullTraverse: 40 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 23.0, camoMoving: 17.0 },
     guns: [
-      { name: "100 mm SA47-58", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 9.0, dpm: 2001, accuracy: 0.36, aimTime: 2.5, depression: -11 },
+      { name: "100 mm SA47-58", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 9.0, dpm: 2001, accuracy: 0.36, aimTime: 2.5, depression: -11 , clip: 1 },
     ],
   },
   {
@@ -2071,9 +2071,9 @@ const TANKS = [
     hp: 1250, weight: 12.0,
     armor: { hull: { front: 40, sides: 20, rear: 20 }, turret: { front: 15, sides: 10, rear: 10 } },
     mobility: { topSpeed: 62, reverse: 23, enginePower: 310, hpPerTon: 25.8, turretTraverse: 55, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 34.0, camoMoving: 25.0 },
     guns: [
-      { name: "Canon 105 mm mle 57 (D.1504)", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 240, premType: "APCR", penHE: 53, reload: 22.0, dpm: 1800, accuracy: 0.42, aimTime: 3.5, depression: -6 },
+      { name: "Canon 105 mm mle 57 (D.1504)", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 240, premType: "APCR", penHE: 53, reload: 22.0, dpm: 1800, accuracy: 0.42, aimTime: 3.5, depression: -6 , clip: 2, clipRate: 2.0 },
     ],
   },
   {
@@ -2085,9 +2085,9 @@ const TANKS = [
     hp: 1300, weight: 40.0,
     armor: { hull: { front: 40, sides: 30, rear: 25 }, turret: { front: 45, sides: 30, rear: 20 } },
     mobility: { topSpeed: 60, reverse: 23, enginePower: 850, hpPerTon: 21.2, turretTraverse: 36, hullTraverse: 34 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 23.0, camoMoving: 17.0 },
     guns: [
-      { name: "100 mm SA47 A", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 36.0, dpm: 1656, accuracy: 0.38, aimTime: 2.7, depression: -8 },
+      { name: "100 mm SA47 A", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 36.0, dpm: 1656, accuracy: 0.38, aimTime: 2.7, depression: -8 , clip: 4, clipRate: 2.5 },
     ],
   },
   {
@@ -2099,9 +2099,9 @@ const TANKS = [
     hp: 1400, weight: 35.0,
     armor: { hull: { front: 51, sides: 38, rear: 38 }, turret: { front: 64, sides: 64, rear: 64 } },
     mobility: { topSpeed: 40, reverse: 16, enginePower: 550, hpPerTon: 15.7, turretTraverse: 42, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 19.0, camoMoving: 14.0 },
     guns: [
-      { name: "105 mm D. 1504 L/51", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 200, premType: "APCR", penHE: 53, reload: 12.8, dpm: 1829, accuracy: 0.35, aimTime: 2.4, depression: -10 },
+      { name: "105 mm D. 1504 L/51", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 200, premType: "APCR", penHE: 53, reload: 12.8, dpm: 1829, accuracy: 0.35, aimTime: 2.4, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2127,9 +2127,9 @@ const TANKS = [
     hp: 1250, weight: 12.0,
     armor: { hull: { front: 40, sides: 20, rear: 20 }, turret: { front: 15, sides: 10, rear: 10 } },
     mobility: { topSpeed: 62, reverse: 23, enginePower: 310, hpPerTon: 25.8, turretTraverse: 55, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 34.0, camoMoving: 25.0 },
     guns: [
-      { name: "Canon 105 mm mle 57 (D.1504)", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 240, premType: "APCR", penHE: 53, reload: 22.0, dpm: 1800, accuracy: 0.42, aimTime: 3.5, depression: -6 },
+      { name: "Canon 105 mm mle 57 (D.1504)", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 240, premType: "APCR", penHE: 53, reload: 22.0, dpm: 1800, accuracy: 0.42, aimTime: 3.5, depression: -6 , clip: 2, clipRate: 2.0 },
     ],
   },
   {
@@ -2141,10 +2141,10 @@ const TANKS = [
     hp: 1150, weight: 12.0,
     armor: { hull: { front: 40, sides: 20, rear: 20 }, turret: { front: 25, sides: 25, rear: 25 } },
     mobility: { topSpeed: 68, reverse: 23, enginePower: 400, hpPerTon: 33.3, turretTraverse: 46, hullTraverse: 42 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 32.0, camoMoving: 32.0 },
     guns: [
-      { name: "Canon de 75 mm Vo 920 m/s", caliber: 75, stock: true, alpha: 170, penAP: 159, penPrem: 198, premType: "APCR", penHE: 38, reload: 19.5, dpm: 1600, accuracy: 0.38, aimTime: 2.0, depression: -6 },
-      { name: "Canon de 75 mm Vo 1000 m/s", caliber: 75, stock: false, alpha: 170, penAP: 170, penPrem: 210, premType: "APCR", penHE: 38, reload: 17.0, dpm: 1773, accuracy: 0.38, aimTime: 2.0, depression: -6 },
+      { name: "Canon de 75 mm Vo 920 m/s", caliber: 75, stock: true, alpha: 170, penAP: 159, penPrem: 198, premType: "APCR", penHE: 38, reload: 19.5, dpm: 1600, accuracy: 0.38, aimTime: 2.0, depression: -6 , clip: 4, clipRate: 2.0 },
+      { name: "Canon de 75 mm Vo 1000 m/s", caliber: 75, stock: false, alpha: 170, penAP: 170, penPrem: 210, premType: "APCR", penHE: 38, reload: 17.0, dpm: 1773, accuracy: 0.38, aimTime: 2.0, depression: -6 , clip: 4, clipRate: 2.0 },
     ],
   },
   {
@@ -2156,9 +2156,9 @@ const TANKS = [
     hp: 900, weight: 6.7,
     armor: { hull: { front: 15, sides: 10, rear: 10 }, turret: { front: 15, sides: 10, rear: 10 } },
     mobility: { topSpeed: 70, reverse: 20, enginePower: 160, hpPerTon: 23.9, turretTraverse: 46, hullTraverse: 45 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 39.0, camoMoving: 39.0 },
     guns: [
-      { name: "90 mm D. 919", caliber: 90, stock: true, alpha: 220, penAP: 175, penPrem: 215, premType: "APCR", penHE: 45, reload: 30.0, dpm: 1131, accuracy: 0.38, aimTime: 2.9, depression: -9 },
+      { name: "90 mm D. 919", caliber: 90, stock: true, alpha: 220, penAP: 175, penPrem: 215, premType: "APCR", penHE: 45, reload: 30.0, dpm: 1131, accuracy: 0.38, aimTime: 2.9, depression: -9 , clip: 3, clipRate: 2.5 },
     ],
   },
   {
@@ -2184,10 +2184,10 @@ const TANKS = [
     hp: 1000, weight: 8.0,
     armor: { hull: { front: 13, sides: 13, rear: 13 }, turret: { front: 16, sides: 13, rear: 13 } },
     mobility: { topSpeed: 58, reverse: 40, enginePower: 285, hpPerTon: 35.6, turretTraverse: 60, hullTraverse: 0 },
-    vision: { viewRange: 310 },
+    vision: { viewRange: 310 , camoStill: 33.0, camoMoving: 33.0 },
     guns: [
-      { name: "75 mm SA50L", caliber: 75, stock: true, alpha: 175, penAP: null, penPrem: 180, premType: "APCR", penHE: 75, reload: 6.6, dpm: 1591, accuracy: 0.41, aimTime: 1.6, depression: -8 },
-      { name: "90 mm D. 921 F1", caliber: 90, stock: false, alpha: 240, penAP: 182, penPrem: 240, premType: "HEAT", penHE: 75, reload: 8.23, dpm: 1750, accuracy: 0.4, aimTime: 1.6, depression: -8 },
+      { name: "75 mm SA50L", caliber: 75, stock: true, alpha: 175, penAP: null, penPrem: 180, premType: "APCR", penHE: 75, reload: 6.6, dpm: 1591, accuracy: 0.41, aimTime: 1.6, depression: -8 , clip: 1 },
+      { name: "90 mm D. 921 F1", caliber: 90, stock: false, alpha: 240, penAP: 182, penPrem: 240, premType: "HEAT", penHE: 75, reload: 8.23, dpm: 1750, accuracy: 0.4, aimTime: 1.6, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2199,9 +2199,9 @@ const TANKS = [
     hp: 950, weight: 15.0,
     armor: { hull: { front: 40, sides: 16, rear: 40 }, turret: { front: 40, sides: 20, rear: 20 } },
     mobility: { topSpeed: 60, reverse: 60, enginePower: 525, hpPerTon: 35.0, turretTraverse: 66, hullTraverse: 0 },
-    vision: { viewRange: 310 },
+    vision: { viewRange: 310 , camoStill: 34.0, camoMoving: 34.0 },
     guns: [
-      { name: "75 mm SA50 mle. 54", caliber: 75, stock: true, alpha: 175, penAP: null, penPrem: 180, premType: "APCR", penHE: 75, reload: 9.5, dpm: 1909, accuracy: 0.38, aimTime: 1.2, depression: -8 },
+      { name: "75 mm SA50 mle. 54", caliber: 75, stock: true, alpha: 175, penAP: null, penPrem: 180, premType: "APCR", penHE: 75, reload: 9.5, dpm: 1909, accuracy: 0.38, aimTime: 1.2, depression: -8 , clip: 2, clipRate: 1.5 },
     ],
   },
   {
@@ -2213,10 +2213,10 @@ const TANKS = [
     hp: 1300, weight: 50.6,
     armor: { hull: { front: 150, sides: 55, rear: 40 }, turret: null },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 930, hpPerTon: 18.4, turretTraverse: null, hullTraverse: 44 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 23.0, camoMoving: 14.0 },
     guns: [
-      { name: "100 mm AC SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 22.0, dpm: 2001, accuracy: 0.36, aimTime: 2.3, depression: -6 },
-      { name: "120 mm SA46 (AC 48)", caliber: 120, stock: false, alpha: 400, penAP: 257, penPrem: 325, premType: "APCR", penHE: 65, reload: 34.0, dpm: 1848, accuracy: 0.36, aimTime: 2.6, depression: -6 },
+      { name: "100 mm AC SA47", caliber: 100, stock: true, alpha: 300, penAP: 232, penPrem: 263, premType: "APCR", penHE: 50, reload: 22.0, dpm: 2001, accuracy: 0.36, aimTime: 2.3, depression: -6 , clip: 3, clipRate: 2.5 },
+      { name: "120 mm SA46 (AC 48)", caliber: 120, stock: false, alpha: 400, penAP: 257, penPrem: 325, premType: "APCR", penHE: 65, reload: 34.0, dpm: 1848, accuracy: 0.36, aimTime: 2.6, depression: -6 , clip: 3, clipRate: 2.5 },
     ],
   },
   {
@@ -2242,9 +2242,9 @@ const TANKS = [
     hp: 1200, weight: 26.9,
     armor: { hull: { front: 100, sides: 40, rear: 30 }, turret: null },
     mobility: { topSpeed: 55, reverse: 18, enginePower: 720, hpPerTon: 26.8, turretTraverse: null, hullTraverse: 28 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 38.0, camoMoving: 23.0 },
     guns: [
-      { name: "105 mm CN 105", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 260, premType: "APCR", penHE: 53, reload: 10.6, dpm: 2207, accuracy: 0.3, aimTime: 1.8, depression: -8 },
+      { name: "105 mm CN 105", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 260, premType: "APCR", penHE: 53, reload: 10.6, dpm: 2207, accuracy: 0.3, aimTime: 1.8, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2256,9 +2256,9 @@ const TANKS = [
     hp: 1200, weight: 45.0,
     armor: { hull: { front: 145, sides: 50, rear: 30 }, turret: null },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 680, hpPerTon: 15.1, turretTraverse: null, hullTraverse: 40 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 31.0, camoMoving: 19.0 },
     guns: [
-      { name: "120 mm D. 1203 LA", caliber: 120, stock: true, alpha: 400, penAP: 244, penPrem: 315, premType: "APCR", penHE: 65, reload: 40.0, dpm: 1960, accuracy: 0.36, aimTime: 2.8, depression: -7 },
+      { name: "120 mm D. 1203 LA", caliber: 120, stock: true, alpha: 400, penAP: 244, penPrem: 315, premType: "APCR", penHE: 65, reload: 40.0, dpm: 1960, accuracy: 0.36, aimTime: 2.8, depression: -7 , clip: 4, clipRate: 3.0 },
     ],
   },
   {
@@ -2270,9 +2270,9 @@ const TANKS = [
     hp: 1100, weight: 25.0,
     armor: { hull: { front: 40, sides: 20, rear: 15 }, turret: null },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 480, hpPerTon: 19.2, turretTraverse: null, hullTraverse: 35 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 30.0, camoMoving: 18.0 },
     guns: [
-      { name: "Canon bitube de 105 mm D. 1507", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 270, premType: "APCR", penHE: 53, reload: 10.5, dpm: 2227, accuracy: 0.4, aimTime: 1.7, depression: -8 },
+      { name: "Canon bitube de 105 mm D. 1507", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 270, premType: "APCR", penHE: 53, reload: 10.5, dpm: 2227, accuracy: 0.4, aimTime: 1.7, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2284,10 +2284,10 @@ const TANKS = [
     hp: 390, weight: 34.3,
     armor: { hull: { front: 40, sides: 30, rear: 25 }, turret: null },
     mobility: { topSpeed: 60, reverse: 14, enginePower: 850, hpPerTon: 24.8, turretTraverse: null, hullTraverse: 28 },
-    vision: { viewRange: 270 },
+    vision: { viewRange: 270 , camoStill: 19.0, camoMoving: 10.0 },
     guns: [
-      { name: "Obusier de 155 mm mle. 1950", caliber: 155, stock: true, alpha: 420, penAP: null, penPrem: 230, premType: "HEAT", penHE: 50, reload: 30.0, dpm: 840, accuracy: 0.68, aimTime: 6.0, depression: 0 },
-      { name: "Canon de 155 mm mle. 1917 G.P.F. (L51)", caliber: 155, stock: false, alpha: 460, penAP: 268, penPrem: null, premType: null, penHE: 56, reload: 30.0, dpm: 920, accuracy: 0.66, aimTime: 5.5, depression: 0 },
+      { name: "Obusier de 155 mm mle. 1950", caliber: 155, stock: true, alpha: 420, penAP: null, penPrem: 230, premType: "HEAT", penHE: 50, reload: 30.0, dpm: 840, accuracy: 0.68, aimTime: 6.0, depression: 0 , clip: 1 },
+      { name: "Canon de 155 mm mle. 1917 G.P.F. (L51)", caliber: 155, stock: false, alpha: 460, penAP: 268, penPrem: null, premType: null, penHE: 56, reload: 30.0, dpm: 920, accuracy: 0.66, aimTime: 5.5, depression: 0 , clip: 1 },
     ],
   },
   {
@@ -2299,10 +2299,10 @@ const TANKS = [
     hp: 1750, weight: 61.7,
     armor: { hull: { front: 130, sides: 76, rear: 38 }, turret: { front: 254, sides: 89, rear: 89 } },
     mobility: { topSpeed: 34, reverse: 12, enginePower: 900, hpPerTon: 14.6, turretTraverse: 30, hullTraverse: 30 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "OQF 17-pdr Gun Mk. VII (221)", caliber: 76, stock: true, alpha: 150, penAP: 197, penPrem: 239, premType: "APCR", penHE: 38, reload: 3.4, dpm: 2648, accuracy: 0.32, aimTime: 1.9, depression: -10 },
-      { name: "OQF 32-pdr Gun Mk. II (221)", caliber: 94, stock: false, alpha: 280, penAP: 220, penPrem: 252, premType: "APCR", penHE: 47, reload: 6.5, dpm: 2584, accuracy: 0.34, aimTime: 2.1, depression: -10 },
+      { name: "OQF 17-pdr Gun Mk. VII (221)", caliber: 76, stock: true, alpha: 150, penAP: 197, penPrem: 239, premType: "APCR", penHE: 38, reload: 3.4, dpm: 2648, accuracy: 0.32, aimTime: 1.9, depression: -10 , clip: 1 },
+      { name: "OQF 32-pdr Gun Mk. II (221)", caliber: 94, stock: false, alpha: 280, penAP: 220, penPrem: 252, premType: "APCR", penHE: 47, reload: 6.5, dpm: 2584, accuracy: 0.34, aimTime: 2.1, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2314,9 +2314,9 @@ const TANKS = [
     hp: 1500, weight: 65.0,
     armor: { hull: { front: 130, sides: 51, rear: 38 }, turret: { front: 254, sides: 152, rear: 95 } },
     mobility: { topSpeed: 36, reverse: 12, enginePower: 950, hpPerTon: 14.6, turretTraverse: 36, hullTraverse: 28 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "OQF 20-pdr Gun Type B Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 5.9, dpm: 2339, accuracy: 0.32, aimTime: 2.3, depression: -10 },
+      { name: "OQF 20-pdr Gun Type B Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 5.9, dpm: 2339, accuracy: 0.32, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2328,9 +2328,9 @@ const TANKS = [
     hp: 1500, weight: 40.7,
     armor: { hull: { front: 130, sides: 35, rear: 35 }, turret: { front: 250, sides: 80, rear: 50 } },
     mobility: { topSpeed: 33, reverse: 12, enginePower: 750, hpPerTon: 18.4, turretTraverse: 23, hullTraverse: 30 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "QF 6-inch Caliban", caliber: 152, stock: true, alpha: 600, penAP: 292, penPrem: null, premType: null, penHE: 180, reload: 25.0, dpm: 1440, accuracy: 0.58, aimTime: 4.1, depression: -10 },
+      { name: "QF 6-inch Caliban", caliber: 152, stock: true, alpha: 600, penAP: 292, penPrem: null, premType: null, penHE: 180, reload: 25.0, dpm: 1440, accuracy: 0.58, aimTime: 4.1, depression: -10 , clip: 2, clipRate: 3.75, autoreload: [40.0, 25.0] },
     ],
   },
   {
@@ -2342,9 +2342,9 @@ const TANKS = [
     hp: 1500, weight: 45.0,
     armor: { hull: { front: 130, sides: 70, rear: 38 }, turret: { front: 170, sides: 80, rear: 70 } },
     mobility: { topSpeed: 35, reverse: 15, enginePower: 750, hpPerTon: 16.7, turretTraverse: 28, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "120 mm Low Velocity Gun", caliber: 119, stock: true, alpha: 440, penAP: 270, penPrem: null, premType: null, penHE: 60, reload: 16.7, dpm: 1580, accuracy: 0.44, aimTime: 3.5, depression: -10 },
+      { name: "120 mm Low Velocity Gun", caliber: 119, stock: true, alpha: 440, penAP: 270, penPrem: null, premType: null, penHE: 60, reload: 16.7, dpm: 1580, accuracy: 0.44, aimTime: 3.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2356,9 +2356,9 @@ const TANKS = [
     hp: 1400, weight: 72.0,
     armor: { hull: { front: 230, sides: 80, rear: 80 }, turret: { front: 230, sides: 130, rear: 80 } },
     mobility: { topSpeed: 24, reverse: 12, enginePower: 800, hpPerTon: 11.1, turretTraverse: 23, hullTraverse: 24 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 7.0, camoMoving: 3.0 },
     guns: [
-      { name: "OQF 55-pdr CG", caliber: 114, stock: true, alpha: 350, penAP: 215, penPrem: 252, premType: "APCR", penHE: 57, reload: 10.5, dpm: 1998, accuracy: 0.38, aimTime: 2.3, depression: -10 },
+      { name: "OQF 55-pdr CG", caliber: 114, stock: true, alpha: 350, penAP: 215, penPrem: 252, premType: "APCR", penHE: 57, reload: 10.5, dpm: 1998, accuracy: 0.38, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2370,9 +2370,9 @@ const TANKS = [
     hp: 1500, weight: 70.0,
     armor: { hull: { front: 150, sides: 70, rear: 60 }, turret: { front: 250, sides: 120, rear: 90 } },
     mobility: { topSpeed: 36, reverse: 12, enginePower: 1050, hpPerTon: 15.0, turretTraverse: 30, hullTraverse: 25 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 6.0, camoMoving: 3.0 },
     guns: [
-      { name: "Twin 105 mm Gun L7 MBC", caliber: 105, stock: true, alpha: 360, penAP: 225, penPrem: 255, premType: "APCR", penHE: 53, reload: 11.0, dpm: 1962, accuracy: 0.36, aimTime: 2.2, depression: -10 },
+      { name: "Twin 105 mm Gun L7 MBC", caliber: 105, stock: true, alpha: 360, penAP: 225, penPrem: 255, premType: "APCR", penHE: 53, reload: 11.0, dpm: 1962, accuracy: 0.36, aimTime: 2.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2384,10 +2384,10 @@ const TANKS = [
     hp: 1700, weight: 68.0,
     armor: { hull: { front: 120, sides: 80, rear: 40 }, turret: { front: 280, sides: 100, rear: 60 } },
     mobility: { topSpeed: 34, reverse: 12, enginePower: 900, hpPerTon: 13.2, turretTraverse: 30, hullTraverse: 24 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 9.0, camoMoving: 5.0 },
     guns: [
-      { name: "Twin 20-pdr Gun MBC Mk. II", caliber: 83, stock: true, alpha: 230, penAP: 209, penPrem: 240, premType: "APCR", penHE: 42, reload: 5.8, dpm: 2378, accuracy: 0.34, aimTime: 1.9, depression: -10 },
-      { name: "Twin 32-pdr Gun MBC", caliber: 94, stock: false, alpha: 280, penAP: 219, penPrem: 248, premType: "APCR", penHE: 47, reload: 7.4, dpm: 2271, accuracy: 0.35, aimTime: 2.2, depression: -10 },
+      { name: "Twin 20-pdr Gun MBC Mk. II", caliber: 83, stock: true, alpha: 230, penAP: 209, penPrem: 240, premType: "APCR", penHE: 42, reload: 5.8, dpm: 2378, accuracy: 0.34, aimTime: 1.9, depression: -10 , clip: 1 },
+      { name: "Twin 32-pdr Gun MBC", caliber: 94, stock: false, alpha: 280, penAP: 219, penPrem: 248, premType: "APCR", penHE: 47, reload: 7.4, dpm: 2271, accuracy: 0.35, aimTime: 2.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2399,9 +2399,9 @@ const TANKS = [
     hp: 1500, weight: 40.3,
     armor: { hull: { front: 130, sides: 35, rear: 35 }, turret: { front: 250, sides: 80, rear: 50 } },
     mobility: { topSpeed: 37, reverse: 15, enginePower: 850, hpPerTon: 21.1, turretTraverse: 28, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "QF 120 mm Gonsalo", caliber: 120, stock: true, alpha: 440, penAP: 240, penPrem: null, premType: null, penHE: 60, reload: 15.0, dpm: 1760, accuracy: 0.45, aimTime: 3.2, depression: -10 },
+      { name: "QF 120 mm Gonsalo", caliber: 120, stock: true, alpha: 440, penAP: 240, penPrem: null, premType: null, penHE: 60, reload: 15.0, dpm: 1760, accuracy: 0.45, aimTime: 3.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2413,9 +2413,9 @@ const TANKS = [
     hp: 1400, weight: 72.0,
     armor: { hull: { front: 230, sides: 80, rear: 80 }, turret: { front: 230, sides: 130, rear: 80 } },
     mobility: { topSpeed: 24, reverse: 12, enginePower: 800, hpPerTon: 11.1, turretTraverse: 23, hullTraverse: 24 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 7.0, camoMoving: 3.0 },
     guns: [
-      { name: "OQF 55-pdr CG", caliber: 114, stock: true, alpha: 350, penAP: 215, penPrem: 252, premType: "APCR", penHE: 57, reload: 10.5, dpm: 1998, accuracy: 0.38, aimTime: 2.3, depression: -10 },
+      { name: "OQF 55-pdr CG", caliber: 114, stock: true, alpha: 350, penAP: 215, penPrem: 252, premType: "APCR", penHE: 57, reload: 10.5, dpm: 1998, accuracy: 0.38, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2427,9 +2427,9 @@ const TANKS = [
     hp: 1400, weight: 51.0,
     armor: { hull: { front: 121, sides: 51, rear: 38 }, turret: { front: 254, sides: 89, rear: 89 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 950, hpPerTon: 18.6, turretTraverse: 36, hullTraverse: 36 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 20.0, camoMoving: 15.0 },
     guns: [
-      { name: "OQF 20-pdr Gun Type B Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 7.0, dpm: 1971, accuracy: 0.33, aimTime: 2.3, depression: -10 },
+      { name: "OQF 20-pdr Gun Type B Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 7.0, dpm: 1971, accuracy: 0.33, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2441,10 +2441,10 @@ const TANKS = [
     hp: 1600, weight: 44.9,
     armor: { hull: { front: 76, sides: 51, rear: 38 }, turret: { front: 254, sides: 89, rear: 89 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 850, hpPerTon: 18.9, turretTraverse: 36, hullTraverse: 36 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 21.0, camoMoving: 16.0 },
     guns: [
-      { name: "OQF 17-pdr Gun Mk. VII (A41)", caliber: 76, stock: true, alpha: 150, penAP: 171, penPrem: 239, premType: "APCR", penHE: 38, reload: 3.8, dpm: 2368, accuracy: 0.34, aimTime: 1.9, depression: -10 },
-      { name: "OQF 20-pdr Gun Type A Barrel", caliber: 83, stock: false, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 6.4, dpm: 2157, accuracy: 0.33, aimTime: 2.3, depression: -10 },
+      { name: "OQF 17-pdr Gun Mk. VII (A41)", caliber: 76, stock: true, alpha: 150, penAP: 171, penPrem: 239, premType: "APCR", penHE: 38, reload: 3.8, dpm: 2368, accuracy: 0.34, aimTime: 1.9, depression: -10 , clip: 1 },
+      { name: "OQF 20-pdr Gun Type A Barrel", caliber: 83, stock: false, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 6.4, dpm: 2157, accuracy: 0.33, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2456,9 +2456,9 @@ const TANKS = [
     hp: 1400, weight: 50.0,
     armor: { hull: { front: 85, sides: 51, rear: 25 }, turret: { front: 254, sides: 89, rear: 51 } },
     mobility: { topSpeed: 42, reverse: 15, enginePower: 850, hpPerTon: 17.0, turretTraverse: 36, hullTraverse: 40 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 12.0, camoMoving: 9.0 },
     guns: [
-      { name: "90 mm Gun T208 (rifled)", caliber: 90, stock: true, alpha: 240, penAP: 202, penPrem: 238, premType: "APCR", penHE: 45, reload: 7.5, dpm: 1920, accuracy: 0.36, aimTime: 2.2, depression: -10 },
+      { name: "90 mm Gun T208 (rifled)", caliber: 90, stock: true, alpha: 240, penAP: 202, penPrem: 238, premType: "APCR", penHE: 45, reload: 7.5, dpm: 1920, accuracy: 0.36, aimTime: 2.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2470,9 +2470,9 @@ const TANKS = [
     hp: 1400, weight: 56.4,
     armor: { hull: { front: 114, sides: 76, rear: 51 }, turret: { front: 203, sides: 76, rear: 76 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 900, hpPerTon: 15.9, turretTraverse: 26, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 23.0, camoMoving: 18.0 },
     guns: [
-      { name: "QF 5-in. Gun", caliber: 127, stock: true, alpha: 440, penAP: 218, penPrem: 252, premType: "APCR", penHE: 64, reload: 15.5, dpm: 1703, accuracy: 0.36, aimTime: 2.5, depression: -10 },
+      { name: "QF 5-in. Gun", caliber: 127, stock: true, alpha: 440, penAP: 218, penPrem: 252, premType: "APCR", penHE: 64, reload: 15.5, dpm: 1703, accuracy: 0.36, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2484,9 +2484,9 @@ const TANKS = [
     hp: 1400, weight: 41.6,
     armor: { hull: { front: 51, sides: 51, rear: 32 }, turret: { front: 200, sides: 90, rear: 90 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 650, hpPerTon: 15.6, turretTraverse: 36, hullTraverse: 40 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 24.0, camoMoving: 18.0 },
     guns: [
-      { name: "OQF 20-pdr Gun Type B Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 7.5, dpm: 1840, accuracy: 0.33, aimTime: 2.3, depression: -10 },
+      { name: "OQF 20-pdr Gun Type B Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 7.5, dpm: 1840, accuracy: 0.33, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2512,10 +2512,10 @@ const TANKS = [
     hp: 1450, weight: 13.0,
     armor: { hull: { front: 32, sides: 13, rear: 13 }, turret: { front: 32, sides: 13, rear: 13 } },
     mobility: { topSpeed: 65, reverse: 30, enginePower: 310, hpPerTon: 23.9, turretTraverse: 50, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "76 mm L5A3", caliber: 76, stock: true, alpha: 150, penAP: 185, penPrem: 220, premType: "APCR", penHE: 38, reload: 3.6, dpm: 2501, accuracy: 0.33, aimTime: 1.5, depression: -8 },
-      { name: "90 mm Kenerga Mk. 8 (601)", caliber: 90, stock: false, alpha: 280, penAP: 221, penPrem: 255, premType: "APCR", penHE: 45, reload: 8.4, dpm: 1999, accuracy: 0.33, aimTime: 1.9, depression: -8 },
+      { name: "76 mm L5A3", caliber: 76, stock: true, alpha: 150, penAP: 185, penPrem: 220, premType: "APCR", penHE: 38, reload: 3.6, dpm: 2501, accuracy: 0.33, aimTime: 1.5, depression: -8 , clip: 1 },
+      { name: "90 mm Kenerga Mk. 8 (601)", caliber: 90, stock: false, alpha: 280, penAP: 221, penPrem: 255, premType: "APCR", penHE: 45, reload: 8.4, dpm: 1999, accuracy: 0.33, aimTime: 1.9, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2527,9 +2527,9 @@ const TANKS = [
     hp: 1200, weight: 19.0,
     armor: { hull: { front: 60, sides: 30, rear: 15 }, turret: { front: 60, sides: 30, rear: 20 } },
     mobility: { topSpeed: 60, reverse: 30, enginePower: 450, hpPerTon: 23.7, turretTraverse: 50, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 23.0, camoMoving: 18.0 },
     guns: [
-      { name: "105mm HV Gun Mk.II", caliber: 105, stock: true, alpha: 360, penAP: 218, penPrem: 252, premType: "APCR", penHE: 50, reload: 12.2, dpm: 1771, accuracy: 0.33, aimTime: 2.0, depression: -8 },
+      { name: "105mm HV Gun Mk.II", caliber: 105, stock: true, alpha: 360, penAP: 218, penPrem: 252, premType: "APCR", penHE: 50, reload: 12.2, dpm: 1771, accuracy: 0.33, aimTime: 2.0, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2541,9 +2541,9 @@ const TANKS = [
     hp: 1300, weight: 40.1,
     armor: { hull: { front: 70, sides: 51, rear: 38 }, turret: { front: 254, sides: 76, rear: 51 } },
     mobility: { topSpeed: 40, reverse: 16, enginePower: 650, hpPerTon: 16.2, turretTraverse: 30, hullTraverse: 35 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 19.0, camoMoving: 14.0 },
     guns: [
-      { name: "110 mm MV-N60 Gun", caliber: 110, stock: true, alpha: 420, penAP: 225, penPrem: 280, premType: "APCR", penHE: 90, reload: 17.0, dpm: 1483, accuracy: 0.38, aimTime: 2.5, depression: -10 },
+      { name: "110 mm MV-N60 Gun", caliber: 110, stock: true, alpha: 420, penAP: 225, penPrem: 280, premType: "APCR", penHE: 90, reload: 17.0, dpm: 1483, accuracy: 0.38, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2555,9 +2555,9 @@ const TANKS = [
     hp: 1050, weight: 20.2,
     armor: { hull: { front: 22, sides: 20, rear: 11 }, turret: { front: 32, sides: 20, rear: 15 } },
     mobility: { topSpeed: 65, reverse: 23, enginePower: 710, hpPerTon: 35.1, turretTraverse: 46, hullTraverse: 45 },
-    vision: { viewRange: 410 },
+    vision: { viewRange: 410 , camoStill: 26.0, camoMoving: 26.0 },
     guns: [
-      { name: "QF 20 pounder", caliber: 83, stock: true, alpha: 180, penAP: 189, penPrem: 223, premType: "APCR", penHE: 90, reload: 5.5, dpm: 1964, accuracy: 0.35, aimTime: 1.8, depression: -10 },
+      { name: "QF 20 pounder", caliber: 83, stock: true, alpha: 180, penAP: 189, penPrem: 223, premType: "APCR", penHE: 90, reload: 5.5, dpm: 1964, accuracy: 0.35, aimTime: 1.8, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2569,10 +2569,10 @@ const TANKS = [
     hp: 1200, weight: 4.8,
     armor: { hull: { front: 30, sides: 20, rear: 15 }, turret: { front: 60, sides: 25, rear: 20 } },
     mobility: { topSpeed: 63, reverse: 23, enginePower: 160, hpPerTon: 33.3, turretTraverse: 43, hullTraverse: 50 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 34.0, camoMoving: 34.0 },
     guns: [
-      { name: "75 mm HV L40", caliber: 75, stock: true, alpha: 135, penAP: 180, penPrem: 220, premType: "APCR", penHE: 75, reload: 4.7, dpm: 1724, accuracy: 0.34, aimTime: 1.8, depression: -10 },
-      { name: "85 mm HV L40 (LHMTV)", caliber: 83, stock: false, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 10.0, dpm: 1380, accuracy: 0.37, aimTime: 2.2, depression: -10 },
+      { name: "75 mm HV L40", caliber: 75, stock: true, alpha: 135, penAP: 180, penPrem: 220, premType: "APCR", penHE: 75, reload: 4.7, dpm: 1724, accuracy: 0.34, aimTime: 1.8, depression: -10 , clip: 1 },
+      { name: "85 mm HV L40 (LHMTV)", caliber: 83, stock: false, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 10.0, dpm: 1380, accuracy: 0.37, aimTime: 2.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2584,10 +2584,10 @@ const TANKS = [
     hp: 1500, weight: 62.1,
     armor: { hull: { front: 229, sides: 152, rear: 102 }, turret: null },
     mobility: { topSpeed: 25, reverse: 12, enginePower: 720, hpPerTon: 11.6, turretTraverse: null, hullTraverse: 28 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 21.0, camoMoving: 13.0 },
     guns: [
-      { name: "OQF 20-pdr AT Gun Type A Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 5.0, dpm: 2760, accuracy: 0.3, aimTime: 1.7, depression: -10 },
-      { name: "OQF 32-pdr AT Gun (AT 15)", caliber: 94, stock: false, alpha: 280, penAP: 220, penPrem: 252, premType: "APCR", penHE: 47, reload: 6.0, dpm: 2800, accuracy: 0.3, aimTime: 1.7, depression: -10 },
+      { name: "OQF 20-pdr AT Gun Type A Barrel", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 5.0, dpm: 2760, accuracy: 0.3, aimTime: 1.7, depression: -10 , clip: 1 },
+      { name: "OQF 32-pdr AT Gun (AT 15)", caliber: 94, stock: false, alpha: 280, penAP: 220, penPrem: 252, premType: "APCR", penHE: 47, reload: 6.0, dpm: 2800, accuracy: 0.3, aimTime: 1.7, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2599,10 +2599,10 @@ const TANKS = [
     hp: 1200, weight: 30.3,
     armor: { hull: { front: 64, sides: 46, rear: 38 }, turret: { front: 30, sides: 25, rear: 30 } },
     mobility: { topSpeed: 52, reverse: 20, enginePower: 700, hpPerTon: 23.1, turretTraverse: 18, hullTraverse: 42 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 31.0, camoMoving: 18.0 },
     guns: [
-      { name: "OQF 20-pdr AT Gun Type B Barrel (4101)", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 5.1, dpm: 2705, accuracy: 0.32, aimTime: 1.5, depression: -10 },
-      { name: "105 mm AT Gun L7", caliber: 105, stock: false, alpha: 390, penAP: null, penPrem: 268, premType: "APCR", penHE: 105, reload: 10.1, dpm: 2317, accuracy: 0.35, aimTime: 2.4, depression: -10 },
+      { name: "OQF 20-pdr AT Gun Type B Barrel (4101)", caliber: 83, stock: true, alpha: 230, penAP: 226, penPrem: 258, premType: "APCR", penHE: 42, reload: 5.1, dpm: 2705, accuracy: 0.32, aimTime: 1.5, depression: -10 , clip: 1 },
+      { name: "105 mm AT Gun L7", caliber: 105, stock: false, alpha: 390, penAP: null, penPrem: 268, premType: "APCR", penHE: 105, reload: 10.1, dpm: 2317, accuracy: 0.35, aimTime: 2.4, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2614,9 +2614,9 @@ const TANKS = [
     hp: 1200, weight: 30.3,
     armor: { hull: { front: 64, sides: 46, rear: 38 }, turret: { front: 30, sides: 25, rear: 30 } },
     mobility: { topSpeed: 52, reverse: 20, enginePower: 700, hpPerTon: 23.1, turretTraverse: 18, hullTraverse: 42 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 31.0, camoMoving: 18.0 },
     guns: [
-      { name: "105 mm AT Gun L7", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 268, premType: "APCR", penHE: 105, reload: 10.1, dpm: 2317, accuracy: 0.35, aimTime: 2.4, depression: -10 },
+      { name: "105 mm AT Gun L7", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 268, premType: "APCR", penHE: 105, reload: 10.1, dpm: 2317, accuracy: 0.35, aimTime: 2.4, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2628,9 +2628,9 @@ const TANKS = [
     hp: 1200, weight: 43.6,
     armor: { hull: { front: 99, sides: 51, rear: 38 }, turret: { front: 152, sides: 51, rear: 38 } },
     mobility: { topSpeed: 60, reverse: 17, enginePower: 640, hpPerTon: 14.7, turretTraverse: 28, hullTraverse: 28 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 31.0, camoMoving: 19.0 },
     guns: [
-      { name: "105 mm AT Gun L7A1", caliber: 105, stock: true, alpha: 320, penAP: 226, penPrem: 321, premType: "APCR", penHE: 53, reload: 45.0, dpm: 1507, accuracy: 0.34, aimTime: 2.3, depression: -11 },
+      { name: "105 mm AT Gun L7A1", caliber: 105, stock: true, alpha: 320, penAP: 226, penPrem: 321, premType: "APCR", penHE: 53, reload: 45.0, dpm: 1507, accuracy: 0.34, aimTime: 2.3, depression: -11 , clip: 4, clipRate: 2.0 },
     ],
   },
   {
@@ -2642,9 +2642,9 @@ const TANKS = [
     hp: 1200, weight: 43.6,
     armor: { hull: { front: 99, sides: 51, rear: 38 }, turret: { front: 152, sides: 51, rear: 38 } },
     mobility: { topSpeed: 60, reverse: 17, enginePower: 640, hpPerTon: 14.7, turretTraverse: 28, hullTraverse: 28 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 31.0, camoMoving: 19.0 },
     guns: [
-      { name: "105 mm AT Gun L7A1", caliber: 105, stock: true, alpha: 320, penAP: 226, penPrem: 321, premType: "APCR", penHE: 53, reload: 45.0, dpm: 1507, accuracy: 0.34, aimTime: 2.3, depression: -11 },
+      { name: "105 mm AT Gun L7A1", caliber: 105, stock: true, alpha: 320, penAP: 226, penPrem: 321, premType: "APCR", penHE: 53, reload: 45.0, dpm: 1507, accuracy: 0.34, aimTime: 2.3, depression: -11 , clip: 4, clipRate: 2.0 },
     ],
   },
   {
@@ -2656,9 +2656,9 @@ const TANKS = [
     hp: 1400, weight: 60.0,
     armor: { hull: { front: 254, sides: 102, rear: 76 }, turret: null },
     mobility: { topSpeed: 25, reverse: 12, enginePower: 800, hpPerTon: 13.3, turretTraverse: null, hullTraverse: 23 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 23.0, camoMoving: 14.0 },
     guns: [
-      { name: "OQF 55-pdr AT Gun", caliber: 108, stock: true, alpha: 330, penAP: 240, penPrem: 270, premType: "APCR", penHE: 54, reload: 6.8, dpm: 2911, accuracy: 0.36, aimTime: 1.9, depression: -10 },
+      { name: "OQF 55-pdr AT Gun", caliber: 108, stock: true, alpha: 330, penAP: 240, penPrem: 270, premType: "APCR", penHE: 54, reload: 6.8, dpm: 2911, accuracy: 0.36, aimTime: 1.9, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2670,10 +2670,10 @@ const TANKS = [
     hp: 430, weight: 60.0,
     armor: { hull: { front: 51, sides: 51, rear: 51 }, turret: null },
     mobility: { topSpeed: 29, reverse: 10, enginePower: 750, hpPerTon: 12.5, turretTraverse: null, hullTraverse: 25 },
-    vision: { viewRange: 265 },
+    vision: { viewRange: 265 , camoStill: 14.0, camoMoving: 7.0 },
     guns: [
-      { name: "B.L. 5.5-in. Gun (207)", caliber: 140, stock: true, alpha: 400, penAP: 212, penPrem: null, premType: null, penHE: 44, reload: 26.0, dpm: 924, accuracy: 0.63, aimTime: 4.3, depression: -5 },
-      { name: "Q.F. 6-in. Gun Mk. V", caliber: 152, stock: false, alpha: 480, penAP: 254, penPrem: null, premType: null, penHE: 48, reload: 28.6, dpm: 1008, accuracy: 0.65, aimTime: 4.0, depression: -1 },
+      { name: "B.L. 5.5-in. Gun (207)", caliber: 140, stock: true, alpha: 400, penAP: 212, penPrem: null, premType: null, penHE: 44, reload: 26.0, dpm: 924, accuracy: 0.63, aimTime: 4.3, depression: -5 , clip: 1 },
+      { name: "Q.F. 6-in. Gun Mk. V", caliber: 152, stock: false, alpha: 480, penAP: 254, penPrem: null, premType: null, penHE: 48, reload: 28.6, dpm: 1008, accuracy: 0.65, aimTime: 4.0, depression: -1 , clip: 1 },
     ],
   },
   {
@@ -2685,10 +2685,10 @@ const TANKS = [
     hp: 1700, weight: 50.5,
     armor: { hull: { front: 120, sides: 90, rear: 60 }, turret: { front: 201, sides: 148, rear: 50 } },
     mobility: { topSpeed: 47, reverse: 15, enginePower: 700, hpPerTon: 13.9, turretTraverse: 30, hullTraverse: 34 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25T (110)", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 217, premType: "APCR", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.41, aimTime: 2.7, depression: -6 },
-      { name: "100 mm 62-100T", caliber: 100, stock: false, alpha: 320, penAP: 227, penPrem: 265, premType: "APCR", penHE: 50, reload: 8.5, dpm: 2259, accuracy: 0.35, aimTime: 2.1, depression: -6 },
+      { name: "122 mm D-25T (110)", caliber: 122, stock: true, alpha: 390, penAP: null, penPrem: 217, premType: "APCR", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.41, aimTime: 2.7, depression: -6 , clip: 1 },
+      { name: "100 mm 62-100T", caliber: 100, stock: false, alpha: 320, penAP: 227, penPrem: 265, premType: "APCR", penHE: 50, reload: 8.5, dpm: 2259, accuracy: 0.35, aimTime: 2.1, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -2700,9 +2700,9 @@ const TANKS = [
     hp: 1500, weight: 46.0,
     armor: { hull: { front: 120, sides: 120, rear: 60 }, turret: { front: 240, sides: 130, rear: 60 } },
     mobility: { topSpeed: 45, reverse: 15, enginePower: 580, hpPerTon: 12.6, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 12.6, dpm: 1856, accuracy: 0.44, aimTime: 3.0, depression: -6 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 12.6, dpm: 1856, accuracy: 0.44, aimTime: 3.0, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -2728,9 +2728,9 @@ const TANKS = [
     hp: 1650, weight: 53.0,
     armor: { hull: { front: 140, sides: 100, rear: 50 }, turret: { front: 300, sides: 110, rear: 70 } },
     mobility: { topSpeed: 30, reverse: 13, enginePower: 770, hpPerTon: 14.5, turretTraverse: 24, hullTraverse: 28 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm Type-59-2", caliber: 122, stock: true, alpha: 420, penAP: 221, penPrem: 270, premType: "HEAT", penHE: 61, reload: 14.0, dpm: 1802, accuracy: 0.42, aimTime: 2.8, depression: -10 },
+      { name: "122 mm Type-59-2", caliber: 122, stock: true, alpha: 420, penAP: 221, penPrem: 270, premType: "HEAT", penHE: 61, reload: 14.0, dpm: 1802, accuracy: 0.42, aimTime: 2.8, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2742,9 +2742,9 @@ const TANKS = [
     hp: 1550, weight: 57.1,
     armor: { hull: { front: 240, sides: 152, rear: 60 }, turret: { front: 250, sides: 152, rear: 60 } },
     mobility: { topSpeed: 30, reverse: 15, enginePower: 600, hpPerTon: 10.5, turretTraverse: 29, hullTraverse: 29 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "160 mm 56-160 BZS", caliber: 160, stock: true, alpha: 650, penAP: 208, penPrem: null, premType: null, penHE: 225, reload: 25.0, dpm: 1560, accuracy: 0.46, aimTime: 3.5, depression: -10 },
+      { name: "160 mm 56-160 BZS", caliber: 160, stock: true, alpha: 650, penAP: 208, penPrem: null, premType: null, penHE: 225, reload: 25.0, dpm: 1560, accuracy: 0.46, aimTime: 3.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -2756,9 +2756,9 @@ const TANKS = [
     hp: 1500, weight: 58.0,
     armor: { hull: { front: 180, sides: 60, rear: 60 }, turret: { front: 220, sides: 100, rear: 70 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 900, hpPerTon: 15.5, turretTraverse: 25, hullTraverse: 34 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "122 mm Type-61", caliber: 122, stock: true, alpha: 420, penAP: 223, penPrem: 270, premType: "HEAT", penHE: 61, reload: 14.0, dpm: 1802, accuracy: 0.39, aimTime: 2.7, depression: -9 },
+      { name: "122 mm Type-61", caliber: 122, stock: true, alpha: 420, penAP: 223, penPrem: 270, premType: "HEAT", penHE: 61, reload: 14.0, dpm: 1802, accuracy: 0.39, aimTime: 2.7, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -2770,9 +2770,9 @@ const TANKS = [
     hp: 1550, weight: 44.5,
     armor: { hull: { front: 120, sides: 120, rear: 60 }, turret: { front: 230, sides: 120, rear: 60 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 670, hpPerTon: 15.1, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.39, aimTime: 2.6, depression: -5 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.39, aimTime: 2.6, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -2784,9 +2784,9 @@ const TANKS = [
     hp: 1550, weight: 44.5,
     armor: { hull: { front: 120, sides: 120, rear: 60 }, turret: { front: 230, sides: 120, rear: 60 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 670, hpPerTon: 15.1, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.39, aimTime: 2.6, depression: -5 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 12.0, dpm: 1950, accuracy: 0.39, aimTime: 2.6, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -2798,9 +2798,9 @@ const TANKS = [
     hp: 1450, weight: 46.0,
     armor: { hull: { front: 120, sides: 120, rear: 60 }, turret: { front: 300, sides: 150, rear: 80 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 620, hpPerTon: 13.5, turretTraverse: 28, hullTraverse: 30 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "105 mm Type 81-I", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 227, premType: "APCR", penHE: 60, reload: 10.3, dpm: 2099, accuracy: 0.4, aimTime: 2.6, depression: -8 },
+      { name: "105 mm Type 81-I", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 227, premType: "APCR", penHE: 60, reload: 10.3, dpm: 2099, accuracy: 0.4, aimTime: 2.6, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2826,9 +2826,9 @@ const TANKS = [
     hp: 1400, weight: 37.5,
     armor: { hull: { front: 120, sides: 80, rear: 50 }, turret: { front: 280, sides: 140, rear: 70 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 580, hpPerTon: 15.5, turretTraverse: 30, hullTraverse: 40 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "120 mm TG", caliber: 120, stock: true, alpha: 400, penAP: null, penPrem: 233, premType: "APCR", penHE: 62, reload: 17.5, dpm: 1372, accuracy: 0.33, aimTime: 2.3, depression: -8 },
+      { name: "120 mm TG", caliber: 120, stock: true, alpha: 400, penAP: null, penPrem: 233, premType: "APCR", penHE: 62, reload: 17.5, dpm: 1372, accuracy: 0.33, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -2840,9 +2840,9 @@ const TANKS = [
     hp: 1400, weight: 36.4,
     armor: { hull: { front: 100, sides: 80, rear: 45 }, turret: { front: 178, sides: 76, rear: 51 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 620, hpPerTon: 17.1, turretTraverse: 44, hullTraverse: 46 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 15.0, camoMoving: 11.0 },
     guns: [
-      { name: "90 mm Gun M41", caliber: 90, stock: true, alpha: 280, penAP: 212, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.5, dpm: 2240, accuracy: 0.36, aimTime: 1.7, depression: -9 },
+      { name: "90 mm Gun M41", caliber: 90, stock: true, alpha: 280, penAP: 212, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.5, dpm: 2240, accuracy: 0.36, aimTime: 1.7, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -2854,11 +2854,11 @@ const TANKS = [
     hp: 1550, weight: 34.2,
     armor: { hull: { front: 100, sides: 45, rear: 45 }, turret: { front: 180, sides: 120, rear: 60 } },
     mobility: { topSpeed: 56, reverse: 20, enginePower: 630, hpPerTon: 18.4, turretTraverse: 46, hullTraverse: 56 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 30.0, camoMoving: 22.0 },
     guns: [
-      { name: "100 mm 44-100JT", caliber: 100, stock: true, alpha: 250, penAP: 190, penPrem: 247, premType: "APCR", penHE: 50, reload: 7.7, dpm: 1948, accuracy: 0.37, aimTime: 2.1, depression: -5 },
-      { name: "100 mm 59-100T", caliber: 100, stock: false, alpha: 250, penAP: 219, penPrem: 254, premType: "APCR", penHE: 50, reload: 6.8, dpm: 2205, accuracy: 0.35, aimTime: 1.8, depression: -5 },
-      { name: "122 mm 371-122JTX", caliber: 122, stock: false, alpha: 390, penAP: 212, penPrem: 280, premType: "HEAT", penHE: 61, reload: 11.8, dpm: 1981, accuracy: 0.38, aimTime: 2.4, depression: -5 },
+      { name: "100 mm 44-100JT", caliber: 100, stock: true, alpha: 250, penAP: 190, penPrem: 247, premType: "APCR", penHE: 50, reload: 7.7, dpm: 1948, accuracy: 0.37, aimTime: 2.1, depression: -5 , clip: 1 },
+      { name: "100 mm 59-100T", caliber: 100, stock: false, alpha: 250, penAP: 219, penPrem: 254, premType: "APCR", penHE: 50, reload: 6.8, dpm: 2205, accuracy: 0.35, aimTime: 1.8, depression: -5 , clip: 1 },
+      { name: "122 mm 371-122JTX", caliber: 122, stock: false, alpha: 390, penAP: 212, penPrem: 280, premType: "HEAT", penHE: 61, reload: 11.8, dpm: 1981, accuracy: 0.38, aimTime: 2.4, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -2870,9 +2870,9 @@ const TANKS = [
     hp: 1400, weight: 35.5,
     armor: { hull: { front: 100, sides: 80, rear: 45 }, turret: { front: 200, sides: 130, rear: 60 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 520, hpPerTon: 14.6, turretTraverse: 46, hullTraverse: 46 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 26.0, camoMoving: 20.0 },
     guns: [
-      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 13.4, dpm: 1747, accuracy: 0.42, aimTime: 2.5, depression: -7 },
+      { name: "122 mm D-25TA", caliber: 122, stock: true, alpha: 390, penAP: 196, penPrem: 250, premType: "HEAT", penHE: 61, reload: 13.4, dpm: 1747, accuracy: 0.42, aimTime: 2.5, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -2884,9 +2884,9 @@ const TANKS = [
     hp: 1300, weight: 36.0,
     armor: { hull: { front: 100, sides: 80, rear: 45 }, turret: { front: 230, sides: 130, rear: 60 } },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 650, hpPerTon: 18.1, turretTraverse: 46, hullTraverse: 46 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "100 mm Type 59", caliber: 100, stock: true, alpha: 250, penAP: 185, penPrem: 241, premType: "APCR", penHE: 50, reload: 7.9, dpm: 1898, accuracy: 0.35, aimTime: 2.0, depression: -7 },
+      { name: "100 mm Type 59", caliber: 100, stock: true, alpha: 250, penAP: 185, penPrem: 241, premType: "APCR", penHE: 50, reload: 7.9, dpm: 1898, accuracy: 0.35, aimTime: 2.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -2898,9 +2898,9 @@ const TANKS = [
     hp: 1300, weight: 36.0,
     armor: { hull: { front: 100, sides: 80, rear: 45 }, turret: { front: 230, sides: 130, rear: 60 } },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 650, hpPerTon: 18.1, turretTraverse: 46, hullTraverse: 46 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "100 mm Type 59", caliber: 100, stock: true, alpha: 250, penAP: 185, penPrem: 241, premType: "APCR", penHE: 50, reload: 7.9, dpm: 1898, accuracy: 0.35, aimTime: 2.0, depression: -7 },
+      { name: "100 mm Type 59", caliber: 100, stock: true, alpha: 250, penAP: 185, penPrem: 241, premType: "APCR", penHE: 50, reload: 7.9, dpm: 1898, accuracy: 0.35, aimTime: 2.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -2912,9 +2912,9 @@ const TANKS = [
     hp: 1300, weight: 36.0,
     armor: { hull: { front: 100, sides: 80, rear: 45 }, turret: { front: 230, sides: 130, rear: 60 } },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 650, hpPerTon: 18.1, turretTraverse: 46, hullTraverse: 46 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "100 mm Type 59", caliber: 100, stock: true, alpha: 250, penAP: 185, penPrem: 241, premType: "APCR", penHE: 50, reload: 7.9, dpm: 1898, accuracy: 0.35, aimTime: 2.0, depression: -7 },
+      { name: "100 mm Type 59", caliber: 100, stock: true, alpha: 250, penAP: 185, penPrem: 241, premType: "APCR", penHE: 50, reload: 7.9, dpm: 1898, accuracy: 0.35, aimTime: 2.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -2926,9 +2926,9 @@ const TANKS = [
     hp: 1100, weight: 25.0,
     armor: { hull: { front: 25, sides: 25, rear: 19 }, turret: { front: 25, sides: 25, rear: 25 } },
     mobility: { topSpeed: 68, reverse: 24, enginePower: 780, hpPerTon: 31.2, turretTraverse: 50, hullTraverse: 54 },
-    vision: { viewRange: 410 },
+    vision: { viewRange: 410 , camoStill: 25.0, camoMoving: 25.0 },
     guns: [
-      { name: "76 mm M32K1", caliber: 76, stock: true, alpha: 170, penAP: null, penPrem: 227, premType: "APCR", penHE: 38, reload: 4.6, dpm: 2217, accuracy: 0.35, aimTime: 1.5, depression: -9 },
+      { name: "76 mm M32K1", caliber: 76, stock: true, alpha: 170, penAP: null, penPrem: 227, premType: "APCR", penHE: 38, reload: 4.6, dpm: 2217, accuracy: 0.35, aimTime: 1.5, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -2940,10 +2940,10 @@ const TANKS = [
     hp: 1250, weight: 24.3,
     armor: { hull: { front: 50, sides: 25, rear: 20 }, turret: { front: 55, sides: 35, rear: 20 } },
     mobility: { topSpeed: 64, reverse: 23, enginePower: 700, hpPerTon: 28.8, turretTraverse: 48, hullTraverse: 56 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 29.0, camoMoving: 29.0 },
     guns: [
-      { name: "85 mm 64-85T (132)", caliber: 85, stock: true, alpha: 200, penAP: 177, penPrem: 230, premType: "HEAT", penHE: 43, reload: 5.9, dpm: 2034, accuracy: 0.36, aimTime: 1.9, depression: -5 },
-      { name: "100 mm 60-100TA", caliber: 100, stock: false, alpha: 250, penAP: 189, penPrem: 225, premType: "APCR", penHE: 50, reload: 7.5, dpm: 2000, accuracy: 0.38, aimTime: 2.0, depression: -5 },
+      { name: "85 mm 64-85T (132)", caliber: 85, stock: true, alpha: 200, penAP: 177, penPrem: 230, premType: "HEAT", penHE: 43, reload: 5.9, dpm: 2034, accuracy: 0.36, aimTime: 1.9, depression: -5 , clip: 1 },
+      { name: "100 mm 60-100TA", caliber: 100, stock: false, alpha: 250, penAP: 189, penPrem: 225, premType: "APCR", penHE: 50, reload: 7.5, dpm: 2000, accuracy: 0.38, aimTime: 2.0, depression: -5 , clip: 1 },
     ],
   },
   {
@@ -2969,10 +2969,10 @@ const TANKS = [
     hp: 1300, weight: 45.0,
     armor: { hull: { front: 195, sides: 80, rear: 60 }, turret: null },
     mobility: { topSpeed: 35, reverse: 18, enginePower: 700, hpPerTon: 15.6, turretTraverse: null, hullTraverse: 30 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 29.0, camoMoving: 18.0 },
     guns: [
-      { name: "122 mm 60-122TG FT", caliber: 122, stock: true, alpha: 440, penAP: 248, penPrem: 310, premType: "HEAT", penHE: 61, reload: 11.6, dpm: 2275, accuracy: 0.38, aimTime: 2.6, depression: -6 },
-      { name: "130 mm 59-130JG FT", caliber: 130, stock: false, alpha: 560, penAP: 271, penPrem: 340, premType: "HEAT", penHE: 65, reload: 14.0, dpm: 2402, accuracy: 0.36, aimTime: 2.8, depression: -6 },
+      { name: "122 mm 60-122TG FT", caliber: 122, stock: true, alpha: 440, penAP: 248, penPrem: 310, premType: "HEAT", penHE: 61, reload: 11.6, dpm: 2275, accuracy: 0.38, aimTime: 2.6, depression: -6 , clip: 1 },
+      { name: "130 mm 59-130JG FT", caliber: 130, stock: false, alpha: 560, penAP: 271, penPrem: 340, premType: "HEAT", penHE: 65, reload: 14.0, dpm: 2402, accuracy: 0.36, aimTime: 2.8, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -2984,9 +2984,9 @@ const TANKS = [
     hp: 1100, weight: 36.0,
     armor: { hull: { front: 120, sides: 80, rear: 45 }, turret: null },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 580, hpPerTon: 16.1, turretTraverse: null, hullTraverse: 42 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 41.0, camoMoving: 24.0 },
     guns: [
-      { name: "122 mm 60-122TG FT A", caliber: 122, stock: true, alpha: 440, penAP: 248, penPrem: 310, premType: "HEAT", penHE: 61, reload: 9.8, dpm: 2693, accuracy: 0.37, aimTime: 2.9, depression: -6 },
+      { name: "122 mm 60-122TG FT A", caliber: 122, stock: true, alpha: 440, penAP: 248, penPrem: 310, premType: "HEAT", penHE: 61, reload: 9.8, dpm: 2693, accuracy: 0.37, aimTime: 2.9, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -3026,10 +3026,10 @@ const TANKS = [
     hp: 1850, weight: 123.0,
     armor: { hull: { front: 250, sides: 125, rear: 110 }, turret: { front: 250, sides: 180, rear: 120 } },
     mobility: { topSpeed: 25, reverse: 10, enginePower: 1300, hpPerTon: 10.6, turretTraverse: 20, hullTraverse: 22 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 1.0, camoMoving: 0.0 },
     guns: [
-      { name: "10 cm Experimental Tank Gun Kai", caliber: 105, stock: true, alpha: 370, penAP: 253, penPrem: null, premType: null, penHE: 53, reload: 12.0, dpm: 1850, accuracy: 0.37, aimTime: 2.5, depression: -10 },
-      { name: "12.7 cm/50 3rd Year Type (O-Ho)", caliber: 127, stock: false, alpha: 460, penAP: 258, penPrem: null, premType: null, penHE: 64, reload: 14.5, dpm: 1904, accuracy: 0.38, aimTime: 2.7, depression: -10 },
+      { name: "10 cm Experimental Tank Gun Kai", caliber: 105, stock: true, alpha: 370, penAP: 253, penPrem: null, premType: null, penHE: 53, reload: 12.0, dpm: 1850, accuracy: 0.37, aimTime: 2.5, depression: -10 , clip: 1 },
+      { name: "12.7 cm/50 3rd Year Type (O-Ho)", caliber: 127, stock: false, alpha: 460, penAP: 258, penPrem: null, premType: null, penHE: 64, reload: 14.5, dpm: 1904, accuracy: 0.38, aimTime: 2.7, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3041,9 +3041,9 @@ const TANKS = [
     hp: 1550, weight: 55.0,
     armor: { hull: { front: 135, sides: 80, rear: 60 }, turret: { front: 210, sides: 100, rear: 70 } },
     mobility: { topSpeed: 40, reverse: 14, enginePower: 940, hpPerTon: 17.1, turretTraverse: 35, hullTraverse: 36 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 8.0, camoMoving: 4.0 },
     guns: [
-      { name: "105 mm Type 5 Se", caliber: 105, stock: true, alpha: 330, penAP: 255, penPrem: null, premType: null, penHE: 53, reload: 9.0, dpm: 2201, accuracy: 0.37, aimTime: 2.2, depression: -13 },
+      { name: "105 mm Type 5 Se", caliber: 105, stock: true, alpha: 330, penAP: 255, penPrem: null, premType: null, penHE: 53, reload: 9.0, dpm: 2201, accuracy: 0.37, aimTime: 2.2, depression: -13 , clip: 1 },
     ],
   },
   {
@@ -3055,10 +3055,10 @@ const TANKS = [
     hp: 1600, weight: 50.0,
     armor: { hull: { front: 100, sides: 70, rear: 30 }, turret: { front: 260, sides: 120, rear: 30 } },
     mobility: { topSpeed: 35, reverse: 12, enginePower: 700, hpPerTon: 14.0, turretTraverse: 22, hullTraverse: 30 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "105 mm Gun Type 92 SHA-1", caliber: 105, stock: true, alpha: 320, penAP: 215, penPrem: 270, premType: "HEAT", penHE: 53, reload: 9.6, dpm: 2000, accuracy: 0.26, aimTime: 2.0, depression: -12 },
-      { name: "105 mm M68 L7 (57)", caliber: 105, stock: false, alpha: 360, penAP: 225, penPrem: 252, premType: "APCR", penHE: 53, reload: 11.4, dpm: 1894, accuracy: 0.24, aimTime: 2.3, depression: -12 },
+      { name: "105 mm Gun Type 92 SHA-1", caliber: 105, stock: true, alpha: 320, penAP: 215, penPrem: 270, premType: "HEAT", penHE: 53, reload: 9.6, dpm: 2000, accuracy: 0.26, aimTime: 2.0, depression: -12 , clip: 1 },
+      { name: "105 mm M68 L7 (57)", caliber: 105, stock: false, alpha: 360, penAP: 225, penPrem: 252, premType: "APCR", penHE: 53, reload: 11.4, dpm: 1894, accuracy: 0.24, aimTime: 2.3, depression: -12 , clip: 1 },
     ],
   },
   {
@@ -3070,9 +3070,9 @@ const TANKS = [
     hp: 1400, weight: 52.0,
     armor: { hull: { front: 80, sides: 55, rear: 40 }, turret: { front: 175, sides: 120, rear: 50 } },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 860, hpPerTon: 16.5, turretTraverse: 25, hullTraverse: 34 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "105 mm JSW 105/60", caliber: 105, stock: true, alpha: 320, penAP: 230, penPrem: 290, premType: "HEAT", penHE: 53, reload: 10.7, dpm: 1795, accuracy: 0.28, aimTime: 2.0, depression: -8 },
+      { name: "105 mm JSW 105/60", caliber: 105, stock: true, alpha: 320, penAP: 230, penPrem: 290, premType: "HEAT", penHE: 53, reload: 10.7, dpm: 1795, accuracy: 0.28, aimTime: 2.0, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -3084,10 +3084,10 @@ const TANKS = [
     hp: 1600, weight: 34.1,
     armor: { hull: { front: 45, sides: 35, rear: 25 }, turret: { front: 70, sides: 60, rear: 35 } },
     mobility: { topSpeed: 45, reverse: 20, enginePower: 650, hpPerTon: 19.1, turretTraverse: 42, hullTraverse: 53 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "90 mm Rifled Gun", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 275, premType: "HEAT", penHE: 45, reload: 7.2, dpm: 1999, accuracy: 0.38, aimTime: 2.3, depression: -10 },
-      { name: "90 mm Gun Type 61", caliber: 90, stock: false, alpha: 240, penAP: 219, penPrem: 285, premType: "HEAT", penHE: 45, reload: 6.5, dpm: 2215, accuracy: 0.37, aimTime: 2.2, depression: -10 },
+      { name: "90 mm Rifled Gun", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 275, premType: "HEAT", penHE: 45, reload: 7.2, dpm: 1999, accuracy: 0.38, aimTime: 2.3, depression: -10 , clip: 1 },
+      { name: "90 mm Gun Type 61", caliber: 90, stock: false, alpha: 240, penAP: 219, penPrem: 285, premType: "HEAT", penHE: 45, reload: 6.5, dpm: 2215, accuracy: 0.37, aimTime: 2.2, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3099,9 +3099,9 @@ const TANKS = [
     hp: 1420, weight: 34.0,
     armor: { hull: { front: 45, sides: 35, rear: 25 }, turret: { front: 70, sides: 60, rear: 35 } },
     mobility: { topSpeed: 55, reverse: 23, enginePower: 650, hpPerTon: 19.1, turretTraverse: 44, hullTraverse: 44 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 24.0, camoMoving: 18.0 },
     guns: [
-      { name: "90 mm Rifled Gun", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 275, premType: "HEAT", penHE: 45, reload: 7.5, dpm: 1920, accuracy: 0.35, aimTime: 1.9, depression: -10 },
+      { name: "90 mm Rifled Gun", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 275, premType: "HEAT", penHE: 45, reload: 7.5, dpm: 1920, accuracy: 0.35, aimTime: 1.9, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3113,10 +3113,10 @@ const TANKS = [
     hp: 1400, weight: 40.1,
     armor: { hull: { front: 220, sides: 50, rear: 50 }, turret: null },
     mobility: { topSpeed: 30, reverse: 14, enginePower: 650, hpPerTon: 16.2, turretTraverse: null, hullTraverse: 32 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 31.0, camoMoving: 19.0 },
     guns: [
-      { name: "10.5 cm Gun Shin", caliber: 105, stock: true, alpha: 360, penAP: 268, penPrem: null, premType: null, penHE: 60, reload: 9.4, dpm: 2297, accuracy: 0.36, aimTime: 2.4, depression: -8 },
-      { name: "12 cm Gun Type 10", caliber: 120, stock: false, alpha: 420, penAP: 285, penPrem: null, premType: null, penHE: 80, reload: 10.3, dpm: 2449, accuracy: 0.35, aimTime: 2.3, depression: -8 },
+      { name: "10.5 cm Gun Shin", caliber: 105, stock: true, alpha: 360, penAP: 268, penPrem: null, premType: null, penHE: 60, reload: 9.4, dpm: 2297, accuracy: 0.36, aimTime: 2.4, depression: -8 , clip: 1 },
+      { name: "12 cm Gun Type 10", caliber: 120, stock: false, alpha: 420, penAP: 285, penPrem: null, premType: null, penHE: 80, reload: 10.3, dpm: 2449, accuracy: 0.35, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -3128,9 +3128,9 @@ const TANKS = [
     hp: 1250, weight: 45.0,
     armor: { hull: { front: 220, sides: 50, rear: 50 }, turret: null },
     mobility: { topSpeed: 40, reverse: 18, enginePower: 750, hpPerTon: 16.7, turretTraverse: null, hullTraverse: 38 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 25.0, camoMoving: 15.0 },
     guns: [
-      { name: "12.7 cm Gun Type 89A", caliber: 127, stock: true, alpha: 500, penAP: 298, penPrem: null, premType: null, penHE: 90, reload: 13.3, dpm: 2255, accuracy: 0.34, aimTime: 2.0, depression: -7 },
+      { name: "12.7 cm Gun Type 89A", caliber: 127, stock: true, alpha: 500, penAP: 298, penPrem: null, premType: null, penHE: 90, reload: 13.3, dpm: 2255, accuracy: 0.34, aimTime: 2.0, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -3142,9 +3142,9 @@ const TANKS = [
     hp: 1500, weight: 48.0,
     armor: { hull: { front: 100, sides: 70, rear: 70 }, turret: { front: 220, sides: 95, rear: 70 } },
     mobility: { topSpeed: 35, reverse: 15, enginePower: 650, hpPerTon: 13.5, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "130 mm Škoda R 14", caliber: 130, stock: true, alpha: 460, penAP: 248, penPrem: null, premType: null, penHE: 68, reload: 25.0, dpm: 1937, accuracy: 0.42, aimTime: 3.0, depression: -8 },
+      { name: "130 mm Škoda R 14", caliber: 130, stock: true, alpha: 460, penAP: 248, penPrem: null, premType: null, penHE: 68, reload: 25.0, dpm: 1937, accuracy: 0.42, aimTime: 3.0, depression: -8 , clip: 2, clipRate: 3.5 },
     ],
   },
   {
@@ -3156,11 +3156,11 @@ const TANKS = [
     hp: 1650, weight: 48.0,
     armor: { hull: { front: 125, sides: 80, rear: 55 }, turret: { front: 230, sides: 90, rear: 60 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 750, hpPerTon: 15.6, turretTraverse: 30, hullTraverse: 30 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 11.0, camoMoving: 5.0 },
     guns: [
-      { name: "105 mm vz. 38N", caliber: 105, stock: true, alpha: 320, penAP: 212, penPrem: 241, premType: "APCR", penHE: 53, reload: 9.6, dpm: 2000, accuracy: 0.35, aimTime: 2.2, depression: -7 },
-      { name: "105 mm vz. 38N (a)", caliber: 105, stock: false, alpha: 320, penAP: 224, penPrem: 252, premType: "APCR", penHE: 53, reload: 23.0, dpm: 1507, accuracy: 0.4, aimTime: 2.7, depression: -7 },
-      { name: "105 mm vz. 40N (1000)", caliber: 105, stock: false, alpha: 360, penAP: 224, penPrem: 252, premType: "APCR", penHE: 53, reload: 10.3, dpm: 2099, accuracy: 0.35, aimTime: 2.3, depression: -7 },
+      { name: "105 mm vz. 38N", caliber: 105, stock: true, alpha: 320, penAP: 212, penPrem: 241, premType: "APCR", penHE: 53, reload: 9.6, dpm: 2000, accuracy: 0.35, aimTime: 2.2, depression: -7 , clip: 1 },
+      { name: "105 mm vz. 38N (a)", caliber: 105, stock: false, alpha: 320, penAP: 224, penPrem: 252, premType: "APCR", penHE: 53, reload: 23.0, dpm: 1507, accuracy: 0.4, aimTime: 2.7, depression: -7 , clip: 2, clipRate: 2.5 },
+      { name: "105 mm vz. 40N (1000)", caliber: 105, stock: false, alpha: 360, penAP: 224, penPrem: 252, premType: "APCR", penHE: 53, reload: 10.3, dpm: 2099, accuracy: 0.35, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -3172,9 +3172,9 @@ const TANKS = [
     hp: 1500, weight: 48.0,
     armor: { hull: { front: 100, sides: 70, rear: 70 }, turret: { front: 220, sides: 95, rear: 70 } },
     mobility: { topSpeed: 35, reverse: 15, enginePower: 650, hpPerTon: 13.5, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "130 mm Škoda R 14", caliber: 130, stock: true, alpha: 460, penAP: 248, penPrem: null, premType: null, penHE: 68, reload: 25.0, dpm: 1937, accuracy: 0.42, aimTime: 3.0, depression: -8 },
+      { name: "130 mm Škoda R 14", caliber: 130, stock: true, alpha: 460, penAP: 248, penPrem: null, premType: null, penHE: 68, reload: 25.0, dpm: 1937, accuracy: 0.42, aimTime: 3.0, depression: -8 , clip: 2, clipRate: 3.5 },
     ],
   },
   {
@@ -3186,10 +3186,10 @@ const TANKS = [
     hp: 1550, weight: 35.5,
     armor: { hull: { front: 65, sides: 40, rear: 30 }, turret: { front: 65, sides: 40, rear: 40 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 770, hpPerTon: 21.7, turretTraverse: 42, hullTraverse: 53 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 22.0, camoMoving: 16.0 },
     guns: [
-      { name: "8,8 cm vz. 37N", caliber: 88, stock: true, alpha: 220, penAP: 194, penPrem: 250, premType: "HEAT", penHE: 44, reload: 25.0, dpm: 1386, accuracy: 0.36, aimTime: 2.2, depression: -8 },
-      { name: "8,8 cm vz. 41N", caliber: 88, stock: false, alpha: 240, penAP: 210, penPrem: 252, premType: "APCR", penHE: 44, reload: 25.0, dpm: 1512, accuracy: 0.36, aimTime: 2.2, depression: -8 },
+      { name: "8,8 cm vz. 37N", caliber: 88, stock: true, alpha: 220, penAP: 194, penPrem: 250, premType: "HEAT", penHE: 44, reload: 25.0, dpm: 1386, accuracy: 0.36, aimTime: 2.2, depression: -8 , clip: 3, clipRate: 1.8 },
+      { name: "8,8 cm vz. 41N", caliber: 88, stock: false, alpha: 240, penAP: 210, penPrem: 252, premType: "APCR", penHE: 44, reload: 25.0, dpm: 1512, accuracy: 0.36, aimTime: 2.2, depression: -8 , clip: 3, clipRate: 1.8 },
     ],
   },
   {
@@ -3201,9 +3201,9 @@ const TANKS = [
     hp: 1350, weight: 40.0,
     armor: { hull: { front: 65, sides: 40, rear: 40 }, turret: { front: 100, sides: 100, rear: 100 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 900, hpPerTon: 22.5, turretTraverse: 40, hullTraverse: 44 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 23.0, camoMoving: 17.0 },
     guns: [
-      { name: "8,8 cm vz. 41N A", caliber: 88, stock: true, alpha: 240, penAP: 202, penPrem: 242, premType: "APCR", penHE: 44, reload: 24.0, dpm: 1565, accuracy: 0.38, aimTime: 2.2, depression: -8 },
+      { name: "8,8 cm vz. 41N A", caliber: 88, stock: true, alpha: 240, penAP: 202, penPrem: 242, premType: "APCR", penHE: 44, reload: 24.0, dpm: 1565, accuracy: 0.38, aimTime: 2.2, depression: -8 , clip: 3, clipRate: 1.8 },
     ],
   },
   {
@@ -3215,10 +3215,10 @@ const TANKS = [
     hp: 1200, weight: 15.0,
     armor: { hull: { front: 15, sides: 15, rear: 12 }, turret: { front: 20, sides: 20, rear: 15 } },
     mobility: { topSpeed: 60, reverse: 21, enginePower: 420, hpPerTon: 28.0, turretTraverse: 50, hullTraverse: 43 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 32.0, camoMoving: 32.0 },
     guns: [
-      { name: "30 mm protiletadlový dvojkanón vz. 53", caliber: 30, stock: true, alpha: 5, penAP: 151, penPrem: 199, premType: "APCR", penHE: 30, reload: 20.0, dpm: 2071, accuracy: 0.42, aimTime: 2.4, depression: -10 },
-      { name: "37 mm automatický dvojkanón", caliber: 37, stock: false, alpha: 9, penAP: 163, penPrem: 217, premType: "APCR", penHE: 37, reload: 22.0, dpm: 2231, accuracy: 0.42, aimTime: 2.4, depression: -10 },
+      { name: "30 mm protiletadlový dvojkanón vz. 53", caliber: 30, stock: true, alpha: 5, penAP: 151, penPrem: 199, premType: "APCR", penHE: 30, reload: 20.0, dpm: 2071, accuracy: 0.42, aimTime: 2.4, depression: -10 , clip: 160, clipRate: 0.02 },
+      { name: "37 mm automatický dvojkanón", caliber: 37, stock: false, alpha: 9, penAP: 163, penPrem: 217, premType: "APCR", penHE: 37, reload: 22.0, dpm: 2231, accuracy: 0.42, aimTime: 2.4, depression: -10 , clip: 104, clipRate: 0.03 },
     ],
   },
   {
@@ -3230,9 +3230,9 @@ const TANKS = [
     hp: 1100, weight: 21.0,
     armor: { hull: { front: 20, sides: 20, rear: 20 }, turret: { front: 30, sides: 20, rear: 20 } },
     mobility: { topSpeed: 55, reverse: 21, enginePower: 570, hpPerTon: 27.1, turretTraverse: 42, hullTraverse: 45 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 32.0, camoMoving: 32.0 },
     guns: [
-      { name: "50 mm protiletadlový dvojkanón ZK 500S", caliber: 50, stock: true, alpha: 8, penAP: 182, penPrem: 236, premType: "APCR", penHE: 50, reload: 20.0, dpm: 2034, accuracy: 0.4, aimTime: 2.2, depression: -6 },
+      { name: "50 mm protiletadlový dvojkanón ZK 500S", caliber: 50, stock: true, alpha: 8, penAP: 182, penPrem: 236, premType: "APCR", penHE: 50, reload: 20.0, dpm: 2034, accuracy: 0.4, aimTime: 2.2, depression: -6 , clip: 100, clipRate: 0.04 },
     ],
   },
   {
@@ -3244,9 +3244,9 @@ const TANKS = [
     hp: 1350, weight: 60.0,
     armor: { hull: { front: 165, sides: 75, rear: 40 }, turret: null },
     mobility: { topSpeed: 42, reverse: 14, enginePower: 940, hpPerTon: 15.7, turretTraverse: null, hullTraverse: 35 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 17.0, camoMoving: 10.0 },
     guns: [
-      { name: "122 mm D-25TK", caliber: 122, stock: true, alpha: 390, penAP: 252, penPrem: 294, premType: "APCR", penHE: 61, reload: 8.4, dpm: 2785, accuracy: 0.27, aimTime: 2.0, depression: -8 },
+      { name: "122 mm D-25TK", caliber: 122, stock: true, alpha: 390, penAP: 252, penPrem: 294, premType: "APCR", penHE: 61, reload: 8.4, dpm: 2785, accuracy: 0.27, aimTime: 2.0, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -3258,9 +3258,9 @@ const TANKS = [
     hp: 1150, weight: 32.0,
     armor: { hull: { front: 65, sides: 40, rear: 40 }, turret: { front: 65, sides: 40, rear: 40 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 700, hpPerTon: 21.9, turretTraverse: 32, hullTraverse: 42 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 28.0, camoMoving: 17.0 },
     guns: [
-      { name: "100 mm BS-3", caliber: 100, stock: true, alpha: 250, penAP: 270, penPrem: 330, premType: "HEAT", penHE: 100, reload: 5.4, dpm: 2778, accuracy: 0.3, aimTime: 1.3, depression: -6 },
+      { name: "100 mm BS-3", caliber: 100, stock: true, alpha: 250, penAP: 270, penPrem: 330, premType: "HEAT", penHE: 100, reload: 5.4, dpm: 2778, accuracy: 0.3, aimTime: 1.3, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -3272,9 +3272,9 @@ const TANKS = [
     hp: 1150, weight: 32.0,
     armor: { hull: { front: 65, sides: 40, rear: 40 }, turret: { front: 65, sides: 40, rear: 40 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 700, hpPerTon: 21.9, turretTraverse: 32, hullTraverse: 42 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 28.0, camoMoving: 17.0 },
     guns: [
-      { name: "100 mm BS-3", caliber: 100, stock: true, alpha: 250, penAP: 270, penPrem: 330, premType: "HEAT", penHE: 100, reload: 5.4, dpm: 2778, accuracy: 0.3, aimTime: 1.3, depression: -6 },
+      { name: "100 mm BS-3", caliber: 100, stock: true, alpha: 250, penAP: 270, penPrem: 330, premType: "HEAT", penHE: 100, reload: 5.4, dpm: 2778, accuracy: 0.3, aimTime: 1.3, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -3286,9 +3286,9 @@ const TANKS = [
     hp: 1600, weight: 43.0,
     armor: { hull: { front: 260, sides: 50, rear: 40 }, turret: { front: 280, sides: 90, rear: 75 } },
     mobility: { topSpeed: 35, reverse: 12, enginePower: 500, hpPerTon: 11.6, turretTraverse: 25, hullTraverse: 25 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 11.0, camoMoving: 5.0 },
     guns: [
-      { name: "Bofors 120 mm", caliber: 120, stock: true, alpha: 400, penAP: null, penPrem: 297, premType: "APCR", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.4, aimTime: 2.3, depression: -10 },
+      { name: "Bofors 120 mm", caliber: 120, stock: true, alpha: 400, penAP: null, penPrem: 297, premType: "APCR", penHE: 60, reload: 15.0, dpm: 1600, accuracy: 0.4, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3300,9 +3300,9 @@ const TANKS = [
     hp: 1400, weight: 26.4,
     armor: { hull: { front: 100, sides: 35, rear: 30 }, turret: { front: 180, sides: 35, rear: 20 } },
     mobility: { topSpeed: 45, reverse: 16, enginePower: 400, hpPerTon: 15.2, turretTraverse: 22, hullTraverse: 30 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "10,5 cm lvkan L/67", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 242, premType: "APCR", penHE: 53, reload: 30.0, dpm: 1825, accuracy: 0.4, aimTime: 3.0, depression: -12 },
+      { name: "10,5 cm lvkan L/67", caliber: 105, stock: true, alpha: 360, penAP: null, penPrem: 242, premType: "APCR", penHE: 53, reload: 30.0, dpm: 1825, accuracy: 0.4, aimTime: 3.0, depression: -12 , clip: 3, clipRate: 2.75 },
     ],
   },
   {
@@ -3314,10 +3314,10 @@ const TANKS = [
     hp: 1550, weight: 28.8,
     armor: { hull: { front: 100, sides: 35, rear: 30 }, turret: { front: 180, sides: 35, rear: 20 } },
     mobility: { topSpeed: 50, reverse: 16, enginePower: 380, hpPerTon: 13.2, turretTraverse: 20, hullTraverse: 26 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "10,5 cm lvkan m/42", caliber: 105, stock: true, alpha: 320, penAP: 202, penPrem: 238, premType: "APCR", penHE: 53, reload: 22.7, dpm: 2006, accuracy: 0.37, aimTime: 3.0, depression: -12 },
-      { name: "10,5 cm TK 105-9", caliber: 105, stock: false, alpha: 360, penAP: null, penPrem: 242, premType: "APCR", penHE: 53, reload: 27.0, dpm: 1962, accuracy: 0.38, aimTime: 3.2, depression: -12 },
+      { name: "10,5 cm lvkan m/42", caliber: 105, stock: true, alpha: 320, penAP: 202, penPrem: 238, premType: "APCR", penHE: 53, reload: 22.7, dpm: 2006, accuracy: 0.37, aimTime: 3.0, depression: -12 , clip: 3, clipRate: 3.0 },
+      { name: "10,5 cm TK 105-9", caliber: 105, stock: false, alpha: 360, penAP: null, penPrem: 242, premType: "APCR", penHE: 53, reload: 27.0, dpm: 1962, accuracy: 0.38, aimTime: 3.2, depression: -12 , clip: 3, clipRate: 3.0 },
     ],
   },
   {
@@ -3329,9 +3329,9 @@ const TANKS = [
     hp: 1350, weight: 24.0,
     armor: { hull: { front: 60, sides: 40, rear: 25 }, turret: { front: 70, sides: 70, rear: 40 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 680, hpPerTon: 28.4, turretTraverse: 32, hullTraverse: 40 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 30.0, camoMoving: 22.0 },
     guns: [
-      { name: "10.5 cm K L/53", caliber: 105, stock: true, alpha: 320, penAP: 208, penPrem: 242, premType: "APCR", penHE: 53, reload: 9.2, dpm: 2086, accuracy: 0.38, aimTime: 2.5, depression: -10 },
+      { name: "10.5 cm K L/53", caliber: 105, stock: true, alpha: 320, penAP: 208, penPrem: 242, premType: "APCR", penHE: 53, reload: 9.2, dpm: 2086, accuracy: 0.38, aimTime: 2.5, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3343,9 +3343,9 @@ const TANKS = [
     hp: 1450, weight: 50.8,
     armor: { hull: { front: 76, sides: 51, rear: 38 }, turret: { front: 254, sides: 89, rear: 89 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 950, hpPerTon: 18.7, turretTraverse: 36, hullTraverse: 36 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 20.0, camoMoving: 15.0 },
     guns: [
-      { name: "8,4 cm kan strv 81", caliber: 83, stock: true, alpha: 230, penAP: null, penPrem: 258, premType: "APCR", penHE: 42, reload: 6.6, dpm: 2091, accuracy: 0.33, aimTime: 2.3, depression: -10 },
+      { name: "8,4 cm kan strv 81", caliber: 83, stock: true, alpha: 230, penAP: null, penPrem: 258, premType: "APCR", penHE: 42, reload: 6.6, dpm: 2091, accuracy: 0.33, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3357,9 +3357,9 @@ const TANKS = [
     hp: 1300, weight: 30.0,
     armor: { hull: { front: 100, sides: 40, rear: 35 }, turret: { front: 250, sides: 70, rear: 35 } },
     mobility: { topSpeed: 50, reverse: 18, enginePower: 500, hpPerTon: 16.7, turretTraverse: 40, hullTraverse: 45 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 30.0, camoMoving: 22.0 },
     guns: [
-      { name: "10,5 cm strvkan L/50 S", caliber: 105, stock: true, alpha: 350, penAP: 219, penPrem: 252, premType: "APCR", penHE: 53, reload: 10.0, dpm: 2100, accuracy: 0.37, aimTime: 2.3, depression: -10 },
+      { name: "10,5 cm strvkan L/50 S", caliber: 105, stock: true, alpha: 350, penAP: 219, penPrem: 252, premType: "APCR", penHE: 53, reload: 10.0, dpm: 2100, accuracy: 0.37, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3371,9 +3371,9 @@ const TANKS = [
     hp: 1450, weight: 50.8,
     armor: { hull: { front: 76, sides: 51, rear: 38 }, turret: { front: 254, sides: 89, rear: 89 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 950, hpPerTon: 18.7, turretTraverse: 36, hullTraverse: 36 },
-    vision: { viewRange: 400 },
+    vision: { viewRange: 400 , camoStill: 20.0, camoMoving: 15.0 },
     guns: [
-      { name: "8,4 cm kan strv 81", caliber: 83, stock: true, alpha: 230, penAP: null, penPrem: 258, premType: "APCR", penHE: 42, reload: 6.6, dpm: 2091, accuracy: 0.33, aimTime: 2.3, depression: -10 },
+      { name: "8,4 cm kan strv 81", caliber: 83, stock: true, alpha: 230, penAP: null, penPrem: 258, premType: "APCR", penHE: 42, reload: 6.6, dpm: 2091, accuracy: 0.33, aimTime: 2.3, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3385,10 +3385,10 @@ const TANKS = [
     hp: 1550, weight: 22.0,
     armor: { hull: { front: 35, sides: 35, rear: 10 }, turret: { front: 66, sides: 30, rear: 20 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 550, hpPerTon: 25.0, turretTraverse: 34, hullTraverse: 40 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 30.0, camoMoving: 23.0 },
     guns: [
-      { name: "9 cm Bofors strvkan L/53", caliber: 90, stock: true, alpha: 250, penAP: 206, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.0, dpm: 2142, accuracy: 0.34, aimTime: 1.9, depression: -6 },
-      { name: "10,5 cm strvkan L/45", caliber: 105, stock: false, alpha: 360, penAP: null, penPrem: 253, premType: "APCR", penHE: 53, reload: 11.5, dpm: 1879, accuracy: 0.38, aimTime: 2.1, depression: -6 },
+      { name: "9 cm Bofors strvkan L/53", caliber: 90, stock: true, alpha: 250, penAP: 206, penPrem: 250, premType: "HEAT", penHE: 45, reload: 7.0, dpm: 2142, accuracy: 0.34, aimTime: 1.9, depression: -6 , clip: 1 },
+      { name: "10,5 cm strvkan L/45", caliber: 105, stock: false, alpha: 360, penAP: null, penPrem: 253, premType: "APCR", penHE: 53, reload: 11.5, dpm: 1879, accuracy: 0.38, aimTime: 2.1, depression: -6 , clip: 1 },
     ],
   },
   {
@@ -3400,9 +3400,9 @@ const TANKS = [
     hp: 1000, weight: 33.0,
     armor: { hull: { front: 30, sides: 30, rear: 30 }, turret: null },
     mobility: { topSpeed: 50, reverse: 45, enginePower: 540, hpPerTon: 16.4, turretTraverse: null, hullTraverse: 26 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 42.0, camoMoving: 25.0 },
     guns: [
-      { name: "10,5 cm kan strv 103 L/51", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 330, premType: "APCR", penHE: 53, reload: 10.2, dpm: 2293, accuracy: 0.4, aimTime: 3.0, depression: 1 },
+      { name: "10,5 cm kan strv 103 L/51", caliber: 105, stock: true, alpha: 390, penAP: null, penPrem: 330, premType: "APCR", penHE: 53, reload: 10.2, dpm: 2293, accuracy: 0.4, aimTime: 3.0, depression: 1 , clip: 1 },
     ],
   },
   {
@@ -3428,10 +3428,10 @@ const TANKS = [
     hp: 1200, weight: 20.9,
     armor: { hull: { front: 20, sides: 20, rear: 20 }, turret: null },
     mobility: { topSpeed: 70, reverse: 50, enginePower: 500, hpPerTon: 24.0, turretTraverse: null, hullTraverse: 40 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 46.0, camoMoving: 28.0 },
     guns: [
-      { name: "9 cm kan m/F", caliber: 90, stock: true, alpha: 280, penAP: 252, penPrem: 290, premType: "HEAT", penHE: 45, reload: 6.7, dpm: 2509, accuracy: 0.35, aimTime: 3.0, depression: 0 },
-      { name: "10,5 cm kan UDES 03", caliber: 105, stock: false, alpha: 390, penAP: null, penPrem: 330, premType: "APCR", penHE: 53, reload: 10.0, dpm: 2340, accuracy: 0.35, aimTime: 3.0, depression: 0 },
+      { name: "9 cm kan m/F", caliber: 90, stock: true, alpha: 280, penAP: 252, penPrem: 290, premType: "HEAT", penHE: 45, reload: 6.7, dpm: 2509, accuracy: 0.35, aimTime: 3.0, depression: 0 , clip: 1 },
+      { name: "10,5 cm kan UDES 03", caliber: 105, stock: false, alpha: 390, penAP: null, penPrem: 330, premType: "APCR", penHE: 53, reload: 10.0, dpm: 2340, accuracy: 0.35, aimTime: 3.0, depression: 0 , clip: 1 },
     ],
   },
   {
@@ -3443,9 +3443,9 @@ const TANKS = [
     hp: 1500, weight: 52.3,
     armor: { hull: { front: 170, sides: 90, rear: 80 }, turret: { front: 210, sides: 150, rear: 100 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 750, hpPerTon: 14.3, turretTraverse: 28, hullTraverse: 38 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm wz.43/50", caliber: 122, stock: true, alpha: 440, penAP: 218, penPrem: 245, premType: "APCR", penHE: 68, reload: 14.2, dpm: 1861, accuracy: 0.4, aimTime: 3.0, depression: -10 },
+      { name: "122 mm wz.43/50", caliber: 122, stock: true, alpha: 440, penAP: 218, penPrem: 245, premType: "APCR", penHE: 68, reload: 14.2, dpm: 1861, accuracy: 0.4, aimTime: 3.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3457,9 +3457,9 @@ const TANKS = [
     hp: 1500, weight: 52.3,
     armor: { hull: { front: 170, sides: 90, rear: 80 }, turret: { front: 210, sides: 150, rear: 100 } },
     mobility: { topSpeed: 35, reverse: 14, enginePower: 750, hpPerTon: 14.3, turretTraverse: 28, hullTraverse: 38 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm wz.43/50", caliber: 122, stock: true, alpha: 440, penAP: 218, penPrem: 245, premType: "APCR", penHE: 68, reload: 14.2, dpm: 1861, accuracy: 0.4, aimTime: 3.0, depression: -10 },
+      { name: "122 mm wz.43/50", caliber: 122, stock: true, alpha: 440, penAP: 218, penPrem: 245, premType: "APCR", penHE: 68, reload: 14.2, dpm: 1861, accuracy: 0.4, aimTime: 3.0, depression: -10 , clip: 1 },
     ],
   },
   {
@@ -3471,10 +3471,10 @@ const TANKS = [
     hp: 1600, weight: 57.4,
     armor: { hull: { front: 110, sides: 80, rear: 50 }, turret: { front: 210, sides: 140, rear: 90 } },
     mobility: { topSpeed: 40, reverse: 16, enginePower: 800, hpPerTon: 13.9, turretTraverse: 30, hullTraverse: 32 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 10.0, camoMoving: 5.0 },
     guns: [
-      { name: "105 mm Bofors wz. 34M", caliber: 105, stock: true, alpha: 320, penAP: 205, penPrem: 235, premType: "APCR", penHE: 53, reload: 8.7, dpm: 2208, accuracy: 0.37, aimTime: 1.9, depression: -8 },
-      { name: "122 mm wz. 53 (53TP)", caliber: 122, stock: false, alpha: 420, penAP: 218, penPrem: 245, premType: "APCR", penHE: 61, reload: 12.7, dpm: 1982, accuracy: 0.38, aimTime: 2.7, depression: -8 },
+      { name: "105 mm Bofors wz. 34M", caliber: 105, stock: true, alpha: 320, penAP: 205, penPrem: 235, premType: "APCR", penHE: 53, reload: 8.7, dpm: 2208, accuracy: 0.37, aimTime: 1.9, depression: -8 , clip: 1 },
+      { name: "122 mm wz. 53 (53TP)", caliber: 122, stock: false, alpha: 420, penAP: 218, penPrem: 245, premType: "APCR", penHE: 61, reload: 12.7, dpm: 1982, accuracy: 0.38, aimTime: 2.7, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -3486,9 +3486,9 @@ const TANKS = [
     hp: 1450, weight: 56.0,
     armor: { hull: { front: 80, sides: 80, rear: 60 }, turret: { front: 200, sides: 150, rear: 70 } },
     mobility: { topSpeed: 40, reverse: 14, enginePower: 900, hpPerTon: 16.1, turretTraverse: 32, hullTraverse: 38 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 11.0, camoMoving: 6.0 },
     guns: [
-      { name: "122 mm armata wz. 56", caliber: 122, stock: true, alpha: 390, penAP: 221, penPrem: 252, premType: "APCR", penHE: 68, reload: 14.5, dpm: 1615, accuracy: 0.34, aimTime: 2.3, depression: -9 },
+      { name: "122 mm armata wz. 56", caliber: 122, stock: true, alpha: 390, penAP: 221, penPrem: 252, premType: "APCR", penHE: 68, reload: 14.5, dpm: 1615, accuracy: 0.34, aimTime: 2.3, depression: -9 , clip: 1 },
     ],
   },
   {
@@ -3514,9 +3514,9 @@ const TANKS = [
     hp: 1350, weight: 40.0,
     armor: { hull: { front: 80, sides: 60, rear: 40 }, turret: { front: 260, sides: 60, rear: 40 } },
     mobility: { topSpeed: 55, reverse: 17, enginePower: 710, hpPerTon: 17.8, turretTraverse: 50, hullTraverse: 44 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 31.0, camoMoving: 23.0 },
     guns: [
-      { name: "100 mm armata wz. 62 P.", caliber: 100, stock: true, alpha: 300, penAP: 208, penPrem: 270, premType: "HEAT", penHE: 53, reload: 8.1, dpm: 2223, accuracy: 0.39, aimTime: 2.5, depression: -7 },
+      { name: "100 mm armata wz. 62 P.", caliber: 100, stock: true, alpha: 300, penAP: 208, penPrem: 270, premType: "HEAT", penHE: 53, reload: 8.1, dpm: 2223, accuracy: 0.39, aimTime: 2.5, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -3528,9 +3528,9 @@ const TANKS = [
     hp: 1300, weight: 36.6,
     armor: { hull: { front: 80, sides: 75, rear: 45 }, turret: { front: 190, sides: 110, rear: 90 } },
     mobility: { topSpeed: 50, reverse: 20, enginePower: 720, hpPerTon: 19.7, turretTraverse: 43, hullTraverse: 40 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "105 mm armata wz. 52", caliber: 105, stock: true, alpha: 320, penAP: 208, penPrem: 252, premType: "APCR", penHE: 53, reload: 9.6, dpm: 2000, accuracy: 0.36, aimTime: 2.3, depression: -7 },
+      { name: "105 mm armata wz. 52", caliber: 105, stock: true, alpha: 320, penAP: 208, penPrem: 252, premType: "APCR", penHE: 53, reload: 9.6, dpm: 2000, accuracy: 0.36, aimTime: 2.3, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -3542,10 +3542,10 @@ const TANKS = [
     hp: 1450, weight: 39.9,
     armor: { hull: { front: 80, sides: 60, rear: 40 }, turret: { front: 130, sides: 60, rear: 40 } },
     mobility: { topSpeed: 50, reverse: 17, enginePower: 710, hpPerTon: 17.8, turretTraverse: 40, hullTraverse: 44 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 30.0, camoMoving: 23.0 },
     guns: [
-      { name: "100 mm armata wz. 53", caliber: 100, stock: true, alpha: 300, penAP: 202, penPrem: 270, premType: "HEAT", penHE: 53, reload: 9.0, dpm: 2001, accuracy: 0.38, aimTime: 2.4, depression: -8 },
-      { name: "100 mm armata wz. 58", caliber: 100, stock: false, alpha: 300, penAP: 218, penPrem: 290, premType: "HEAT", penHE: 53, reload: 8.6, dpm: 2094, accuracy: 0.36, aimTime: 2.3, depression: -8 },
+      { name: "100 mm armata wz. 53", caliber: 100, stock: true, alpha: 300, penAP: 202, penPrem: 270, premType: "HEAT", penHE: 53, reload: 9.0, dpm: 2001, accuracy: 0.38, aimTime: 2.4, depression: -8 , clip: 1 },
+      { name: "100 mm armata wz. 58", caliber: 100, stock: false, alpha: 300, penAP: 218, penPrem: 290, premType: "HEAT", penHE: 53, reload: 8.6, dpm: 2094, accuracy: 0.36, aimTime: 2.3, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -3557,9 +3557,9 @@ const TANKS = [
     hp: 1300, weight: 52.0,
     armor: { hull: { front: 80, sides: 60, rear: 40 }, turret: { front: 200, sides: 150, rear: 70 } },
     mobility: { topSpeed: 50, reverse: 16, enginePower: 900, hpPerTon: 17.3, turretTraverse: 35, hullTraverse: 40 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "122 mm armata wz. 53/56", caliber: 122, stock: true, alpha: 390, penAP: 221, penPrem: 252, premType: "APCR", penHE: 68, reload: 13.0, dpm: 1802, accuracy: 0.38, aimTime: 2.5, depression: -8 },
+      { name: "122 mm armata wz. 53/56", caliber: 122, stock: true, alpha: 390, penAP: 221, penPrem: 252, premType: "APCR", penHE: 68, reload: 13.0, dpm: 1802, accuracy: 0.38, aimTime: 2.5, depression: -8 , clip: 1 },
     ],
   },
   {
@@ -3571,10 +3571,10 @@ const TANKS = [
     hp: 1450, weight: 45.0,
     armor: { hull: { front: 200, sides: 60, rear: 40 }, turret: null },
     mobility: { topSpeed: 40, reverse: 15, enginePower: 650, hpPerTon: 14.4, turretTraverse: null, hullTraverse: 25 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 30.0, camoMoving: 18.0 },
     guns: [
-      { name: "GG-85/150 mm", caliber: 85, stock: true, alpha: 600, penAP: null, penPrem: 279, premType: "APCR", penHE: 75, reload: 14.1, dpm: 2556, accuracy: 0.38, aimTime: 2.7, depression: -7 },
-      { name: "GG-100/162 mm (58)", caliber: 100, stock: false, alpha: 700, penAP: null, penPrem: 302, premType: "APCR", penHE: 80, reload: 15.6, dpm: 2695, accuracy: 0.38, aimTime: 2.9, depression: -7 },
+      { name: "GG-85/150 mm", caliber: 85, stock: true, alpha: 600, penAP: null, penPrem: 279, premType: "APCR", penHE: 75, reload: 14.1, dpm: 2556, accuracy: 0.38, aimTime: 2.7, depression: -7 , clip: 1 },
+      { name: "GG-100/162 mm (58)", caliber: 100, stock: false, alpha: 700, penAP: null, penPrem: 302, premType: "APCR", penHE: 80, reload: 15.6, dpm: 2695, accuracy: 0.38, aimTime: 2.9, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -3586,9 +3586,9 @@ const TANKS = [
     hp: 1300, weight: 51.0,
     armor: { hull: { front: 100, sides: 70, rear: 40 }, turret: null },
     mobility: { topSpeed: 45, reverse: 15, enginePower: 810, hpPerTon: 15.9, turretTraverse: null, hullTraverse: 32 },
-    vision: { viewRange: 350 },
+    vision: { viewRange: 350 , camoStill: 29.0, camoMoving: 17.0 },
     guns: [
-      { name: "GG-100/162 mm K", caliber: 100, stock: true, alpha: 800, penAP: null, penPrem: 296, premType: "APCR", penHE: 80, reload: 16.0, dpm: 3000, accuracy: 0.4, aimTime: 2.7, depression: -7 },
+      { name: "GG-100/162 mm K", caliber: 100, stock: true, alpha: 800, penAP: null, penPrem: 296, premType: "APCR", penHE: 80, reload: 16.0, dpm: 3000, accuracy: 0.4, aimTime: 2.7, depression: -7 , clip: 1 },
     ],
   },
   {
@@ -3600,9 +3600,9 @@ const TANKS = [
     hp: 1400, weight: 48.2,
     armor: { hull: { front: 135, sides: 75, rear: 30 }, turret: { front: 185, sides: 80, rear: 50 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 600, hpPerTon: 12.5, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "Cannone da 105/55", caliber: 105, stock: true, alpha: 360, penAP: 218, penPrem: 270, premType: "HEAT", penHE: 105, reload: 13.0, dpm: 1800, accuracy: 0.42, aimTime: 2.7, depression: -10 },
+      { name: "Cannone da 105/55", caliber: 105, stock: true, alpha: 360, penAP: 218, penPrem: 270, premType: "HEAT", penHE: 105, reload: 13.0, dpm: 1800, accuracy: 0.42, aimTime: 2.7, depression: -10 , clip: 3, clipRate: 3.0, autoreload: [17.0, 15.0, 12.0] },
     ],
   },
   {
@@ -3614,10 +3614,10 @@ const TANKS = [
     hp: 1600, weight: 48.0,
     armor: { hull: { front: 100, sides: 70, rear: 40 }, turret: { front: 180, sides: 100, rear: 100 } },
     mobility: { topSpeed: 45, reverse: 12, enginePower: 850, hpPerTon: 17.7, turretTraverse: 30, hullTraverse: 28 },
-    vision: { viewRange: 370 },
+    vision: { viewRange: 370 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "Cannone da 105/53", caliber: 105, stock: true, alpha: 320, penAP: 202, penPrem: 230, premType: "APCR", penHE: 105, reload: 14.0, dpm: 1478, accuracy: 0.38, aimTime: 2.5, depression: -9 },
-      { name: "Cannone da 105/71", caliber: 105, stock: false, alpha: 320, penAP: 220, penPrem: 242, premType: "APCR", penHE: 105, reload: 14.0, dpm: 1478, accuracy: 0.38, aimTime: 2.5, depression: -9 },
+      { name: "Cannone da 105/53", caliber: 105, stock: true, alpha: 320, penAP: 202, penPrem: 230, premType: "APCR", penHE: 105, reload: 14.0, dpm: 1478, accuracy: 0.38, aimTime: 2.5, depression: -9 , clip: 3, clipRate: 3.5, autoreload: [16.0, 14.0, 13.0] },
+      { name: "Cannone da 105/71", caliber: 105, stock: false, alpha: 320, penAP: 220, penPrem: 242, premType: "APCR", penHE: 105, reload: 14.0, dpm: 1478, accuracy: 0.38, aimTime: 2.5, depression: -9 , clip: 3, clipRate: 3.5, autoreload: [16.0, 14.0, 13.0] },
     ],
   },
   {
@@ -3629,9 +3629,9 @@ const TANKS = [
     hp: 1400, weight: 48.2,
     armor: { hull: { front: 135, sides: 75, rear: 30 }, turret: { front: 185, sides: 80, rear: 50 } },
     mobility: { topSpeed: 50, reverse: 15, enginePower: 600, hpPerTon: 12.5, turretTraverse: 26, hullTraverse: 26 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 12.0, camoMoving: 6.0 },
     guns: [
-      { name: "Cannone da 105/55", caliber: 105, stock: true, alpha: 360, penAP: 218, penPrem: 270, premType: "HEAT", penHE: 105, reload: 13.0, dpm: 1800, accuracy: 0.42, aimTime: 2.7, depression: -10 },
+      { name: "Cannone da 105/55", caliber: 105, stock: true, alpha: 360, penAP: 218, penPrem: 270, premType: "HEAT", penHE: 105, reload: 13.0, dpm: 1800, accuracy: 0.42, aimTime: 2.7, depression: -10 , clip: 3, clipRate: 3.0, autoreload: [17.0, 15.0, 12.0] },
     ],
   },
   {
@@ -3643,9 +3643,9 @@ const TANKS = [
     hp: 1400, weight: 35.0,
     armor: { hull: { front: 60, sides: 30, rear: 20 }, turret: { front: 80, sides: 60, rear: 25 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 652, hpPerTon: 18.6, turretTraverse: 36, hullTraverse: 46 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 21.0, camoMoving: 16.0 },
     guns: [
-      { name: "Cannone da 90/50 T119E1M", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 9.6, dpm: 1999, accuracy: 0.33, aimTime: 2.1, depression: -9 },
+      { name: "Cannone da 90/50 T119E1M", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 9.6, dpm: 1999, accuracy: 0.33, aimTime: 2.1, depression: -9 , clip: 3, clipRate: 2.0, autoreload: [11.0, 8.0, 7.0] },
     ],
   },
   {
@@ -3657,10 +3657,10 @@ const TANKS = [
     hp: 1550, weight: 45.0,
     armor: { hull: { front: 80, sides: 50, rear: 50 }, turret: { front: 120, sides: 60, rear: 60 } },
     mobility: { topSpeed: 60, reverse: 20, enginePower: 1000, hpPerTon: 22.2, turretTraverse: 32, hullTraverse: 54 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 23.0, camoMoving: 17.0 },
     guns: [
-      { name: "Cannone da 90/53", caliber: 90, stock: true, alpha: 240, penAP: 195, penPrem: 245, premType: "APCR", penHE: 45, reload: 10.4, dpm: 1800, accuracy: 0.34, aimTime: 2.2, depression: -8 },
-      { name: "Cannone da 90/74", caliber: 90, stock: false, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 10.4, dpm: 1800, accuracy: 0.33, aimTime: 2.1, depression: -8 },
+      { name: "Cannone da 90/53", caliber: 90, stock: true, alpha: 240, penAP: 195, penPrem: 245, premType: "APCR", penHE: 45, reload: 10.4, dpm: 1800, accuracy: 0.34, aimTime: 2.2, depression: -8 , clip: 3, clipRate: 2.0, autoreload: [12.0, 10.0, 8.0] },
+      { name: "Cannone da 90/74", caliber: 90, stock: false, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 10.4, dpm: 1800, accuracy: 0.33, aimTime: 2.1, depression: -8 , clip: 3, clipRate: 2.0, autoreload: [11.0, 10.0, 8.0] },
     ],
   },
   {
@@ -3672,9 +3672,9 @@ const TANKS = [
     hp: 1400, weight: 35.0,
     armor: { hull: { front: 60, sides: 30, rear: 20 }, turret: { front: 80, sides: 60, rear: 25 } },
     mobility: { topSpeed: 55, reverse: 20, enginePower: 652, hpPerTon: 18.6, turretTraverse: 36, hullTraverse: 46 },
-    vision: { viewRange: 390 },
+    vision: { viewRange: 390 , camoStill: 21.0, camoMoving: 16.0 },
     guns: [
-      { name: "Cannone da 90/50 T119E1", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 9.6, dpm: 1999, accuracy: 0.33, aimTime: 2.1, depression: -9 },
+      { name: "Cannone da 90/50 T119E1", caliber: 90, stock: true, alpha: 240, penAP: 212, penPrem: 259, premType: "APCR", penHE: 45, reload: 9.6, dpm: 1999, accuracy: 0.33, aimTime: 2.1, depression: -9 , clip: 3, clipRate: 2.0, autoreload: [11.0, 8.0, 7.0] },
     ],
   },
   {
@@ -3686,9 +3686,9 @@ const TANKS = [
     hp: 1300, weight: 30.0,
     armor: { hull: { front: 70, sides: 35, rear: 30 }, turret: { front: 170, sides: 60, rear: 40 } },
     mobility: { topSpeed: 50, reverse: 18, enginePower: 600, hpPerTon: 20.0, turretTraverse: 35, hullTraverse: 42 },
-    vision: { viewRange: 380 },
+    vision: { viewRange: 380 , camoStill: 28.0, camoMoving: 21.0 },
     guns: [
-      { name: "Cannone da 105/58 Rh V1", caliber: 105, stock: true, alpha: 300, penAP: 226, penPrem: 272, premType: "APCR", penHE: 53, reload: 10.0, dpm: 2001, accuracy: 0.32, aimTime: 2.5, depression: -9 },
+      { name: "Cannone da 105/58 Rh V1", caliber: 105, stock: true, alpha: 300, penAP: 226, penPrem: 272, premType: "APCR", penHE: 53, reload: 10.0, dpm: 2001, accuracy: 0.32, aimTime: 2.5, depression: -9 , clip: 3, clipRate: 2.5, autoreload: [15.0, 11.0, 9.0] },
     ],
   },
   {
@@ -3700,9 +3700,9 @@ const TANKS = [
     hp: 1300, weight: 51.2,
     armor: { hull: { front: 210, sides: 100, rear: 50 }, turret: { front: 275, sides: 160, rear: 50 } },
     mobility: { topSpeed: 30, reverse: 12, enginePower: 600, hpPerTon: 11.7, turretTraverse: 18, hullTraverse: 18 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 26.0, camoMoving: 15.0 },
     guns: [
-      { name: "Cannone da 120/55", caliber: 120, stock: true, alpha: 400, penAP: 220, penPrem: 264, premType: "APCR", penHE: 120, reload: 36.0, dpm: 2000, accuracy: 0.44, aimTime: 3.0, depression: -10 },
+      { name: "Cannone da 120/55", caliber: 120, stock: true, alpha: 400, penAP: 220, penPrem: 264, premType: "APCR", penHE: 120, reload: 36.0, dpm: 2000, accuracy: 0.44, aimTime: 3.0, depression: -10 , clip: 5, clipRate: 6.0 },
     ],
   },
   {
@@ -3714,10 +3714,10 @@ const TANKS = [
     hp: 1300, weight: 47.1,
     armor: { hull: { front: 260, sides: 60, rear: 40 }, turret: { front: 260, sides: 60, rear: 40 } },
     mobility: { topSpeed: 35, reverse: 16, enginePower: 700, hpPerTon: 14.9, turretTraverse: 22, hullTraverse: 27 },
-    vision: { viewRange: 360 },
+    vision: { viewRange: 360 , camoStill: 27.0, camoMoving: 16.0 },
     guns: [
-      { name: "Cannone da 105/73", caliber: 105, stock: true, alpha: 320, penAP: 220, penPrem: 263, premType: "APCR", penHE: 105, reload: 18.0, dpm: 2058, accuracy: 0.36, aimTime: 2.2, depression: -10 },
-      { name: "Cannone da 120/59", caliber: 120, stock: false, alpha: 400, penAP: 226, penPrem: 300, premType: "HEAT", penHE: 120, reload: 25.0, dpm: 1848, accuracy: 0.42, aimTime: 2.4, depression: -10 },
+      { name: "Cannone da 105/73", caliber: 105, stock: true, alpha: 320, penAP: 220, penPrem: 263, premType: "APCR", penHE: 105, reload: 18.0, dpm: 2058, accuracy: 0.36, aimTime: 2.2, depression: -10 , clip: 3, clipRate: 5.0 },
+      { name: "Cannone da 120/59", caliber: 120, stock: false, alpha: 400, penAP: 226, penPrem: 300, premType: "HEAT", penHE: 120, reload: 25.0, dpm: 1848, accuracy: 0.42, aimTime: 2.4, depression: -10 , clip: 3, clipRate: 7.0 },
     ],
   },
 ];

@@ -36,28 +36,33 @@ adattól.
 
 ### Tüzelési mód
 
-A kártya megmutatja, hogy a tank **egylövetű**, **táras** (több lövedék egy
-sorozatban) vagy **sorozatlövő** (gépágyú, mint az Ares 75 vagy a Vz. 64
-Blesk). Harcban ez döntő: egy táras tank 40 másodpercig védtelen, miután
-kiürült.
+A kártya megmutatja, hogy a löveg **egylövetű**, **táras**, **töltényűrös**
+vagy **gépágyú** — harcban ez dönti el, mikor támadhatsz rá:
 
-Az API ezt nem árulja el közvetlenül — nincs klip mező, a `rapid` mindig
-null. De a tűzgyorsaság elárulja: egylövetű ágyúnál `fire_rate = 60 /
-újratöltés`; ha ennél érdemben több lövés fér egy percbe, akkor tárból tüzel.
-A 260 járművön a két csoport között üres sáv van (12 és 20 lövés/perc között
-egyetlen fegyver sincs), így a besorolás egyértelmű.
+| Mód | Mit jelent | Példa |
+|---|---|---|
+| Táras | A teljes tárat le kell lőnie, utána hosszan tölt | AMX 50 100 (6 lövedék, 43 s) |
+| Töltényűrös | A lövedékek egyenként töltődnek vissza, egyre lassabban | P.44 Pantera (3 lövedék, 11/10/8 s) |
+| Gépágyú | Hevederből tüzel, a cső túlmelegedhet | Ares 75 (350 lövedék, 0,3 s) |
 
-A klip **méretét** szándékosan nem becsüljük: az AMX 50 100 két fegyverére az
-API azonos tűzgyorsaságot ad, pedig eltér a klipjük — abból számolt
-lövedékszám kitalált adat lenne.
+A hivatalos WG API ezt **nem adja meg** — nincs klip mező, a `rapid` mindig
+null. A WG saját webes tankopédiája viszont egy másik végpontot használ
+(`wotpbe/tankopedia/api/vehicle/modules/`), ami modul-kombinációnként 50 mezős
+adatot ad, benne a `clip_count`, `clip_rate`, `autoreload_reload_time`,
+`overheat_gun` és az álca értékek. Ezt szedi le a
+[`tools/fetch_gun_mechanics.py`](tools/fetch_gun_mechanics.py).
 
-Szűrni is lehet rá: 222 egylövetű, 35 táras, 3 sorozatlövő.
+230 járműhöz van hiteles adat. A maradék 30 esemény- vagy különleges jármű
+(Frontline-változatok, kiadatlan prototípusok), amikhez a tankopédia nem tart
+oldalt — azoknál a tűzgyorsaságból becsülünk, és a kártya ezt jelzi.
+
+Szűrni is lehet rá.
 
 ### Fegyver pakli
 
 **Stock / Fejlesztett** kapcsoló, és minden sornál látszik a különbség a
-másik fegyverhez képest (zöld = ez jobb benne). Autoloadereknél a klip
-mérete, klipsebzés és az újratöltési idő is szerepel.
+másik fegyverhez képest (zöld = ez jobb benne). Táras lövegeknél a tár mérete,
+a teljes tár sebzése, a lövések közti idő és a visszatöltés is szerepel.
 
 ## Helyi futtatás
 
@@ -88,9 +93,13 @@ adatot, hogy mindig látszódjon, minek lehet hinni:
 A WG API adja: életerő, nominális páncél, minden fegyver teljes statja,
 sebesség, motor, nézőtáv, és a hivatalos játékbeli tank rendereket.
 
-A WG API **nem** adja: dőlésszögeket, effektív páncélt, gyenge pontokat
-(kupola, ágyúpajzs, alsó lemez), álcát, autoloader klip méretet. Ezek az
-`armor-zones.js`-ben vannak kézzel, és az app meg is jelöli őket.
+A WG **tankopédia backendje** adja (a hivatalos API nem): tár méret, lövések
+közti idő, töltényűrös visszatöltési idők, gépágyú/túlmelegedés jelző, és a
+valódi álca értékek.
+
+Sem az API, sem a tankopédia **nem** adja: dőlésszögeket, effektív páncélt,
+gyenge pontokat (kupola, ágyúpajzs, alsó lemez). Ezek az `armor-zones.js`-ben
+vannak kézzel, és az app meg is jelöli őket.
 
 Az API-értékek a **játék alapértékei** — legénységi képzettség és felszerelés
 nélkül. A saját tankod a garázsban jobb számokat mutat; az ellenfél
