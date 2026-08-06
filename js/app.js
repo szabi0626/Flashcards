@@ -47,6 +47,17 @@
     poland: "🇵🇱", italy: "🇮🇹",
   };
 
+  // A hivatalos WoT osztály-jelek (rombusz / csíkos rombusz / háromszög /
+  // négyzet), a Wargaming saját webes tankopédiájából. Lásd CREDITS.md.
+  const TYPE_ICON = {
+    lightTank: "lighttank", mediumTank: "mediumtank", heavyTank: "heavytank",
+    "AT-SPG": "at-spg", SPG: "spg",
+  };
+  const typeIcon = (type, cls) =>
+    TYPE_ICON[type]
+      ? `<img class="${cls || "class-icon"}" src="img/class/${TYPE_ICON[type]}.png" alt="">`
+      : "";
+
   const filter = { nations: new Set(), types: new Set(), premium: "all" };
   let order = [];
   let filterOpen = false;
@@ -310,7 +321,8 @@
     const warn = deckKey === "armor" && !zonesVerified(tank);
 
     el.front.innerHTML = `
-      <div class="tank-meta-top">${tank.flag || ""} ${esc(tank.nationHu)} · Tier ${tank.tier} · ${esc(tank.typeHu)}</div>
+      <div class="tank-meta-top">${tank.flag || ""} ${esc(tank.nationHu)} · Tier ${tank.tier}
+        · ${typeIcon(tank.type)} ${esc(tank.typeHu)}</div>
       <img class="tank-photo" src="${esc(tank.image)}" alt="${esc(tank.name)}">
       <div class="tank-name">${esc(tank.name)}</div>
       <div class="question">${esc(cfg.question)}</div>
@@ -370,7 +382,8 @@
       .join("");
     const types = TYPE_ORDER
       .filter((ty) => deck.some((t) => t.type === ty))
-      .map((ty) => chip(filter.types.has(ty), `data-type="${ty}"`, TYPE_SHORT[ty]))
+      .map((ty) => chip(filter.types.has(ty), `data-type="${ty}"`,
+                        `${typeIcon(ty, "chip-icon")} ${TYPE_SHORT[ty]}`))
       .join("");
     const prem = [["all", "Mind"], ["tech", "Tech tree"], ["prem", "Prémium"]]
       .map(([v, l]) => chip(filter.premium === v, `data-prem="${v}"`, l)).join("");

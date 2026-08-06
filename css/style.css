@@ -393,6 +393,8 @@ body {
 }
 
 .chip {
+  /* a benne lévő ikonra koppintás is a gombot találja el */
+  pointer-events: auto;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid transparent;
   border-radius: 14px;
@@ -419,3 +421,25 @@ body {
   text-decoration: underline;
   padding: 4px 0;
 }
+
+/* ---------------- osztály-ikonok ---------------- */
+/* A nehéz és közepes jele csak a csíkok számában tér el (3 vs 2), ezért
+   14-15 px-en megkülönböztethetetlen. A forrás 48x48, van hova nőni. */
+.class-icon {
+  pointer-events: none;
+  width: 27px;
+  height: 27px;
+  vertical-align: -8px;
+  margin: 0 2px;
+}
+
+.chip-icon {
+  pointer-events: none;
+  width: 23px;
+  height: 23px;
+  vertical-align: -6px;
+  margin-right: 3px;
+  opacity: 0.85;
+}
+
+.chip.on .chip-icon { opacity: 1; }

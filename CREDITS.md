@@ -8,6 +8,17 @@ A `js/tanks-data.js` teljes tartalma és az `img/*.png` képek innen származnak
 a hivatalos fejlesztői API-n keresztül. A World of Tanks és a hozzá tartozó
 tartalom a Wargaming.net tulajdona.
 
+## Osztály-ikonok
+
+Az `img/class/*.png` a World of Tanks hivatalos jármű-osztály jelei
+(rombusz, csíkos rombusz, fordított háromszög, négyzet), a Wargaming saját
+webes tankopédiájának nyilvános statikus tárhelyéről:
+
+    eu-wotp.wgcdn.co/.../scss/utils/rich/img/tank_classes/
+
+Ugyanabba a körbe tartoznak, mint az API-ból származó garázs-renderek: a
+Wargaming tulajdona, a játékhoz kapcsolódó megjelenítésre.
+
 ## 3D modellek
 
 A forgatható páncélnézegető valódi 3D modelleket használ. Ezek **Creative
