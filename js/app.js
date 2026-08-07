@@ -8,13 +8,45 @@
   /* ---------------------------------------------------------------- */
   /* Páncél értékelés — a színkód az effektív vastagságból számítódik,  */
   /* hogy ne lehessen kézzel elrontani.                                 */
+  /*                                                                    */
+  /* A küszöb SZINTFÜGGŐ, és magából az adatból jön: az adott tier      */
+  /* összes tankjának felszerelt lövegét nézve a MEDIÁN AP-áttörés a    */
+  /* zöld határa, a medián prémium áttörés a pirosé. Vagyis:            */
+  /*                                                                    */
+  /*   zöld   egy tipikus azonos szintű ellenfél sima lőszerrel átüti   */
+  /*   sárga  csak prémium lőszerrel megy át                            */
+  /*   piros  még prémiummal sem                                        */
+  /*                                                                    */
+  /* Fix 180/250 mm-rel tier 3-on minden piros, tier 10-en minden zöld  */
+  /* lenne. A mediánt futásidőben számoljuk, így nem tud elcsúszni az   */
+  /* adattól, és új patch után magától igazodik.                        */
   /* ---------------------------------------------------------------- */
-  const PEN_EASY = 180; // egy átlagos tier 8 AP lövedék ennyit tud
-  const PEN_HARD = 250; // efölött csak prémium lőszerrel, ha egyáltalán
+  const PEN_BY_TIER = (() => {
+    const med = (a) => (a.length ? a.sort((x, y) => x - y)[a.length >> 1] : null);
+    const ap = {}, prem = {};
+    for (const t of deck) {
+      const top = (t.guns || [])[(t.guns || []).length - 1];
+      if (!top) continue;
+      if (top.penAP != null) (ap[t.tier] = ap[t.tier] || []).push(top.penAP);
+      if (top.penPrem != null) (prem[t.tier] = prem[t.tier] || []).push(top.penPrem);
+    }
+    const out = {};
+    for (const tier of Object.keys(ap)) {
+      const easy = med(ap[tier]);
+      // Ha nincs prémium adat, a sima áttörés másfélszerese a szokásos arány.
+      out[tier] = { easy, hard: med(prem[tier] || []) || Math.round(easy * 1.5) };
+    }
+    return out;
+  })();
 
-  function verdictOf(effective) {
-    if (effective < PEN_EASY) return "easy";
-    if (effective <= PEN_HARD) return "hard";
+  function penScale(tier) {
+    return PEN_BY_TIER[tier] || PEN_BY_TIER[8] || { easy: 180, hard: 250 };
+  }
+
+  function verdictOf(effective, tier) {
+    const p = penScale(tier);
+    if (effective < p.easy) return "easy";
+    if (effective <= p.hard) return "hard";
     return "no";
   }
 
@@ -120,42 +152,57 @@
   /* prototípusok) — azok `play: null`-t kapnak, nem nullát, és a        */
   /* sorrend végére kerülnek.                                            */
   /* ---------------------------------------------------------------- */
+  // A címke a RÉSZESEDÉSBŐL jön, nem a helyezésből: egy tier 1-en a 10. hely
+  // már a mezőny alja (12 jármű van), tier 8-on viszont még az élmezőny
+  // (228 jármű). A százalék az egyetlen szintek közt összemérhető szám.
   const POP_TIERS = [
-    { max: 20, key: "top", label: "Nagyon gyakori" },
-    { max: 60, key: "high", label: "Gyakori" },
-    { max: 120, key: "mid", label: "Ritkább" },
-    { max: Infinity, key: "low", label: "Ritka" },
+    { min: 3, key: "top", label: "Nagyon gyakori" },
+    { min: 1, key: "high", label: "Gyakori" },
+    { min: 0.3, key: "mid", label: "Ritkább" },
+    { min: -1, key: "low", label: "Ritka" },
   ];
 
   const hu = (n) => String(n).replace(".", ",");
 
   function popularity(tank) {
     if (!tank.play) return null;
-    const tier = POP_TIERS.find((p) => tank.play.rank <= p.max);
-    return { ...tank.play, key: tier.key, label: tier.label };
+    const band = POP_TIERS.find((p) => tank.play.share >= p.min);
+    return { ...tank.play, key: band.key, label: band.label };
   }
 
-  /** Hány százalékát fedi le a tier 8-as forgalomnak a legjátszottabb N tank. */
+  /**
+   * A jelenlegi szűrés mellett hány százalékát fedi le a forgalomnak az
+   * egyes szintek legjátszottabb N tankja.
+   *
+   * A `rank` és a `share` SZINTEN BELÜL értendő (egy tier 3-as tank abszolút
+   * meccsszáma összemérhetetlen egy tier 8-aséval), ezért a lefedettséget a
+   * nyers meccsszámokból súlyozzuk — így akkor is helyes, ha több szint,
+   * nemzet vagy típus van kiválasztva.
+   */
   function coverage(n) {
-    const shares = deck
-      .filter((t) => t.play)
-      .sort((a, b) => a.play.rank - b.play.rank)
-      .slice(0, n)
-      .map((t) => t.play.share);
-    return Math.round(shares.reduce((a, b) => a + b, 0));
+    let sel = 0, all = 0;
+    for (const t of deck) {
+      if (!t.play || !matchesExceptTop(t)) continue;
+      all += t.play.battles;
+      if (t.play.rank <= n) sel += t.play.battles;
+    }
+    return all ? Math.round((100 * sel) / all) : 0;
   }
 
-  const filter = { nations: new Set(), types: new Set(), premium: "all", fire: "all", top: 0 };
+  const filter = {
+    nations: new Set(), types: new Set(), tiers: new Set(),
+    premium: "all", fire: "all", top: 0,
+  };
   let sortKey = "pop"; // "pop" = játszottság szerint, "base" = nemzet/tech tree sorrend
   let order = [];
   let filterOpen = false;
 
-  function matches(t) {
+  function matchesExceptTop(t) {
     if (filter.nations.size && !filter.nations.has(t.nation)) return false;
     if (filter.types.size && !filter.types.has(t.type)) return false;
+    if (filter.tiers.size && !filter.tiers.has(t.tier)) return false;
     if (filter.premium === "tech" && t.isPremium) return false;
     if (filter.premium === "prem" && !t.isPremium) return false;
-    if (filter.top && (!t.play || t.play.rank > filter.top)) return false;
     if (filter.fire !== "all") {
       const m = tankFireMode(t);
       if (filter.fire === "single" ? m : !m || m.key !== filter.fire) return false;
@@ -163,13 +210,22 @@
     return true;
   }
 
-  // Adat nélküli járművek a végére, egyébként helyezés szerint.
+  function matches(t) {
+    if (filter.top && (!t.play || t.play.rank > filter.top)) return false;
+    return matchesExceptTop(t);
+  }
+
+  // Adat nélküli járművek a végére, egyébként szinten belüli helyezés szerint.
+  // Több szint esetén szint szerint csoportosítunk, hogy a pakli ne ugráljon.
   const popRank = (t) => (t.play ? t.play.rank : Infinity);
 
   function applyFilter(keepTank) {
     const before = keepTank && deck[order[pos]];
     order = deck.map((_, i) => i).filter((i) => matches(deck[i]));
-    if (sortKey === "pop") order.sort((a, b) => popRank(deck[a]) - popRank(deck[b]) || a - b);
+    if (sortKey === "pop") {
+      order.sort((a, b) =>
+        deck[a].tier - deck[b].tier || popRank(deck[a]) - popRank(deck[b]) || a - b);
+    }
     const at = before ? order.indexOf(deck.indexOf(before)) : -1;
     pos = at >= 0 ? at : 0;
     gunIndex = null;
@@ -250,10 +306,10 @@
     const zones = zonesOf(tank);
     const a = tank.armor;
 
-    // A legtöbb tankhoz nincs kézzel felvett zónánk (260 jármű van, öthöz
-    // készült). Ilyenkor a hiteles API-értékeket mutatjuk, találgatás nélkül.
+    // A legtöbb tankhoz nincs kézzel felvett zónánk — ilyenkor a hiteles
+    // API-értékeket mutatjuk, találgatás nélkül.
     if (!zones.length) {
-      const cmp = (v) => `<span class="dot dot-${verdictOf(v)}"></span>`;
+      const cmp = (v) => `<span class="dot dot-${verdictOf(v, tank.tier)}"></span>`;
       const row = (label, v) => statRow(label, `${cmp(v)} ${v} mm`);
       // A vadászpáncélosoknak és tüzéreknek gyakran nincs forgó tornyuk.
       const turret = a.turret
@@ -268,15 +324,17 @@
           ${row("Test hátul", a.hull.rear)}
           ${turret}
         </div>
-        <p class="source">A pontok a NOMINÁLIS értéket színezik. A valóságban a
-          szögelés ennél sokkal többet érhet — egy 110 mm-es lemez 60 fokban
-          220 mm-nek felel meg.</p>
+        <p class="source">A pontok a NOMINÁLIS értéket színezik, egy tipikus
+          tier ${tank.tier} ellenfél lövegéhez viszonyítva (${penScale(tank.tier).easy} /
+          ${penScale(tank.tier).hard} mm). A valóságban a szögelés ennél sokkal többet
+          érhet — egy 110 mm-es lemez 60 fokban 220 mm-nek felel meg.</p>
         <p class="source source-manual">Ehhez a tankhoz még nincsenek kidolgozott
-          páncélzónák (dőlésszögek, gyenge pontok). Egyelőre öt tankhoz készültek el.</p>`;
+          páncélzónák (dőlésszögek, gyenge pontok). Egyelőre ${Object.keys(ZONES).length}
+          tankhoz készültek el.</p>`;
     }
 
     const rows = zones.map((z) => {
-      const v = verdictOf(z.effective);
+      const v = verdictOf(z.effective, tank.tier);
       const angle = z.angle ? ` @${z.angle}°` : "";
       return `
         <div class="zone-row zone-row-${v}" data-zone="${esc(z.id)}">
@@ -295,9 +353,9 @@
     return `
       ${renderSchematic(tank)}
       <div class="legend">
-        <span><i class="dot dot-easy"></i>&lt;${PEN_EASY} átlövöd</span>
-        <span><i class="dot dot-hard"></i>${PEN_EASY}–${PEN_HARD} nehéz</span>
-        <span><i class="dot dot-no"></i>&gt;${PEN_HARD} soha</span>
+        <span><i class="dot dot-easy"></i>&lt;${penScale(tank.tier).easy} átlövöd</span>
+        <span><i class="dot dot-hard"></i>${penScale(tank.tier).easy}–${penScale(tank.tier).hard} nehéz</span>
+        <span><i class="dot dot-no"></i>&gt;${penScale(tank.tier).hard} soha</span>
       </div>
       <div class="zone-list">${rows}</div>
       ${lessonOf(tank) ? `<p class="lesson">💡 ${esc(lessonOf(tank))}</p>` : ""}
@@ -466,7 +524,7 @@
               Random meccsen nem jön szembe</span>`;
           }
           return `<span class="pop-badge pop-${p.key}"
-            title="Az EU szerver tier 8-as forgalmának ${hu(p.share)}%-a, azaz nagyjából minden ${Math.max(1, Math.round(100 / p.share))}. tier 8-as ellenfél ez. Nyerési aránya ${hu(p.winrate)}%. Forrás: tomato.gg, elmúlt 30 nap.">
+            title="Az EU szerver tier ${tank.tier}-as forgalmának ${hu(p.share)}%-a, azaz nagyjából minden ${Math.max(1, Math.round(100 / p.share))}. tier ${tank.tier} ellenfél ez. Szinten belüli helyezése #${p.rank}, nyerési aránya ${hu(p.winrate)}%. Forrás: tomato.gg, elmúlt 30 nap.">
             #${p.rank} ${p.label} · ${hu(p.share)}%</span>`;
         })()}
         ${(() => {
@@ -514,6 +572,7 @@
     if (!bar) return;
 
     const bits = [];
+    if (filter.tiers.size) bits.push("tier " + [...filter.tiers].sort((a, b) => a - b).join("/"));
     if (filter.nations.size) bits.push([...filter.nations].map((n) => NATION_FLAG[n] || n).join(""));
     if (filter.types.size) bits.push([...filter.types].map((t) => TYPE_SHORT[t]).join(", "));
     if (filter.premium === "tech") bits.push("tech tree");
@@ -558,17 +617,21 @@
     const sort = [["pop", "Játszottság"], ["base", "Nemzet szerint"]]
       .map(([v, l]) => chip(sortKey === v, `data-sort="${v}"`, l)).join("");
 
+    const tiers = [...new Set(deck.map((t) => t.tier))].sort((a, b) => a - b)
+      .map((n) => chip(filter.tiers.has(n), `data-tier="${n}"`, `${n}`)).join("");
+
     bar.innerHTML = `
       <button class="filter-toggle" id="filterToggle">
         <span>Szűrés: ${esc(summary)}</span>
         <span class="filter-count">${order.length}</span>
       </button>
+      <div class="filter-row tier-row always">${tiers}</div>
       <div class="filter-panel ${filterOpen ? "" : "hidden"}">
         <div class="filter-label">Sorrend</div>
         <div class="filter-row">${sort}</div>
         <div class="filter-label">Mennyire gyakori</div>
-        <div class="filter-hint">A % azt mondja meg, a tier 8-as ellenfelek hány
-          százalékát fedi le ez a válogatás.</div>
+        <div class="filter-hint">A helyezés SZINTEN BELÜL értendő. A % azt mondja
+          meg, a most szűrt ellenfelek hány százalékát fedi le ez a válogatás.</div>
         <div class="filter-row">${top}</div>
         <div class="filter-label">Nemzet, típus, beszerzés</div>
         <div class="filter-row">${nations}</div>
@@ -591,12 +654,13 @@
     if (!t) return;
     if (t.id === "filterToggle") { filterOpen = !filterOpen; renderFilterBar(); return; }
     if (t.id === "filterClear") {
-      filter.nations.clear(); filter.types.clear();
+      filter.nations.clear(); filter.types.clear(); filter.tiers.clear();
       filter.premium = "all"; filter.fire = "all"; filter.top = 0;
       applyFilter(true); return;
     }
     const toggle = (set, v) => (set.has(v) ? set.delete(v) : set.add(v));
     if (t.dataset.nat) toggle(filter.nations, t.dataset.nat);
+    else if (t.dataset.tier) toggle(filter.tiers, Number(t.dataset.tier));
     else if (t.dataset.type) toggle(filter.types, t.dataset.type);
     else if (t.dataset.prem) filter.premium = t.dataset.prem;
     else if (t.dataset.fire) filter.fire = t.dataset.fire;

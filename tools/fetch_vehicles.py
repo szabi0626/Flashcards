@@ -1,18 +1,25 @@
 """
-Minden tier 8 jármű lekérése a Wargaming API-ból.
+Járművek lekérése a Wargaming API-ból.
 
-Kimenet: all_t8.json (nyers adat, fegyverenkénti profilokkal).
+Kimenet: all_vehicles.json (nyers adat, fegyverenkénti profilokkal).
 Onnan a tools/generate_data.py készíti a js/tanks-data.js-t és tölti le a képeket.
 
 Kell hozzá egy ingyenes application_id a developers.wargaming.net-ről
 (Mobile típus, hogy ne legyen IP-hez kötve):
 
-    WG_ID=xxxxxxxx python3 tools/fetch_tier8.py
+    WG_ID=xxxxxxxx python3 tools/fetch_vehicles.py          # mind az 1009 jármű
+    WG_ID=xxxxxxxx python3 tools/fetch_vehicles.py 8        # csak tier 8
+    WG_ID=xxxxxxxx python3 tools/fetch_vehicles.py 8 9 10   # több tier
 
 Megszakítás után folytatható: a már kész járműveket kihagyja.
 A kulcs SOHA nem kerül a repóba — csak környezeti változóból olvassuk.
 """
-import json, os, time, urllib.request, urllib.parse, sys
+import json, os, time, urllib.request, urllib.parse, sys, threading
+from concurrent.futures import ThreadPoolExecutor
+
+# A WG API dokumentált korlátja 10 kérés/másodperc. Járművenként külön szálon
+# dolgozunk (egy jármű lövegeit egymás után), ennyi szállal ~8 kérés/mp jön ki.
+WORKERS = 4
 
 WG  = os.environ["WG_ID"]
 API = "https://api.worldoftanks.eu/wot/encyclopedia"
@@ -52,9 +59,14 @@ def gun_stats(p):
         "depression": -g["move_down_arc"],
     }
 
-# ---- 1. az összes tier 8 jármű alapadata (több körben, hogy ne legyen óriási a válasz)
-ids = sorted(int(k) for k in api("vehicles", tier=8, fields="tank_id").keys())
-print(f"{len(ids)} tier 8 jármű", flush=True)
+# ---- 1. a kért járművek alapadata (több körben, hogy ne legyen óriási a válasz)
+tiers = [int(a) for a in sys.argv[1:]]
+if tiers:
+    ids = sorted(int(k) for t in tiers for k in api("vehicles", tier=t, fields="tank_id"))
+    print(f"{len(ids)} jármű a(z) {tiers} tier(ek)ből", flush=True)
+else:
+    ids = sorted(int(k) for k in api("vehicles", fields="tank_id"))
+    print(f"{len(ids)} jármű (minden tier)", flush=True)
 
 vehicles = {}
 FIELDS = "tank_id,name,short_name,nation,tier,type,is_premium,tag,images,default_profile,modules_tree"
@@ -67,12 +79,16 @@ for i in range(0, len(ids), 20):
 # ---- 2. fegyverenkénti profil
 out = {}
 done = 0
-resume = f"{S}/all_t8.json"
+resume = f"{S}/all_vehicles.json"
 if os.path.exists(resume):
     out = json.load(open(resume)); print(f"folytatás: {len(out)} kész", flush=True)
 
-for tid, v in vehicles.items():
-    if tid in out: continue
+lock = threading.Lock()
+
+def build(item):
+    """Egy jármű teljes adata. Szálanként fut, csak az `out`-hoz nyúl zárral."""
+    global done
+    tid, v = item
     tree = v.get("modules_tree") or {}
     tops = {}
     for k, t in TYPES.items():
@@ -93,10 +109,13 @@ for tid, v in vehicles.items():
                 print(f"    ! {v['name']} / {gm['name']}: {e}", flush=True); continue
             gs = gun_stats(p); gs["stock"] = (gi == 0); profiles.append(gs)
             full = p
-            time.sleep(0.25)
+
+    if not profiles:                              # minden profilkérés elhasalt
+        print(f"    ! {v['name']}: nincs használható profil, kihagyva", flush=True)
+        return
 
     a = full["armor"]; t = full["turret"]; e = full["engine"]
-    out[tid] = {
+    rec = {
         "tank_id": int(tid), "name": v["name"], "short": v.get("short_name") or v["name"],
         "nation": v["nation"], "tier": v["tier"], "type": v["type"],
         "isPremium": bool(v["is_premium"]), "tag": v["tag"],
@@ -109,10 +128,17 @@ for tid, v in vehicles.items():
         "hullTraverse": full["suspension"]["traverse_speed"],
         "guns": profiles,
     }
-    done += 1
-    if done % 10 == 0:
-        json.dump(out, open(resume,"w"), ensure_ascii=False)
-        print(f"  {len(out)}/{len(vehicles)} kész", flush=True)
+    with lock:
+        out[tid] = rec
+        done += 1
+        if done % 20 == 0:
+            json.dump(out, open(resume, "w"), ensure_ascii=False)
+            print(f"  {len(out)}/{len(vehicles)} kész", flush=True)
+
+todo = [(tid, v) for tid, v in vehicles.items() if tid not in out]
+print(f"lekérendő: {len(todo)} jármű, {WORKERS} szálon", flush=True)
+with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+    list(pool.map(build, todo))
 
 json.dump(out, open(resume,"w"), ensure_ascii=False)
-print(f"KÉSZ: {len(out)} jármű -> all_t8.json", flush=True)
+print(f"KÉSZ: {len(out)} jármű -> all_vehicles.json", flush=True)

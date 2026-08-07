@@ -4,9 +4,10 @@ Mobilbarát flashcard webalkalmazás World of Tanks harckocsi statisztikák
 memorizálásához. Böngészőből használható, iPhone-on a kezdőképernyőre is
 felvehető (PWA), és offline is működik.
 
-Benne van **mind a 260 tier 8 jármű** — tech tree és prémium egyaránt,
-mind a 11 nemzetből. Alapból **játszottság szerint** sorrendben, hogy azzal
-kezdd, amivel tényleg találkozol.
+Benne van a játék **összes járműve, tier 1-től 11-ig** — tech tree és prémium
+egyaránt, mind a 11 nemzetből. Szint szerint szűrhető, és alapból
+**játszottság szerint** van rendezve, hogy azzal kezdd, amivel tényleg
+találkozol.
 
 ## Mit tanít
 
@@ -20,39 +21,53 @@ A kártyák nem stat-dumpok, hanem három harc közbeni kérdésre válaszolnak:
 
 ### Páncél pakli
 
-Öt tankhoz (IS-3, Tiger II, T32, T-44, AMX 50 100) készült **kidolgozott
-zónatérkép**: színkódolt elölnézeti séma, ahol minden zóna az **effektív**
+Öt tier 8-as tankhoz (IS-3, Tiger II, T32, T-44, AMX 50 100) készült
+**kidolgozott zónatérkép**: színkódolt elölnézeti séma, ahol minden zóna az **effektív**
 (szögeléssel korrigált) vastagsága szerint kap színt — nem a nominális
 szerint, mert az félrevezet. Egy 110 mm-es lemez 60°-ban 220 mm-nek felel meg.
 
-A többi 255 tanknál a hiteles API-értékek látszanak (test és torony
+A többi tanknál a hiteles API-értékek látszanak (test és torony
 elöl/oldalt/hátul), zónabontás nélkül — inkább semmi, mint találgatás.
 
-- 🟢 &lt; 180 mm — átlövöd sima AP-vel
-- 🟡 180–250 mm — kell hozzá jó pen vagy prémium lőszer
-- 🔴 &gt; 250 mm — ne is próbáld
+- 🟢 átlövöd sima AP-vel
+- 🟡 kell hozzá prémium lőszer
+- 🔴 ne is próbáld
 
-A színt a kód számolja az `effective` értékből, így nem tud elcsúszni az
-adattól.
+A küszöb **szintfüggő**, és magából az adatból jön: az adott tier összes
+tankjának felszerelt lövegét nézve a **medián AP-áttörés** a zöld határa, a
+medián prémium áttörés a pirosé:
+
+| Tier | Zöld alatta | Piros fölötte |
+|---|---|---|
+| 1 | 45 mm | 70 mm |
+| 3 | 67 mm | 92 mm |
+| 5 | 118 mm | 159 mm |
+| 8 | 220 mm | 259 mm |
+| 10 | 260 mm | 319 mm |
+
+Fix 180/250 mm-rel tier 3-on minden piros és tier 10-en minden zöld lenne —
+azaz használhatatlan.
+
+A színt a kód számolja az `effective` értékből és a szint mediánjából, így nem
+tud elcsúszni az adattól, és patch után magától igazodik.
 
 ### Játszottság — mit tanulj előbb
 
-260 kártyát elölről végigpörgetni pazarlás, mert a mezőny nagyon egyenetlen.
-Az EU szerver elmúlt 30 napjában:
-
-| Ha megtanulod… | …az ellenfelek ennyi százalékát ismered |
-|---|---|
-| top 25 tank | 48% |
-| top 50 tank | 66% |
-| top 100 tank | 85% |
-
-Egyetlen jármű, a **SU-130PM**, önmagában a tier 8-as forgalom **8,85%-a** —
-nagyjából minden 11. tier 8-as ellenfél az. A 228. helyezettel viszont
-gyakorlatilag sosem találkozol.
+Ezer kártyát elölről végigpörgetni pazarlás, mert a mezőny nagyon egyenetlen.
+Tier 8-on például egyetlen jármű, a **SU-130PM**, önmagában a forgalom
+**8,85%-a** — nagyjából minden 11. tier 8-as ellenfél az. A 228. helyezettel
+viszont gyakorlatilag sosem találkozol.
 
 Ezért a pakli alapból játszottság szerint van rendezve, és minden kártya
-előlapján ott a helyezés meg a részesedés: `#10 Gyakori · 1,36%`. A szűrőben
-átkapcsolhatsz nemzet szerinti sorrendre, és szűkíthetsz a top 25/50/100-ra.
+előlapján ott a részesedés: `#10 Gyakori · 1,36%`. A szűrőben átkapcsolhatsz
+nemzet szerinti sorrendre, és szűkíthetsz a szint legjátszottabb
+25/50/100 járművére — a chipen ott a tényleges lefedettség százaléka.
+
+A helyezés és a részesedés **szinten belül** értendő: egy tier 3-as tank
+abszolút meccsszáma összemérhetetlen egy tier 8-aséval, és úgyis az a kérdés,
+hogy az adott szinten kivel találkozol. Ugyanezért a kártya színkódja is a
+részesedésből jön, nem a helyezésből — tier 1-en 12 jármű van, tier 8-on 228,
+ott a 10. hely egészen mást jelent.
 
 Ezt a hivatalos WG API **nem adja meg** — csak játékosonként tud statisztikát,
 szerverszintű forgalmat nem. A [tomato.gg](https://tomato.gg) viszont sok
@@ -61,10 +76,9 @@ tízezer játékos adatát összegzi, és a
 rendereli, így egyetlen kéréssel megvan. Ezt szedi le a
 [`tools/fetch_playrate.py`](tools/fetch_playrate.py).
 
-228 járműhöz van adat. A maradék 32 (Frontline-változatok, kiadatlan
-prototípusok) meg sem jelenik a forrásban — azok `null`-t kapnak, nem nullát,
-a sorrend végére kerülnek, és a kártya kiírja, hogy random meccsen nem jönnek
-szembe.
+949 járműhöz van adat. Ami a forrásban meg sem jelenik (Frontline-változatok,
+kiadatlan prototípusok), az `null`-t kap, nem nullát, a sorrend végére kerül,
+és a kártya kiírja, hogy random meccsen nem jön szembe.
 
 ### Tüzelési mód
 
@@ -73,9 +87,12 @@ vagy **gépágyú** — harcban ez dönti el, mikor támadhatsz rá:
 
 | Mód | Mit jelent | Példa |
 |---|---|---|
-| Táras | A teljes tárat le kell lőnie, utána hosszan tölt | AMX 50 100 (6 lövedék, 43 s) |
+| Táras | A teljes tárat le kell lőnie, utána hosszan tölt | AMX 50 100 (6 lövedék) |
 | Töltényűrös | A lövedékek egyenként töltődnek vissza, egyre lassabban | P.44 Pantera (3 lövedék, 11/10/8 s) |
 | Gépágyú | Hevederből tüzel, a cső túlmelegedhet | Ares 75 (350 lövedék, 0,3 s) |
+
+Összesen 85 táras, 25 töltényűrös és 55 gépágyús jármű van — az utóbbiak
+zöme alacsony szintű gyorstüzelő könnyűtank.
 
 A hivatalos WG API ezt **nem adja meg** — nincs klip mező, a `rapid` mindig
 null. A WG saját webes tankopédiája viszont egy másik végpontot használ
@@ -84,9 +101,9 @@ adatot ad, benne a `clip_count`, `clip_rate`, `autoreload_reload_time`,
 `overheat_gun` és az álca értékek. Ezt szedi le a
 [`tools/fetch_gun_mechanics.py`](tools/fetch_gun_mechanics.py).
 
-230 járműhöz van hiteles adat. A maradék 30 esemény- vagy különleges jármű
-(Frontline-változatok, kiadatlan prototípusok), amikhez a tankopédia nem tart
-oldalt — azoknál a tűzgyorsaságból becsülünk, és a kártya ezt jelzi.
+957 járműhöz van hiteles adat (1455 löveg). A maradék 52 esemény- vagy
+különleges jármű, amikhez a tankopédia nem tart oldalt — azoknál a
+tűzgyorsaságból becsülünk, és a kártya ezt jelzi.
 
 Szűrni is lehet rá.
 
@@ -144,8 +161,28 @@ megítéléséhez viszont ez a helyes kiindulás.
 
 A `js/tanks-data.js` generált. Újragenerálásához kell egy ingyenes
 `application_id` a [developers.wargaming.net](https://developers.wargaming.net)-ről
-(`Mobile` típus, hogy ne legyen IP-hez kötve). A generáló szkript a tank
-`tankId` mezőit használja.
+(`Mobile` típus, hogy ne legyen IP-hez kötve). A teljes lánc:
+
+```bash
+# 1. nyers adat a WG API-ból (minden tier; megszakítás után folytatható)
+WG_ID=xxxx python3 tools/fetch_vehicles.py
+
+# 2. generált adatfájl + garázs-renderek letöltése
+python3 tools/generate_data.py
+
+# 3. klip, tüzelési mód és álca a WG tankopédia backendjéből
+python3 tools/fetch_gun_mechanics.py tank_ids.json > gun_mechanics.json
+python3 tools/merge_gun_mechanics.py gun_mechanics.json
+
+# 4. játszottság a tomato.gg-ről
+python3 tools/fetch_playrate.py EU 30 > playrate.json
+python3 tools/merge_playrate.py playrate.json
+```
+
+A 3. és 4. lépés **idempotens**: a korábban beírt mezőket előbb kiszedi, így
+akárhányszor futtatható. A jármű `id`-je (egyben a képfájl neve és az
+`armor-zones.js` kulcsa) `tank_id` szerint stabil, tehát új járművek
+hozzáadásakor a meglévők nem nevezodnek át.
 
 ### Ha ellenőrizted egy tank zónáit
 
@@ -160,10 +197,14 @@ van, egyszerűen írd felül a fájlt: `img/<tank-id>.png`.
 
 ## Szűrés
 
-A fejléc alatti sávra koppintva nyílik a szűrő:
+A **szint-választó mindig látszik** a fejléc alatt — ezer kártyánál ez a
+legfontosabb kapcsoló, ezért nem rejtettük panel mögé.
+
+A sávra koppintva nyílik a többi szűrő:
 
 - **Sorrend** — játszottság (alap) vagy nemzet szerint
-- **Mennyire gyakori** — top 25 / 50 / 100, a chipen a lefedettség százaléka
+- **Mennyire gyakori** — a szint top 25 / 50 / 100 járműve, a chipen a
+  tényleges lefedettség százaléka
 - **Nemzet, típus** (nehéz/közepes/könnyű/páncélvadász/tüzér), prémium vs. tech tree
 - **Tüzelési mód** — egylövetű / táras / töltényűrös / gépágyú
 

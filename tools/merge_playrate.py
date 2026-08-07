@@ -5,6 +5,8 @@ Minden tank kap egy `play` mezőt a `guns` elé:
 
     play: { battles: 83366, rank: 12, share: 1.4, winrate: 46.35 },
 
+A `rank` és a `share` SZINTEN BELÜL értendő — lásd a fetch_playrate.py-t.
+
 Aminek nincs mérhető forgalma (esemény- és Frontline-változatok, kiadatlan
 prototípusok), az `play: null`-t kap — nem nulla, mert az azt sugallná, hogy
 mértük és nulla lett; valójában meg sem jelenik a forrás táblázatában.

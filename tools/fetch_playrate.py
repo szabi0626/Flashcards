@@ -55,23 +55,33 @@ def main():
     days = int(sys.argv[2]) if len(sys.argv) > 2 else 30
 
     rows = fetch(server, days)
-    t8 = sorted((r for r in rows if r["tier"] == 8), key=lambda r: -r["battles"])
-    total = sum(r["battles"] for r in t8)
 
-    out = {}
-    for rank, r in enumerate(t8, 1):
-        out[str(r["tank_id"])] = {
-            "battles": r["battles"],
-            "rank": rank,
-            "share": round(100 * r["battles"] / total, 2),
-            "winrate": r["winrate"],
-        }
+    # A helyezés és a részesedés SZINTEN BELÜL értendő: egy tier 3-as tank
+    # abszolút meccsszáma összemérhetetlen egy tier 8-aséval, és a kérdés
+    # úgyis az, hogy az adott szinten kivel találkozol.
+    by_tier = {}
+    for r in rows:
+        by_tier.setdefault(r["tier"], []).append(r)
 
-    print(json.dumps({"server": server, "days": days, "tier8Total": total,
-                      "tanks": out}, ensure_ascii=False))
-    print(f"{len(rows)} jármű, ebből {len(t8)} tier 8, "
-          f"{total:,} meccs {days} nap alatt ({server})".replace(",", " "),
-          file=sys.stderr)
+    out, totals = {}, {}
+    for tier, group in sorted(by_tier.items()):
+        group.sort(key=lambda r: -r["battles"])
+        total = sum(r["battles"] for r in group) or 1
+        totals[tier] = total
+        for rank, r in enumerate(group, 1):
+            out[str(r["tank_id"])] = {
+                "battles": r["battles"],
+                "rank": rank,
+                "share": round(100 * r["battles"] / total, 2),
+                "winrate": r["winrate"],
+            }
+
+    print(json.dumps({"server": server, "days": days,
+                      "tierTotals": totals, "tanks": out}, ensure_ascii=False))
+    for tier, total in sorted(totals.items()):
+        print(f"  tier {tier:>2}: {len(by_tier[tier]):>3} jármű, "
+              f"{total:>10,} meccs".replace(",", " "), file=sys.stderr)
+    print(f"összesen {len(rows)} jármű, {days} nap ({server})", file=sys.stderr)
     return 0
 
 

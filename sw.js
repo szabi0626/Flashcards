@@ -10,11 +10,11 @@
  * felesleges újra letölteni.
  */
 
-const CACHE_NAME = "wot-flashcards-v10";
+const CACHE_NAME = "wot-flashcards-v11";
 
-// A képeket szándékosan NEM töltjük elő: 260 tank van, az több megabájt
-// lenne telepítéskor. A futásidejű cache-first stratégia úgyis eltárolja
-// mindegyiket, amint egyszer megnézted.
+// A képeket szándékosan NEM töltjük elő: 1009 tank van, összesen 25 MB —
+// azt telepítéskor letölteni értelmetlen. A futásidejű cache-first stratégia
+// úgyis eltárolja mindegyiket, amint egyszer megnézted.
 const APP_SHELL = [
   "./",
   "./index.html",

@@ -401,6 +401,22 @@ body {
   line-height: 1.4;
 }
 
+/* A szint csak egy szám — keskeny, egyforma széles gombok, hogy 11 elférjen. */
+.tier-row .chip {
+  min-width: 30px;
+  padding: 5px 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ezer kártyánál a szint a legfontosabb kapcsoló, ezért nem a nyitható
+   panelben van, hanem mindig látszik. */
+.tier-row.always {
+  margin: 0;
+  padding: 7px 10px 9px;
+  justify-content: space-between;
+}
+
 .filter-hint {
   margin-top: 3px;
   font-size: 0.7rem;
