@@ -5,162 +5,265 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <title>Páncélnézegető</title>
 <meta name="theme-color" content="#1a2016">
+<link rel="icon" href="icons/icon-32.png">
 <link rel="stylesheet" href="css/style.css">
 <style>
   body { overflow: auto; }
-  .wrap { max-width: 480px; margin: 0 auto;
-          padding: 14px 14px calc(30px + var(--safe-bottom)); }
-  h1 { font-size: 1rem; color: var(--gold); text-transform: uppercase;
-       letter-spacing: .04em; margin: 6px 0 4px; }
-  .note { font-size: .78rem; color: var(--text-dim); line-height: 1.5; margin: 0 0 12px; }
+  .wrap { max-width: 520px; margin: 0 auto;
+          padding: calc(10px + var(--safe-top, 0px)) 14px calc(30px + var(--safe-bottom, 0px)); }
+  .top { display: flex; align-items: center; gap: 10px; margin: 4px 0 8px; }
+  .top a { color: var(--gold); text-decoration: none; font-size: .9rem; }
+  h1 { font-size: 1.05rem; color: var(--gold); margin: 0; flex: 1; line-height: 1.25; }
+  h1 small { display: block; color: var(--text-dim); font-size: .72rem; font-weight: 400; }
+  .search { position: relative; margin-bottom: 10px; }
+  .search input { width: 100%; box-sizing: border-box; background: rgba(0,0,0,.3);
+                  border: 1px solid var(--line); border-radius: 8px; color: var(--text);
+                  font: inherit; font-size: .88rem; padding: 9px 11px; }
+  .results { position: absolute; left: 0; right: 0; top: 100%; z-index: 5;
+             background: #1d2419; border: 1px solid var(--line); border-radius: 8px;
+             max-height: 300px; overflow-y: auto; margin-top: 3px; }
+  .results button { display: flex; width: 100%; align-items: center; gap: 7px; text-align: left;
+                    background: none; border: none; border-bottom: 1px solid rgba(255,255,255,.05);
+                    color: var(--text); font: inherit; font-size: .85rem; padding: 8px 10px; }
+  .results button small { color: var(--text-dim); margin-left: auto; }
+  .results img { width: 20px; height: 20px; }
   #cv { width: 100%; height: auto; aspect-ratio: 4/3; border: 1px solid #000;
         border-radius: 12px; touch-action: none; display: block; background: #1a2016; }
   .hint { text-align: center; font-size: .72rem; color: var(--text-dim); margin: 6px 0 10px; }
+  .views { display: flex; gap: 4px; margin-bottom: 12px; }
+  .views button { flex: 1; background: rgba(0,0,0,.28); border: none; border-radius: 7px;
+                  color: var(--text-dim); font-family: inherit; font-size: .76rem; padding: 8px 2px; }
   .picked { background: rgba(0,0,0,.25); border-radius: 8px; padding: 11px 13px;
-            margin-bottom: 12px; min-height: 84px; }
+            margin-bottom: 14px; min-height: 92px; }
   .picked .pname { font-weight: 700; color: var(--gold); margin-bottom: 6px; }
   .picked .prow { display: flex; justify-content: space-between; font-size: .86rem; padding: 2px 0; }
   .picked .prow span:first-child { color: var(--text-dim); }
   .empty { color: var(--text-dim); font-size: .84rem; }
   .err { color: var(--no); font-size: .85rem; line-height: 1.5; }
-  .views { display: flex; gap: 4px; margin-bottom: 12px; }
-  .views button { flex: 1; background: rgba(0,0,0,.28); border: none; border-radius: 7px;
-                  color: var(--text-dim); font-family: inherit; font-size: .76rem; padding: 8px 2px; }
+  .row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+  .row button { background: rgba(0,0,0,.3); border: 1px solid transparent; border-radius: 14px;
+                color: var(--text-dim); font: inherit; font-size: .78rem; padding: 6px 11px; }
+  .row button.on { border-color: var(--gold); color: var(--gold); font-weight: 600; }
+  .slider { display: flex; align-items: center; gap: 10px; font-size: .82rem;
+            color: var(--text-dim); margin: 4px 0 8px; }
+  .slider input { flex: 1; accent-color: var(--gold); }
+  .slider b { color: var(--text); min-width: 62px; text-align: right; font-variant-numeric: tabular-nums; }
+  .legend2 { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .75rem;
+             color: var(--text-dim); margin: 10px 0 12px; }
+  .legend2 i { display: inline-block; width: 11px; height: 11px; border-radius: 3px;
+               vertical-align: -1px; margin-right: 5px; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1 id="title">Páncélnézegető</h1>
-  <p class="note">Húzd az ujjad a tankon a forgatáshoz, koppints egy lemezre az adataiért.
-     A színek azt mutatják, hogy a <b>kiválasztott lövedékeddel</b> át tudod-e ütni
-     <b>abból a szögből, ahonnan épp nézed</b>.</p>
+  <div class="top">
+    <a href="index.html" onclick="if (history.length > 1) { history.back(); return false; }">‹ Kártyák</a>
+    <h1 id="title">Páncélnézegető</h1>
+  </div>
 
-  <canvas id="cv" width="720" height="540"></canvas>
+  <div class="search">
+    <input id="q" type="search" placeholder="Másik tank keresése…" autocomplete="off">
+    <div class="results" id="results" hidden></div>
+  </div>
+
+  <canvas id="cv" width="760" height="570"></canvas>
   <div class="hint">húzás = forgatás · koppintás = lemez adatai</div>
 
   <div class="views">
-    <button data-view="0,8">Szemből</button>
-    <button data-view="30,18">Ferdén</button>
-    <button data-view="90,10">Oldalról</button>
-    <button data-view="30,60">Felülről</button>
+    <button data-view="0,6">Szemből</button>
+    <button data-view="30,12">Ferdén</button>
+    <button data-view="90,6">Oldalról</button>
+    <button data-view="180,10">Hátulról</button>
+    <button data-view="20,60">Felülről</button>
   </div>
 
   <div class="picked" id="picked"><div class="empty">Koppints egy lemezre.</div></div>
 
-  <div class="block-title">Mivel lősz?</div>
-  <div class="gun-toggle" id="guns"></div>
-  <div class="gun-toggle" id="shells"></div>
+  <div class="block-title">Mivel lősz rá?</div>
+  <div class="row" id="presets"></div>
+  <div class="row" id="shells"></div>
+  <div class="slider">Átütés <input id="pen" type="range" min="20" max="420" step="1"><b id="penV"></b></div>
+  <div class="slider">Kaliber <input id="cal" type="range" min="20" max="183" step="1"><b id="calV"></b></div>
 
-  <div class="legend">
-    <span><i class="dot dot-easy"></i>átmegy</span>
-    <span><i class="dot dot-hard"></i>bizonytalan</span>
-    <span><i class="dot dot-no"></i>nem megy át</span>
+  <div class="legend2">
+    <span><i style="background:#4cb34c"></i>átmegy</span>
+    <span><i style="background:#e6a324"></i>bizonytalan (±10%)</span>
+    <span><i style="background:#c7382b"></i>nem megy át</span>
+    <span><i style="background:#732420"></i>lepattan</span>
+    <span><i style="background:#5f7fbf"></i>térelválasztott (nem sebez)</span>
   </div>
 
-  <p class="source source-manual">A nominális vastagságok a WG API-ból hitelesek, de a
-     <b>zónák határai</b> (hol ér véget a felső lemez és hol kezdődik az alsó) automatikus
-     besorolással készültek a 3D hálón — ezek még pontatlanok lehetnek.</p>
-  <p class="source">3D modell: lásd <a href="CREDITS.md" style="color:var(--gold)">CREDITS.md</a> ·
-     <a href="index.html" style="color:var(--gold)">← vissza a kártyákhoz</a></p>
+  <p class="source">A színt képpontonként a <b>nézőszögből</b> számoljuk:
+    effektív = nominális / cos(szög), a lövedék normalizációjával, 70°-os
+    lepattanással (HEAT: 85°) és átfedéssel (kaliber ≥ 3× vastagság → nincs
+    lepattanás). Az ütközési háló és a lemezenkénti vastagság a játék saját
+    adata — lásd <a href="CREDITS.md" style="color:var(--gold)">CREDITS.md</a>.</p>
 </div>
 
 <script src="js/tanks-data.js"></script>
+<script src="js/armor-models.js"></script>
 <script src="js/armor-gl.js"></script>
 <script>
 (function () {
-  const TANK_ID = "is-3";
-  const tank = window.TANKS.find(t => t.id === TANK_ID);
-  const cv = document.getElementById("cv");
-  const picked = document.getElementById("picked");
-  document.getElementById("title").textContent = tank.name + " — páncélnézegető";
+  "use strict";
+  const TANKS = window.TANKS || [];
+  const HAS = window.ARMOR_MODELS || new Set();
+  const byId = new Map(TANKS.map((t) => [t.id, t]));
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const ICON = { lightTank: "lighttank", mediumTank: "mediumtank", heavyTank: "heavytank",
+                 "AT-SPG": "at-spg", SPG: "spg" };
 
-  // Zóna -> nominális vastagság. Ami az API-ból jön, az hiteles; a tetők
-  // kézi becslések, mert az API nem ad tetőpáncélt.
-  const A = tank.armor;
-  const NOMINAL = {
-    "ufp": A.hull.front,  "lfp": A.hull.front,
-    "hull-side": A.hull.sides, "hull-rear": A.hull.rear, "hull-roof": 20,
-    "turret-front": A.turret.front, "mantlet": A.turret.front,
-    "turret-side": A.turret.sides, "turret-rear": A.turret.rear, "turret-roof": 30,
-    "gun": 0, "track": 0,
-  };
-  const LABEL = {
-    "ufp": "Felső homloklemez", "lfp": "Alsó lemez",
-    "hull-side": "Oldal (test)", "hull-rear": "Hátulja", "hull-roof": "Testtető",
-    "turret-front": "Torony homlok", "mantlet": "Ágyúpajzs",
-    "turret-side": "Torony oldal", "turret-rear": "Torony hátulja",
-    "turret-roof": "Toronytető", "gun": "Löveg", "track": "Lánctalp",
-  };
+  // Egy tipikus azonos szintű ellenfél lövege: a szint felszerelt lövegeinek
+  // mediánja — ugyanaz a mérce, amit a kártyák színkódja is használ.
+  const TYPICAL = (() => {
+    const med = (a) => (a.length ? a.sort((x, y) => x - y)[a.length >> 1] : null);
+    const acc = {};
+    for (const t of TANKS) {
+      const g = (t.guns || [])[t.guns.length - 1]; if (!g) continue;
+      const a = acc[t.tier] = acc[t.tier] || { ap: [], prem: [], cal: [] };
+      if (g.penAP != null) a.ap.push(g.penAP);
+      if (g.penPrem != null) a.prem.push(g.penPrem);
+      if (g.caliber) a.cal.push(g.caliber);
+    }
+    const out = {};
+    for (const k in acc) out[k] = { ap: med(acc[k].ap), prem: med(acc[k].prem), cal: med(acc[k].cal) };
+    return out;
+  })();
 
-  let view, gunIdx = tank.guns.length - 1, shellType = "AP";
-  window.__view = () => view;   // hibakereséshez
+  // alapból: URL-ből, különben a legjátszottabb tier 8-as, amihez van modell
+  const pickDefault = () => TANKS.filter((t) => HAS.has(t.id) && t.tier === 8 && t.play)
+    .sort((a, b) => a.play.rank - b.play.rank)[0] || TANKS.find((t) => HAS.has(t.id));
+  let tank = byId.get(new URLSearchParams(location.search).get("tank"));
+  if (!tank || !HAS.has(tank.id)) tank = pickDefault();
 
+  const cv = $("cv"), picked = $("picked");
+  let view;
   try {
     view = new ArmorGL.Viewer(cv, { onPick: showPlate });
   } catch (e) {
-    picked.innerHTML = `<div class="err">${e.message}</div>`;
+    picked.innerHTML = `<div class="err">${esc(e.message)}</div>`;
     return;
   }
+  window.__view = () => view;   // hibakereséshez
 
-  view.load("models/model-" + TANK_ID)
-    .then(() => { view.setZoneArmor(NOMINAL, ["gun", "track"]); apply(); })
-    .catch(e => {
-      picked.innerHTML = `<div class="err">Nem sikerült betölteni a modellt: ${e.message}</div>`;
+  const state = { shell: "AP", pen: 200, cal: 100 };
+
+  function open(t) {
+    tank = t;
+    history.replaceState(null, "", "?tank=" + encodeURIComponent(t.id));
+    $("title").innerHTML = `${esc(t.name)}<small>Tier ${t.tier} · ${esc(t.typeHu)} · ${esc(t.nationHu)}</small>`;
+    document.title = t.name + " — páncél";
+    picked.innerHTML = `<div class="empty">Betöltés…</div>`;
+    const typ = TYPICAL[t.tier] || TYPICAL[8];
+    state.shell = "AP"; state.pen = typ.ap; state.cal = typ.cal;
+    controls();
+    view.load("models/armor/" + t.id).then((meta) => {
+      picked.innerHTML = `<div class="empty">Koppints egy lemezre. A modellen
+        ${meta.plates.filter((p) => p.kind === "armor").length} páncéllemez van.</div>`;
+      apply();
+    }).catch((e) => {
+      picked.innerHTML = `<div class="err">Nem sikerült betölteni a modellt (${esc(e.message)}).</div>`;
     });
+  }
 
-  function pen() {
-    const g = tank.guns[gunIdx];
-    return shellType === "AP" ? g.penAP : shellType === "HE" ? g.penHE : g.penPrem;
-  }
   function apply() {
-    const g = tank.guns[gunIdx];
-    const t = (shellType === "AP" || shellType === "HE") ? shellType : (g.premType || "APCR");
-    view.setShell(t, pen(), g.caliber);
-    buttons();
+    view.setShell(state.shell, state.pen, state.cal);
+    $("penV").textContent = state.pen + " mm";
+    $("calV").textContent = state.cal + " mm";
+    $("pen").value = state.pen; $("cal").value = state.cal;
   }
-  function buttons() {
-    document.getElementById("guns").innerHTML = tank.guns.map((g, i) =>
-      `<button class="${i === gunIdx ? "on" : ""}" data-g="${i}">${g.name.replace(/\s*\([^)]*\)\s*$/, "")}</button>`
-    ).join("");
-    const g = tank.guns[gunIdx];
-    document.getElementById("shells").innerHTML =
-      [["AP", g.penAP], [g.premType || "APCR", g.penPrem], ["HE", g.penHE]]
-        .filter(([, p]) => p != null).map(([t, p]) =>
-        `<button class="${t === shellType ? "on" : ""}" data-s="${t}">${t}<i class="tag-stock">${p} mm</i></button>`
-      ).join("");
+
+  function controls() {
+    const typ = TYPICAL[tank.tier] || TYPICAL[8];
+    const presets = [
+      ["ap", `Tipikus tier ${tank.tier} AP · ${typ.ap}`, () => { state.shell = "AP"; state.pen = typ.ap; state.cal = typ.cal; }],
+      ["prem", `Prémium · ${typ.prem}`, () => { state.shell = "APCR"; state.pen = typ.prem; state.cal = typ.cal; }],
+    ];
+    const t1 = TYPICAL[tank.tier + 1];
+    if (t1) presets.push(["up", `Tier ${tank.tier + 1} AP · ${t1.ap}`, () => { state.shell = "AP"; state.pen = t1.ap; state.cal = t1.cal; }]);
+    $("presets").innerHTML = presets.map(([k, l]) => `<button data-p="${k}">${esc(l)}</button>`).join("");
+    $("presets").onclick = (e) => {
+      const b = e.target.closest("[data-p]"); if (!b) return;
+      presets.find((p) => p[0] === b.dataset.p)[2](); shells(); apply();
+    };
+    shells();
   }
-  document.getElementById("guns").addEventListener("click", e => {
-    const b = e.target.closest("[data-g]"); if (!b) return;
-    gunIdx = +b.dataset.g; apply();
-  });
-  document.getElementById("shells").addEventListener("click", e => {
+
+  function shells() {
+    $("shells").innerHTML = ["AP", "APCR", "HEAT"].map((s) =>
+      `<button class="${s === state.shell ? "on" : ""}" data-s="${s}">${s}</button>`).join("");
+  }
+  $("shells").addEventListener("click", (e) => {
     const b = e.target.closest("[data-s]"); if (!b) return;
-    shellType = b.dataset.s; apply();
+    state.shell = b.dataset.s; shells(); apply();
   });
-  document.querySelector(".views").addEventListener("click", e => {
+  $("pen").addEventListener("input", (e) => { state.pen = +e.target.value; apply(); });
+  $("cal").addEventListener("input", (e) => { state.cal = +e.target.value; apply(); });
+
+  document.querySelector(".views").addEventListener("click", (e) => {
     const b = e.target.closest("[data-view]"); if (!b) return;
     const [y, p] = b.dataset.view.split(",").map(Number);
     view.setAngles(y, p);
   });
 
+  function partName(p) {
+    if (p.kind === "track") return "Lánctalp";
+    if (p.kind === "optics") return "Figyelőberendezés";
+    if (p.kind === "gun") return "Lövegcső";
+    if (p.part === "Hull") return "Test";
+    if (p.part.startsWith("Turret")) return "Torony";
+    if (p.part.startsWith("Gun")) return "Ágyúpajzs";
+    return p.part;
+  }
+
   function showPlate(f) {
+    const name = partName(f.plate);
     if (f.decor) {
-      picked.innerHTML = `<div class="pname">${LABEL[f.zone] || f.zone}</div>
-        <div class="empty">Nem páncél — a lövedék nem itt hatol be.</div>`;
+      picked.innerHTML = `<div class="pname">${name}</div>
+        <div class="empty">${f.plate.kind === "track"
+          ? `${f.nominal} mm-es lánctalp — elnyeli a lövedéket, de a járművet nem sebzi.`
+          : "Nem páncél: a lövedék itt nem a járműbe hatol."}</div>`;
       return;
     }
-    const p = pen();
+    const p = state.pen;
     const verdict = f.ricochet ? `<span style="color:var(--no);font-weight:700">LEPATTAN</span>`
-      : p >= f.effective * 1.15 ? `<span style="color:var(--easy)">átmegy</span>`
-      : p >= f.effective * 0.95 ? `<span style="color:var(--hard)">bizonytalan</span>`
+      : p >= f.effective * 1.1 ? `<span style="color:var(--easy)">átmegy</span>`
+      : p >= f.effective * 0.9 ? `<span style="color:var(--hard)">bizonytalan</span>`
       : `<span style="color:var(--no)">nem megy át</span>`;
     picked.innerHTML = `
-      <div class="pname">${LABEL[f.zone] || f.zone}</div>
-      <div class="prow"><span>Nominális</span><span>${Math.round(f.nominal)} mm</span></div>
+      <div class="pname">${name} · ${f.nominal} mm${f.spaced ? " · térelválasztott" : ""}</div>
       <div class="prow"><span>Becsapódási szög</span><span>${f.angle.toFixed(0)}°</span></div>
-      <div class="prow"><span>Effektív</span><span>${f.ricochet ? "—" : Math.round(f.effective) + " mm"}</span></div>
-      <div class="prow"><span>A te pened</span><span>${p} mm → ${verdict}</span></div>`;
+      <div class="prow"><span>Effektív vastagság</span><span>${f.ricochet ? "—" : Math.round(f.effective) + " mm"}</span></div>
+      <div class="prow"><span>${state.shell} ${p} mm</span><span>${verdict}</span></div>
+      ${f.overmatch ? `<div class="prow"><span>Átfedés</span><span>${state.cal} mm ≥ 3×${f.nominal} — nem pattanhat le</span></div>` : ""}
+      ${f.spaced ? `<div class="empty" style="margin-top:4px">Térelválasztott páncél: elnyeli az átütés
+        egy részét, de önmagában nem sebzi a járművet.</div>` : ""}`;
   }
+
+  // --- kereső
+  const q = $("q"), res = $("results");
+  q.addEventListener("input", () => {
+    const s = q.value.trim().toLowerCase();
+    if (!s) { res.hidden = true; return; }
+    const hits = TANKS.filter((t) => HAS.has(t.id) &&
+        (t.name.toLowerCase().includes(s) || t.short.toLowerCase().includes(s)))
+      .sort((a, b) => (a.play ? a.play.rank : 999) - (b.play ? b.play.rank : 999) || b.tier - a.tier)
+      .slice(0, 30);
+    res.innerHTML = hits.length ? hits.map((t) =>
+      `<button data-id="${t.id}"><img src="img/class/${ICON[t.type]}.png" alt="">${esc(t.name)}
+         <small>tier ${t.tier}</small></button>`).join("")
+      : `<div class="empty" style="padding:9px 11px">Nincs találat (vagy nincs hozzá modell).</div>`;
+    res.hidden = false;
+  });
+  res.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-id]"); if (!b) return;
+    res.hidden = true; q.value = ""; q.blur();
+    open(byId.get(b.dataset.id));
+  });
+
+  if (!tank) { picked.innerHTML = `<div class="err">Nincs elérhető modell.</div>`; return; }
+  open(tank);
 })();
 </script>
 </body>

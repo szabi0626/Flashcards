@@ -10,7 +10,7 @@
  * felesleges újra letölteni.
  */
 
-const CACHE_NAME = "wot-flashcards-v11";
+const CACHE_NAME = "wot-flashcards-v12";
 
 // A képeket szándékosan NEM töltjük elő: 1009 tank van, összesen 25 MB —
 // azt telepítéskor letölteni értelmetlen. A futásidejű cache-first stratégia
@@ -23,8 +23,7 @@ const APP_SHELL = [
   "./js/tanks-data.js",
   "./js/armor-zones.js",
   "./js/armor-gl.js",
-  "./models/model-is-3.bin",
-  "./models/model-is-3.json",
+  "./js/armor-models.js",
   "./armor3d.html",
   "./manifest.json",
   "./img/class/lighttank.png",
@@ -54,8 +53,10 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-function isImage(url) {
-  return url.pathname.includes("/img/") || url.pathname.includes("/icons/");
+// Képek és 3D modellek: nem változnak, egyszer letöltve a cache-ből jönnek.
+// A 938 páncélmodellt (30 MB) sem töltjük elő — csak amit megnyitottál.
+function isStatic(url) {
+  return /\/(img|icons|models)\//.test(url.pathname);
 }
 
 async function cacheFirst(request) {
@@ -92,5 +93,5 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  event.respondWith(isImage(url) ? cacheFirst(request) : networkFirst(request));
+  event.respondWith(isStatic(url) ? cacheFirst(request) : networkFirst(request));
 });

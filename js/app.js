@@ -302,7 +302,22 @@
   /* ---------------------------------------------------------------- */
   /* Hátlapok                                                          */
   /* ---------------------------------------------------------------- */
+  // A játék saját ütközési hálójából épített 3D modellek (938 jármű) —
+  // lásd tools/build_armor_models.py. Ahol van, a páncél hátlap tetején
+  // gomb nyitja a forgatható nézegetőt.
+  const MODELS = window.ARMOR_MODELS || new Set();
+  const model3d = (tank) => MODELS.has(tank.id)
+    ? `<a class="btn-3d" href="armor3d.html?tank=${encodeURIComponent(tank.id)}">
+         <span class="btn-3d-icon">⟲</span>
+         <span><b>3D páncélmodell</b><small>forgasd meg — a szín a nézőszögből számolódik</small></span>
+       </a>`
+    : "";
+
   function renderArmor(tank) {
+    return model3d(tank) + renderArmorBody(tank);
+  }
+
+  function renderArmorBody(tank) {
     const zones = zonesOf(tank);
     const a = tank.armor;
 
@@ -495,6 +510,37 @@
   }
 
   /* ---------------------------------------------------------------- */
+  /* ---------------------------------------------------------------- */
+  /* Állapot megőrzése — a 3D nézegetőből visszalépve ugyanott folytasd */
+  /* ---------------------------------------------------------------- */
+  const STATE_KEY = "wot-cards-state";
+
+  function saveState() {
+    try {
+      const t = currentTank();
+      sessionStorage.setItem(STATE_KEY, JSON.stringify({
+        deckKey, sortKey, tank: t && t.id,
+        tiers: [...filter.tiers], nations: [...filter.nations], types: [...filter.types],
+        premium: filter.premium, fire: filter.fire, top: filter.top,
+      }));
+    } catch (e) { /* privát mód: nincs mentés, nem baj */ }
+  }
+
+  function restoreState() {
+    let s = null;
+    try { s = JSON.parse(sessionStorage.getItem(STATE_KEY) || "null"); } catch (e) { /* üres */ }
+    if (!s) return null;
+    if (DECKS[s.deckKey]) deckKey = s.deckKey;
+    if (s.sortKey === "pop" || s.sortKey === "base") sortKey = s.sortKey;
+    (s.tiers || []).forEach((v) => filter.tiers.add(v));
+    (s.nations || []).forEach((v) => filter.nations.add(v));
+    (s.types || []).forEach((v) => filter.types.add(v));
+    if (s.premium) filter.premium = s.premium;
+    if (s.fire) filter.fire = s.fire;
+    filter.top = s.top || 0;
+    return s.tank || null;
+  }
+
   function render() {
     const tank = currentTank();
     const cfg = DECKS[deckKey];
@@ -540,6 +586,7 @@
       ${cfg.render(tank)}`;
 
     el.progress.textContent = `${pos + 1} / ${order.length}`;
+    saveState();
   }
 
   function setFlipped(state) {
@@ -687,6 +734,7 @@
       setFlipped(true);
       return;
     }
+    if (e.target.closest("a")) return;         // hivatkozás: ne forduljon a kártya
     const zoneEl = e.target.closest("[data-zone]");
     if (zoneEl) {
       if (zoneEl.dataset.zone) highlightZone(zoneEl.dataset.zone);
@@ -727,8 +775,13 @@
     touch = null;
   }, { passive: true });
 
+  const savedTank = restoreState();
   renderTabs();
   applyFilter(false);
+  if (savedTank) {
+    const at = order.findIndex((i) => deck[i].id === savedTank);
+    if (at >= 0) { pos = at; render(); }
+  }
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {

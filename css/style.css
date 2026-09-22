@@ -526,3 +526,20 @@ body {
 .fire-auto { color: #e8907f; border-color: #e8907f; }
 
 .fire-reload { color: #b9a0e0; border-color: #b9a0e0; }
+
+/* ---------------- 3D páncélmodell gomb ---------------- */
+.btn-3d {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 2px 0 14px;
+  padding: 11px 13px;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  background: rgba(242, 193, 78, 0.10);
+  color: var(--text);
+  text-decoration: none;
+}
+.btn-3d b { display: block; color: var(--gold); font-size: .92rem; }
+.btn-3d small { display: block; color: var(--text-dim); font-size: .72rem; margin-top: 2px; }
+.btn-3d-icon { font-size: 1.6rem; color: var(--gold); line-height: 1; }

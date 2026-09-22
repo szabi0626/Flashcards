@@ -210,11 +210,34 @@ A sávra koppintva nyílik a többi szűrő:
 
 A sáv jobb szélén mindig látszik, hány tank van a szűrt pakliban.
 
-## Páncélnézegető (kísérleti)
+## 3D páncélnézegető
 
-Az [`armor3d.html`](armor3d.html) oldalon egy forgatható 3D nézegető, ami a
-nézőszögből élőben számolja az effektív páncélt. Egyelőre csak az IS-3-hoz,
-és a zónahatárai pontatlanok — a mechanika kész, az adat még nem.
+A Páncél pakli hátoldalán a **3D páncélmodell** gomb nyitja a forgatható
+nézegetőt (`armor3d.html?tank=<id>`) — **938 járműhöz** van modell.
+
+- Ujjal forgatod, egy lemezre koppintva kiírja: nominális vastagság,
+  becsapódási szög, effektív vastagság, és hogy átüti-e a lövedéked.
+- A szín **képpontonként a nézőszögből** számolódik:
+  `effektív = nominális / cos(szög)`, normalizációval (AP 5°, APCR 2°),
+  70°-os lepattanással (HEAT 85°) és átfedéssel (kaliber ≥ 3× vastagság).
+- Alapból egy tipikus azonos szintű ellenfél lövegével lősz (a szint mediánja);
+  átkapcsolható prémiumra, egy szinttel feljebbire, vagy csúszkával bármire.
+- Kék = térelválasztott páncél (elnyel, de nem sebez).
+
+Az ütközési háló és a lemezenkénti vastagság a **játék saját adata**
+([`unicum-gg/wot.models`](https://github.com/unicum-gg/wot.models)), nem
+becslés. Egy tank 10–85 KB; a nézegető csak azt tölti le, amit megnyitsz.
+
+```bash
+python3 tools/build_armor_models.py                 # mind a 938
+python3 tools/build_armor_models.py --tanks is-3    # egy tank
+python3 tools/preview_armor.py is-3 --yaw 30        # ellenőrző kép böngésző nélkül
+```
+
+A torony kiválasztása: az a torony, amelyiknek a legvastagabb lemeze a
+legközelebb van a WG API szerinti torony-homlokpáncélhoz. 129 járműnél ez
+10%-nál jobban eltér (főleg alacsony szinten, ahol az API mást nevez
+„homloknak”) — ott a legközelebbi tornyot használjuk.
 
 ## Vezérlés
 

@@ -1,10 +1,11 @@
 /*
  * Forgatható páncélnézegető — WebGL.
  *
- * A modell valódi 3D háló (lásd CREDITS.md). Minden háromszög tartozik egy
- * páncélzónához, és a zónához tartozik egy nominális vastagság. A lényeg,
- * hogy a SZÍNT nem előre számoljuk ki, hanem a shader dönti el képpontonként
- * az AKTUÁLIS nézőszögből:
+ * A modell a JÁTÉK SAJÁT ütközési hálója (lásd tools/build_armor_models.py és
+ * CREDITS.md): minden háromszög egy páncéllemezhez tartozik, és minden
+ * lemeznek megvan a játékbeli nominális vastagsága. A lényeg, hogy a SZÍNT
+ * nem előre számoljuk ki, hanem a shader dönti el képpontonként az AKTUÁLIS
+ * nézőszögből:
  *
  *     effektív = vastagság / cos(becsapódási szög)
  *
@@ -16,15 +17,17 @@
  *   ÁTÜTÉS        ha a kaliber >= vastagság 3-szorosa, nincs lepattanás;
  *                 2-szeres fölött a normalizáció is megnő
  *
- * A csúcsok nincsenek megosztva a háromszögek között, ezért a normál és a
- * zóna a lapon belül végig azonos — így lapos árnyalást kapunk külön
- * "flat" minősítő nélkül, és WebGL 1 alatt is működik.
+ * A fájl indexelt (kicsi), de betöltéskor szétbontjuk osztatlan csúcsokra:
+ * így a normál és a lemez a lapon belül végig azonos — lapos árnyalás külön
+ * "flat" minősítő nélkül, WebGL 1 alatt is.
+ *
+ * A forrásháló körüljárása NEM egységes (a lánctalpnál kb. fele-fele), ezért
+ * nincs hátlap-eldobás: a mélységpuffer dönti el, mi látszik, a becsapódási
+ * szöghöz pedig a normál és a nézőirány szögének ABSZOLÚT értékét vesszük.
  */
 
 (function (global) {
   "use strict";
-
-  const MAX_ZONES = 16;
 
   /* ------------------------- kis mátrix könyvtár ------------------------- */
   const M4 = {
@@ -62,86 +65,80 @@
 
   /* ------------------------------ shaderek ------------------------------ */
 
+  // aKind: 0 = páncél, 1 = térelválasztott páncél, 2 = lánctalp,
+  //        3 = nem páncél (löveg, optika, 0 mm-es lemez)
   const VERT = `
     attribute vec3 aPos;
     attribute vec3 aNormal;
-    attribute float aZone;
+    attribute float aPlate;
+    attribute float aMM;
+    attribute float aKind;
     uniform mat4 uMVP;
     uniform mat4 uModelView;
     varying vec3 vNormalView;
-    varying float vZone;
-    varying float vDepthShade;
+    varying vec3 vViewPos;
+    varying float vPlate;
+    varying float vMM;
+    varying float vKind;
     void main() {
       gl_Position = uMVP * vec4(aPos, 1.0);
-      // A normált nézeti térbe visszük; forgatás-only mátrix, így elég a 3x3.
-      vNormalView = normalize(mat3(uModelView) * aNormal);
-      vZone = aZone;
-      vDepthShade = 1.0;
+      vViewPos = (uModelView * vec4(aPos, 1.0)).xyz;
+      // forgatás + eltolás: a normálhoz elég a 3x3 rész
+      vNormalView = mat3(uModelView) * aNormal;
+      vPlate = aPlate; vMM = aMM; vKind = aKind;
     }`;
 
   const FRAG = `
     precision highp float;
     varying vec3 vNormalView;
-    varying float vZone;
+    varying vec3 vViewPos;
+    varying float vPlate;
+    varying float vMM;
+    varying float vKind;
 
-    uniform float uNominal[${MAX_ZONES}];   // mm, zónánként
-    uniform float uDecor[${MAX_ZONES}];     // 1 = nem páncél (löveg, lánctalp)
-    uniform float uPen;                     // a lövedék penetrációja, mm (<0 = nincs)
-    uniform float uNorm;                    // normalizáció, fok
-    uniform float uRico;                    // lepattanási szög, fok
-    uniform float uCaliber;                 // mm
-    uniform float uPickMode;                // 1 = zóna/szög kiolvasás
-
-    const float PI = 3.14159265;
+    uniform float uPen;       // a lövedék átütése, mm
+    uniform float uNorm;      // normalizáció, fok
+    uniform float uRico;      // lepattanási szög, fok
+    uniform float uCaliber;   // mm
+    uniform float uPickMode;  // 1 = lemez/szög kiolvasás
 
     void main() {
-      int zi = int(vZone + 0.5);
-      float nominal = 0.0, decor = 0.0;
-      for (int i = 0; i < ${MAX_ZONES}; i++) {
-        if (i == zi) { nominal = uNominal[i]; decor = uDecor[i]; }
-      }
-
-      // A kamera a nézeti tér +Z felől néz; a lövedék -Z irányban halad.
+      // A lövedék a kamerából a képpont felé repül.
       vec3 n = normalize(vNormalView);
-      float facing = clamp(n.z, 0.0, 1.0);
+      vec3 toCam = normalize(-vViewPos);
+      float facing = clamp(abs(dot(n, toCam)), 0.0, 1.0);
       float angle = degrees(acos(facing));
-
-      // Fény: a felület dőlése adja az árnyalást, hogy a forma olvasható legyen
-      float lit = 0.55 + 0.45 * facing;
+      float lit = 0.5 + 0.5 * facing;
 
       if (uPickMode > 0.5) {
-        // R = zóna index, G = becsapódási szög (0-90 -> 0-1)
-        gl_FragColor = vec4(float(zi) / 255.0, angle / 90.0, 1.0, 1.0);
+        // R = lemez sorszáma, G = becsapódási szög (0-90 -> 0-1), B = találat
+        gl_FragColor = vec4(vPlate / 255.0, angle / 90.0, 1.0, 1.0);
         return;
       }
 
-      if (decor > 0.5) {                       // löveg, lánctalp: semleges
-        gl_FragColor = vec4(vec3(0.34, 0.36, 0.30) * lit, 1.0);
-        return;
-      }
+      float kind = floor(vKind + 0.5);
+      if (kind > 2.5) { gl_FragColor = vec4(vec3(0.40, 0.41, 0.40) * lit, 1.0); return; }
+      if (kind > 1.5) { gl_FragColor = vec4(vec3(0.24, 0.24, 0.22) * lit, 1.0); return; }
 
-      float norm = uNorm, rico = uRico;
+      float mm = vMM, norm = uNorm, rico = uRico;
       if (uCaliber > 0.0) {
-        if (uCaliber > 2.0 * nominal) norm = norm * 1.4 * uCaliber / (2.0 * nominal);
-        if (uCaliber >= 3.0 * nominal) rico = 90.0;
+        // átfedés (overmatch): 2x fölött nő a normalizáció, 3x fölött nincs lepattanás
+        if (uCaliber > 2.0 * mm) norm = norm * 1.4 * uCaliber / (2.0 * mm);
+        if (uCaliber >= 3.0 * mm) rico = 90.0;
       }
 
       vec3 col;
       if (angle >= rico) {
-        col = vec3(0.42, 0.13, 0.10);          // lepattan: sötét bordó
+        col = vec3(0.45, 0.14, 0.12);                       // lepattan
       } else {
-        float eff = nominal / max(cos(radians(max(angle - norm, 0.0))), 0.02);
-        if (uPen < 0.0) {
-          col = eff < 180.0 ? vec3(0.30,0.69,0.31)
-              : eff <= 250.0 ? vec3(0.88,0.63,0.13)
-                             : vec3(0.75,0.22,0.17);
-        } else {
-          float r = uPen / eff;
-          col = r >= 1.15 ? vec3(0.30,0.69,0.31)
-              : r >= 0.95 ? vec3(0.88,0.63,0.13)
-                          : vec3(0.75,0.22,0.17);
-        }
+        float eff = mm / max(cos(radians(max(angle - norm, 0.0))), 0.02);
+        float r = uPen / eff;
+        col = r >= 1.1  ? vec3(0.30, 0.70, 0.30)            // átmegy
+            : r >= 0.9  ? vec3(0.90, 0.64, 0.14)            // bizonytalan (±10% szórás)
+                        : vec3(0.78, 0.22, 0.17);           // nem megy át
       }
+      // térelválasztott páncél: kékes árnyalat — nem sebez, csak elnyel
+      if (kind > 0.5) col = mix(col, vec3(0.25, 0.45, 0.85), 0.55);
       gl_FragColor = vec4(col * lit, 1.0);
     }`;
 
@@ -163,8 +160,7 @@
     if (!gl) throw new Error("Ebben a böngészőben nincs WebGL.");
     this.gl = gl; this.canvas = canvas;
     this.yaw = 30; this.pitch = 18;
-    this.shell = "AP"; this.pen = -1; this.caliber = 0;
-    this.zoneInfo = opts.zones || {};
+    this.shell = "AP"; this.pen = 200; this.caliber = 0;
     this.onPick = opts.onPick || null;
     this.model = null;
     this.ready = false;
@@ -180,7 +176,9 @@
     this.loc = {
       aPos: gl.getAttribLocation(p, "aPos"),
       aNormal: gl.getAttribLocation(p, "aNormal"),
-      aZone: gl.getAttribLocation(p, "aZone"),
+      aPlate: gl.getAttribLocation(p, "aPlate"),
+      aMM: gl.getAttribLocation(p, "aMM"),
+      aKind: gl.getAttribLocation(p, "aKind"),
       uMVP: gl.getUniformLocation(p, "uMVP"),
       uModelView: gl.getUniformLocation(p, "uModelView"),
       uPen: gl.getUniformLocation(p, "uPen"),
@@ -188,13 +186,9 @@
       uRico: gl.getUniformLocation(p, "uRico"),
       uCaliber: gl.getUniformLocation(p, "uCaliber"),
       uPickMode: gl.getUniformLocation(p, "uPickMode"),
-      uNominal: gl.getUniformLocation(p, "uNominal[0]"),
-      uDecor: gl.getUniformLocation(p, "uDecor[0]"),
     };
 
     gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.CULL_FACE);
-    gl.cullFace(gl.BACK);
     this._bindInput();
   }
 
@@ -206,63 +200,76 @@
   };
 
   /**
-   * Betölti a tools/export_model.py által készített bináris modellt.
-   * A .bin felépítése: int16 pozíciók, int8 normálok, uint8 zónaindexek.
+   * Betölti a tools/build_armor_models.py által készített modellt.
+   * A .bin (2. formátum): int16 x3 csúcsok, uint16 x3 indexek, uint8 lemez/háromszög.
    */
   Viewer.prototype.load = async function (base) {
     const [meta, buf] = await Promise.all([
-      fetch(base + ".json").then((r) => r.json()),
-      fetch(base + ".bin").then((r) => r.arrayBuffer()),
+      fetch(base + ".json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }),
+      fetch(base + ".bin").then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }),
     ]);
-    const n = meta.vertexCount;
-    const gl = this.gl;
-    let off = 0;
-    const pos = new Int16Array(buf, off, n * 3); off += n * 3 * 2;
-    const nrm = new Int8Array(buf, off, n * 3);  off += n * 3;
-    const zon = new Uint8Array(buf, off, n);
+    const V = meta.vertexCount, T = meta.triCount, sc = meta.scale;
+    const verts = new Int16Array(buf, 0, V * 3);
+    const idx = new Uint16Array(buf, V * 6, T * 3);
+    const plateOf = new Uint8Array(buf, V * 6 + T * 6, T);
 
-    const mk = (data, type) => {
+    const KIND = { armor: 0, track: 2, gun: 3, optics: 3 };
+    const plates = meta.plates;
+    const n = T * 3;
+    const pos = new Float32Array(n * 3), nrm = new Float32Array(n * 3);
+    const pl = new Float32Array(n), mm = new Float32Array(n), kind = new Float32Array(n);
+    const bb = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
+
+    for (let t = 0; t < T; t++) {
+      const p = [0, 1, 2].map((k) => {
+        const i = idx[t * 3 + k] * 3;
+        return [verts[i] / sc, verts[i + 1] / sc, verts[i + 2] / sc];
+      });
+      const u = [p[1][0]-p[0][0], p[1][1]-p[0][1], p[1][2]-p[0][2]];
+      const w = [p[2][0]-p[0][0], p[2][1]-p[0][1], p[2][2]-p[0][2]];
+      let nx = u[1]*w[2]-u[2]*w[1], ny = u[2]*w[0]-u[0]*w[2], nz = u[0]*w[1]-u[1]*w[0];
+      const L = Math.hypot(nx, ny, nz) || 1; nx /= L; ny /= L; nz /= L;
+
+      const plate = plates[plateOf[t]] || { mm: 0, kind: "gun" };
+      let k = KIND[plate.kind] != null ? KIND[plate.kind] : 0;
+      if (k === 0 && plate.spaced) k = 1;
+      if (k <= 1 && !(plate.mm > 0)) k = 3;       // 0 mm-es lemez: nem páncél
+
+      for (let v = 0; v < 3; v++) {
+        const o = (t * 3 + v);
+        for (let c = 0; c < 3; c++) {
+          pos[o * 3 + c] = p[v][c];
+          if (p[v][c] < bb[c]) bb[c] = p[v][c];
+          if (p[v][c] > bb[3 + c]) bb[3 + c] = p[v][c];
+        }
+        nrm[o * 3] = nx; nrm[o * 3 + 1] = ny; nrm[o * 3 + 2] = nz;
+        pl[o] = plateOf[t]; mm[o] = plate.mm || 0; kind[o] = k;
+      }
+    }
+
+    const gl = this.gl;
+    const mk = (data) => {
       const b = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, b);
       gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
       return b;
     };
-    // Befoglaló doboz a keretezéshez. A löveg miatt a modell sokkal
-    // hosszabb, mint amilyen széles, ezért a kamera távolságát nézetenként
-    // kell igazítani — különben szemből parányi lesz a tank.
-    let bb = [Infinity,Infinity,Infinity,-Infinity,-Infinity,-Infinity];
-    for (let i = 0; i < n; i++) {
-      for (let k = 0; k < 3; k++) {
-        const v = pos[i*3+k] / 32767;
-        if (v < bb[k]) bb[k] = v;
-        if (v > bb[3+k]) bb[3+k] = v;
-      }
-    }
+    // A keretezéshez a csúcsok egy mintája (legfeljebb ~3000 pont)
+    const step = Math.max(1, Math.floor(n / 3000));
+    const fit = [];
+    for (let i = 0; i < n; i += step) fit.push(pos[i*3], pos[i*3+1], pos[i*3+2]);
     this.model = {
-      meta, count: n, bbox: bb,
-      pos: mk(pos), nrm: mk(nrm), zon: mk(new Float32Array(zon)),
+      meta, count: n, bbox: bb, fit: new Float32Array(fit),
+      pos: mk(pos), nrm: mk(nrm), pl: mk(pl), mm: mk(mm), kind: mk(kind),
     };
     this.ready = true;
     this.draw();
     return meta;
   };
 
-  /** Zónánkénti vastagság és "nem páncél" jelzés beállítása. */
-  Viewer.prototype.setZoneArmor = function (nominalByZone, decorZones) {
-    const zones = (this.model && this.model.meta.zones) || [];
-    const nom = new Float32Array(MAX_ZONES);
-    const dec = new Float32Array(MAX_ZONES);
-    zones.forEach((z, i) => {
-      nom[i] = nominalByZone[z] || 0;
-      dec[i] = decorZones.indexOf(z) >= 0 ? 1 : 0;
-    });
-    this.nominal = nom; this.decor = dec;
-    this.draw();
-  };
-
   Viewer.prototype.setShell = function (type, pen, caliber) {
     this.shell = type;
-    this.pen = pen == null ? -1 : pen;
+    this.pen = pen == null ? 0 : pen;
     this.caliber = caliber || 0;
     this.draw();
   };
@@ -276,23 +283,29 @@
   Viewer.prototype._matrices = function () {
     const c = this.canvas;
     const aspect = c.width / c.height;
-    const fov = 0.62;
-    const proj = M4.perspective(fov, aspect, 0.05, 60);
+    // Szűk látószög (≈17°, „teleobjektív”): szemből így a kamera felé álló
+    // lövegcső nem nő óriásira, és nem takarja el a tornyot.
+    const fov = 0.3;
+    const proj = M4.perspective(fov, aspect, 0.5, 200);
     const rot = M4.mul(M4.rotX(this.pitch * Math.PI / 180), M4.rotY(this.yaw * Math.PI / 180));
 
     // A befoglaló doboz nyolc sarkát elforgatjuk, és abból számoljuk, milyen
     // messziről fér bele a képbe — így minden nézetben kitölti a keretet.
-    const b = (this.model && this.model.bbox) || [-1,-1,-1,1,1,1];
-    let mx = 0, my = 0, mz = 0;
-    for (let i = 0; i < 8; i++) {
-      const p = [b[(i&1)?3:0], b[(i&2)?4:1], b[(i&4)?5:2]];
-      const x = rot[0]*p[0] + rot[4]*p[1] + rot[8]*p[2];
-      const y = rot[1]*p[0] + rot[5]*p[1] + rot[9]*p[2];
-      const z = rot[2]*p[0] + rot[6]*p[1] + rot[10]*p[2];
-      mx = Math.max(mx, Math.abs(x)); my = Math.max(my, Math.abs(y)); mz = Math.max(mz, Math.abs(z));
+    // Pontonként kiszámoljuk, milyen messze kell lennie a kamerának, hogy
+    // az a pont még beleférjen a képbe (a kamera felé eső pontoknak több hely
+    // kell). A befoglaló doboz sarkai helyett a tényleges csúcsokat nézzük:
+    // szemből a doboz sarka a lövegcső végének magasságában a lánctalp
+    // szélessége lenne — ilyen pont nincs, és feleslegesen eltolná a kamerát.
+    const f = (this.model && this.model.fit) || new Float32Array([-1,-1,-1, 1,1,1]);
+    const ty = Math.tan(fov / 2), tx = ty * aspect;
+    let dist = 0;
+    for (let i = 0; i < f.length; i += 3) {
+      const x = rot[0]*f[i] + rot[4]*f[i+1] + rot[8]*f[i+2];
+      const y = rot[1]*f[i] + rot[5]*f[i+1] + rot[9]*f[i+2];
+      const z = rot[2]*f[i] + rot[6]*f[i+1] + rot[10]*f[i+2];
+      dist = Math.max(dist, z + Math.abs(x) / tx, z + Math.abs(y) / ty);
     }
-    const need = Math.max(my / Math.tan(fov/2), mx / (Math.tan(fov/2) * aspect));
-    const dist = need * 1.18 + mz;
+    dist *= 1.06;                                // kis margó
     const mv = M4.mul(M4.translate(0, 0, -dist), rot);
     return { mv, mvp: M4.mul(proj, mv) };
   };
@@ -307,20 +320,20 @@
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.useProgram(this.prog);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, m.pos);
-    gl.enableVertexAttribArray(this.loc.aPos);
-    gl.vertexAttribPointer(this.loc.aPos, 3, gl.SHORT, true, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, m.nrm);
-    gl.enableVertexAttribArray(this.loc.aNormal);
-    gl.vertexAttribPointer(this.loc.aNormal, 3, gl.BYTE, true, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, m.zon);
-    gl.enableVertexAttribArray(this.loc.aZone);
-    gl.vertexAttribPointer(this.loc.aZone, 1, gl.FLOAT, false, 0, 0);
+    const attr = (buf, loc, size) => {
+      if (loc < 0) return;
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+    };
+    attr(m.pos, this.loc.aPos, 3);
+    attr(m.nrm, this.loc.aNormal, 3);
+    attr(m.pl, this.loc.aPlate, 1);
+    attr(m.mm, this.loc.aMM, 1);
+    attr(m.kind, this.loc.aKind, 1);
 
     gl.uniformMatrix4fv(this.loc.uMVP, false, mvp);
     gl.uniformMatrix4fv(this.loc.uModelView, false, mv);
-    gl.uniform1fv(this.loc.uNominal, this.nominal || new Float32Array(MAX_ZONES));
-    gl.uniform1fv(this.loc.uDecor, this.decor || new Float32Array(MAX_ZONES));
     const s = Viewer.SHELLS[this.shell] || Viewer.SHELLS.AP;
     gl.uniform1f(this.loc.uPen, this.pen);
     gl.uniform1f(this.loc.uNorm, s.norm);
@@ -374,22 +387,22 @@
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     this.draw();
     if (buf[2] === 0) return null;             // háttér
-    const zones = this.model.meta.zones;
-    const zone = zones[buf[0]] || null;
-    if (!zone) return null;
+    const plate = this.model.meta.plates[buf[0]];
+    if (!plate) return null;
     const angle = buf[1] / 255 * 90;
-    const nominal = (this.nominal || [])[buf[0]] || 0;
-    const isDecor = ((this.decor || [])[buf[0]] || 0) > 0.5;
+    const nominal = plate.mm || 0;
+    const decor = plate.kind !== "armor" || !(nominal > 0);
     const s = Viewer.SHELLS[this.shell] || Viewer.SHELLS.AP;
     let norm = s.norm, rico = s.rico;
     if (this.caliber > 0 && nominal > 0) {
       if (this.caliber > 2 * nominal) norm = norm * 1.4 * this.caliber / (2 * nominal);
       if (this.caliber >= 3 * nominal) rico = 90;
     }
-    const ricochet = angle >= rico;
+    const ricochet = !decor && angle >= rico;
     const effective = ricochet ? Infinity
       : nominal / Math.max(Math.cos((Math.max(angle - norm, 0)) * Math.PI / 180), 0.02);
-    const info = { zone, angle, nominal, effective, ricochet, decor: isDecor };
+    const info = { plate, angle, nominal, effective, ricochet, decor,
+                   spaced: !!plate.spaced, overmatch: this.caliber >= 3 * nominal && nominal > 0 };
     if (this.onPick) this.onPick(info);
     return info;
   };

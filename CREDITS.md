@@ -43,18 +43,17 @@ webes tankopédiájának nyilvános statikus tárhelyéről:
 Ugyanabba a körbe tartoznak, mint az API-ból származó garázs-renderek: a
 Wargaming tulajdona, a játékhoz kapcsolódó megjelenítésre.
 
-## 3D modellek
+## 3D páncélmodellek
 
-A forgatható páncélnézegető valódi 3D modelleket használ. Ezek **Creative
-Commons Attribution (CC BY)** licencűek, ami megköveteli a szerző
-megnevezését:
+A forgatható páncélnézegető (`armor3d.html`, `models/armor/`) a játék saját
+**ütközési hálóit** használja, lemezenkénti nominális vastagsággal és a
+térelválasztott páncélok jelölésével. Forrás:
+[`unicum-gg/wot.models`](https://github.com/unicum-gg/wot.models) (`WG` ág),
+egy közösségi tár, ami a WoT frissítési CDN-jéből szedi ki a geometriát.
 
-| Tank | Modell | Szerző | Licenc |
-|---|---|---|---|
-| IS-3 | [Is-3 Heavy Tank - Toshueyi](https://sketchfab.com/3d-models/is-3-heavy-tank-toshueyi-4a885f0c252d4d5fadf1df6fb77aa92b) | Joanthan To (`jonathanto99`) | CC BY |
-
-A modelleket a Sketchfab-ról töltöttük le, és feldolgozás után
-(egyszerűsítés, páncélzónákra osztás) használjuk.
+A `tools/build_armor_models.py` járművenként a teljesen fejlesztett tornyot és
+löveget rakja össze, és tömör bináris formára alakítja. A tár megjegyzése
+szerint a tartalom a jogtulajdonosok (Wargaming) tulajdona.
 
 ## Amit mi tettünk hozzá
 
